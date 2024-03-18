@@ -1,10 +1,18 @@
+
 import imgLogo from '@/app/img/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useNavigation } from 'next/navigation';
 
 export default function LoginPage() {
 
+  const navigation = useNavigation(); // Utiliza useNavigation en lugar de useRouter
 
+  const goHome = () => {
+      navigation.navigate('/Home');
+  }
+  
+  
   return (
     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
       <div style={{backgroundColor: 'white',padding: '2em', borderRadius: '20px',width: '30%'}}>
@@ -19,7 +27,7 @@ export default function LoginPage() {
             Si no tienes cuenta, pulsa
             <strong><Link href="/Register"> aquí</Link></strong>
           </p>
-          <button style={{backgroundColor: '#00a2ff', padding: '0.5em 0', borderRadius: '5px' ,border: 'none', color: 'white', fontWeight: 'bold'}}>Iniciar Sesión</button>
+          <button style={{backgroundColor: '#00a2ff', padding: '0.5em 0', borderRadius: '5px' ,border: 'none', color: 'white', fontWeight: 'bold'}} onClick={goHome}>Iniciar Sesión</button>
         </form>
       </div>
     </div>

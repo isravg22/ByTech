@@ -28,7 +28,7 @@ public class ByTechApplication {
 	@Bean
 	CommandLineRunner runner(){
 		return args->{
-			Register register= new Register("Israel","Valderrama","García","isvalgar@gmail.com","Isravg22","123456");
+			Register register= new Register("Israel","Valderrama","García","isvalgar@gmail.com","Isravg22","123456",0,0,0);
 
 			registerDAO.save(register);
 		};

@@ -12,14 +12,18 @@ public class Register {
     private Long idUser;
 
     private String name,stLastName,ndLastName,correo,userName,password;
+    private int validated,admin,employee;
 
-    public Register(String name, String stLastName, String ndLastName, String correo, String userName, String password) {
+    public Register(String name, String stLastName, String ndLastName, String correo, String userName, String password, int validated, int admin, int employee) {
         this.name = name;
         this.stLastName = stLastName;
         this.ndLastName = ndLastName;
         this.correo = correo;
         this.userName = userName;
         this.password = password;
+        this.validated = validated;
+        this.admin = admin;
+        this.employee = employee;
     }
 
     public Long getIdUser() {
@@ -78,4 +82,27 @@ public class Register {
         this.password = password;
     }
 
+    public int getValidated() {
+        return validated;
+    }
+
+    public void setValidated(int validated) {
+        this.validated = validated;
+    }
+
+    public int getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
+    }
+
+    public int getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(int employee) {
+        this.employee = employee;
+    }
 }
