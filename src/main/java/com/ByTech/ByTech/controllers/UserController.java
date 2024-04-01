@@ -23,7 +23,7 @@ public class UserController {
         return this.userService.getUsers();
     }
 
-    @PostMapping
+    @PostMapping("/insertUser")
     public UserModel saveUser(@RequestBody UserModel user){
         return this.userService.saveUser(user);
     }
