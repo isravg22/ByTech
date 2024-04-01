@@ -1,17 +1,10 @@
-
 import imgLogo from '@/app/img/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useNavigation } from 'next/navigation';
-
 
 export default function Registro() {
-    const navigation = useNavigation(); // Utiliza useNavigation en lugar de useRouter
 
-    const goLogin = () => {
-        navigation.navigate('/');
-    }
-    
+
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <div style={{ backgroundColor: 'white', padding: '2em', borderRadius: '10px', width: '30%' }}>
@@ -35,7 +28,9 @@ export default function Registro() {
                     <p style={{ fontSize: '14px', textAlign: 'center' }}>
                         Si ya tienes cuenta, pulsa <strong><Link href="/">aquí</Link></strong>.
                     </p>
-                    <button style={{ backgroundColor: '#00a2ff', padding: '0.3em 0', borderRadius: '3px', border: 'none', color: 'white', fontWeight: 'bold', fontSize: '16px' }} onClick={goLogin}>Crear cuenta</button>
+                    <button style={{ backgroundColor: '#00a2ff', padding: '0.3em 0', borderRadius: '3px', border: 'none', color: 'white', fontWeight: 'bold', fontSize: '16px' }}>
+                        <Link href="/">Crear cuenta</Link>
+                    </button>
                 </form>
             </div>
         </div>
