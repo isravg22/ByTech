@@ -1,14 +1,16 @@
 'use client'
-import imgLogo from '@/app/img/logo.png';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import imgLogo from '@/app/img/logo.png';
+import Image from 'next/image';
 
 export default function Registro() {
     const router = useRouter();
 
-    const [firstName, setName] = useState('')
+    const [firstName, setFirstName] = useState('')
     const [lastName1, setLastName1] = useState('')
     const [lastName2, setLastName2] = useState('')
     const [email, setEmail] = useState('')
@@ -21,32 +23,27 @@ export default function Registro() {
 
     const insertUser = async () => {
         if (!firstName || !lastName1 || !email || !userName || !password || !password1) {
-            console.log('Por favor completa todos los campos.');
+            toast.error('Por favor completa todos los campos.');
             return;
-        }
-    
+        }    
         if (password !== password1) {
-            console.log('Las contraseñas no coinciden.');
+            toast.error('Las contraseñas no coinciden.');
             return;
-        }
-    
+        }    
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            console.log('El correo electrónico no tiene un formato válido.');
+            toast.error('El correo electrónico no tiene un formato válido.');
             return;
-        }
-    
+        }    
         if (password.length < 8) {
-            console.log('La contraseña debe tener al menos 8 caracteres.');
+            toast.error('La contraseña debe tener al menos 8 caracteres.');
             return;
-        }
-    
+        }    
         const usernameRegex = /^[a-zA-Z0-9_]+$/;
         if (!usernameRegex.test(userName)) {
-            console.log('El nombre de usuario solo puede contener letras, números y guiones bajos.');
+            toast.error('El nombre de usuario solo puede contener letras, números y guiones bajos.');
             return;
-        }
-    
+        }    
         try {
             const response = await fetch('http://localhost:8000/user/insertUser', {
                 method: 'POST',
@@ -56,13 +53,14 @@ export default function Registro() {
                 body: JSON.stringify({ firstName, lastName, email, userName, password, rol, activated })
             });
             if (response.ok) {
-                console.log('Usuario creado correctamente');
+                toast.success('Usuario creado correctamente');
                 router.push('/');
             } else {
-                console.log('El usuario no se ha podido crear.');
+                toast.error('El usuario no se ha podido crear.');
             }
         } catch (error) {
             console.error('Error al procesar la solicitud:', error);
+            toast.error('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
         }
     }
     
@@ -74,7 +72,7 @@ export default function Registro() {
                 <p style={{ marginBottom: '0.5em', fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>Crear cuenta</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
                     <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Nombre:</label>
-                    <input type="text" placeholder="Ejemplo" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setName(event.target.value)} />
+                    <input type="text" placeholder="Ejemplo" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setFirstName(event.target.value)} />
                     <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Primer apellido:</label>
                     <input type="text" placeholder="Ejemplo" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setLastName1(event.target.value)} />
                     <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Segundo apellido:</label>
@@ -90,12 +88,12 @@ export default function Registro() {
                     <p style={{ fontSize: '14px', textAlign: 'center' }}>
                         Si ya tienes cuenta, pulsa <strong><Link href="/">aquí</Link></strong>.
                     </p>
-                    <button style={{ backgroundColor: '#00a2ff', padding: '0.3em 0', borderRadius: '3px', border: 'none', color: 'white', fontWeight: 'bold', fontSize: '16px' }} onClick={()=>insertUser()}>
+                    <button style={{ backgroundColor: '#00a2ff', padding: '0.3em 0', borderRadius: '3px', border: 'none', color: 'white', fontWeight: 'bold', fontSize: '16px' }} onClick={insertUser}>
                         Crear cuenta
                     </button>
                 </div>
             </div>
+            <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover />
         </div>
-
     )
 }

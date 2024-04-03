@@ -1,9 +1,14 @@
 'use client'
-import imgLogo from '@/app/img/logo.png';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import imgLogo from '@/app/img/logo.png';
+import Image from 'next/image';
+import HomePage from '@/app/Home/page';
+import Profile from '@/app/Profile/page';
+import { json } from 'stream/consumers';
 
 export default function Login() {
   const [userName, setName] = useState('');
@@ -11,8 +16,7 @@ export default function Login() {
   const router = useRouter();
   
 
-  const getCredentials = async () => {
-    
+  const goHome = async () => {
     try {
       const response = await fetch('http://localhost:8000/user/login', {
         method: 'POST',
@@ -21,21 +25,25 @@ export default function Login() {
         },
         body: JSON.stringify({ userName, password })
       });
-
+  
       if (response.ok) {
         console.log('Inicio de sesión correcto');
-        
-        router.push('/Home')
+  
+        const data = await response.json();
+        localStorage.setItem('idUser', data.id);
+        router.push('/Home');
       } else {
-        console.log('Credenciales incorrectas');
+        toast.error('Credenciales incorrectas');
       }
     } catch (error) {
       console.error('Error al procesar la solicitud:', error);
+      toast.error('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
     }
   }
+  
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100hv',marginTop:'0.7%' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100hv',marginTop:'7%'}}>
       <div style={{ backgroundColor: 'white', padding: '2em', borderRadius: '20px', width: '30%' }}>
         <Image src={imgLogo} alt="Logo" width="256" height="256" style={{ display: 'flex', justifyContent: 'center', margin: ' 0 auto' }} priority />
         <p style={{ marginBottom: '1em', fontSize: '32px', fontWeight: 'bold', textAlign: 'center' }}>Bienvenido a ByTech</p>
@@ -48,11 +56,12 @@ export default function Login() {
             Si no tienes cuenta, pulsa
             <strong><Link href="/Register"> aquí</Link></strong>
           </p>
-          <button style={{ backgroundColor: '#00a2ff', padding: '0.5em 0', borderRadius: '5px', border: 'none', color: 'white', fontWeight: 'bold' }} onClick={() =>getCredentials()}>
+          <button style={{ backgroundColor: '#00a2ff', padding: '0.5em 0', borderRadius: '5px', border: 'none', color: 'white', fontWeight: 'bold' }} onClick={goHome}>
             Iniciar Sesión
           </button>
         </div>
       </div>
+      <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover />
     </div>
   )
 }

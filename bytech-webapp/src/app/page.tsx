@@ -1,7 +1,5 @@
 import Login from "@/Component/Login/Login";
-export default function LoginPage() {
-  
-
+export default function FPage() {
   return (
     <div>
       <Login />
