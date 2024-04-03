@@ -1,11 +1,11 @@
-package com.ByTech.ByTech.Productos.Ordenadores.models;
+package com.ByTech.ByTech.Productos.Gaming.models;
 
 import com.ByTech.ByTech.Fabricante.models.EnterpriseModel;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ordenador")
-public class OrdenadorModel {
+@Table(name="Gaming")
+public class GamingModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,32 +13,19 @@ public class OrdenadorModel {
 
     @Column
     private String nombre;
+
     @Column
-    private String Descripcion;
-    @ManyToOne
-    @JoinColumn(name = "fabricante_id")
-    private EnterpriseModel fabricante;
+    private String descripcion;
 
     @Column
     private Double precio;
+
     @Column
     private Long unidades;
 
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-
-    public Long getUnidades() {
-        return unidades;
-    }
-
-    public void setUnidades(Long unidades) {
-        this.unidades = unidades;
-    }
+    @ManyToOne
+    @JoinColumn(name = "fabricante_id")
+    private EnterpriseModel fabricante;
 
     public Long getId() {
         return id;
@@ -57,11 +44,27 @@ public class OrdenadorModel {
     }
 
     public String getDescripcion() {
-        return Descripcion;
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+        this.descripcion = descripcion;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Long getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(Long unidades) {
+        this.unidades = unidades;
     }
 
     public EnterpriseModel getFabricante() {

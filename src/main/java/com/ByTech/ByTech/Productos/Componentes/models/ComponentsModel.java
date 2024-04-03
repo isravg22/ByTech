@@ -19,6 +19,12 @@ public class ComponentsModel {
     @JoinColumn(name = "fabricante_id")
     private EnterpriseModel fabricante;
 
+    @Column
+    private Double precio;
+
+    @Column
+    private int unidades;
+
     public Long getId() {
         return id;
     }

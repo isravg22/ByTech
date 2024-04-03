@@ -31,6 +31,8 @@ public class OrdenadorService {
         ordenadorModel.setNombre(request.getNombre());
         ordenadorModel.setDescripcion(request.getDescripcion());
         ordenadorModel.setFabricante(request.getFabricante());
+        ordenadorModel.setPrecio(request.getPrecio());
+        ordenadorModel.setUnidades(request.getUnidades());
 
         ordenadorRepository.save(ordenadorModel);
 

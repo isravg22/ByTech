@@ -31,6 +31,9 @@ public class EnterpriseService {
 
         enterpriseModel.setNIF(request.getNIF());
         enterpriseModel.setNombre(request.getNombre());
+        enterpriseModel.setBoss(request.getBoss());
+        enterpriseModel.setWorkers(request.getWorkers());
+        enterpriseModel.setDescripcion(request.getDescripcion());
 
         enterpriseRepository.save(enterpriseModel);
 
