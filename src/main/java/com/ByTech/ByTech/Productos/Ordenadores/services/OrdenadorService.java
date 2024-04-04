@@ -33,6 +33,7 @@ public class OrdenadorService {
         ordenadorModel.setFabricante(request.getFabricante());
         ordenadorModel.setPrecio(request.getPrecio());
         ordenadorModel.setUnidades(request.getUnidades());
+        ordenadorModel.setImage(request.getImage());
 
         ordenadorRepository.save(ordenadorModel);
 

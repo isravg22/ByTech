@@ -33,6 +33,7 @@ public class GamingService {
         gamingModel.setPrecio(request.getPrecio());
         gamingModel.setUnidades(request.getUnidades());
         gamingModel.setFabricante(request.getFabricante());
+        gamingModel.setImage(request.getImage());
 
         gamingRepository.save(gamingModel);
 

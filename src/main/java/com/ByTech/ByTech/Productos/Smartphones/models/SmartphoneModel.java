@@ -1,11 +1,12 @@
-package com.ByTech.ByTech.Productos.Gaming.models;
+package com.ByTech.ByTech.Productos.Smartphones.models;
+
 
 import com.ByTech.ByTech.Fabricante.models.EnterpriseModel;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="Gaming")
-public class GamingModel {
+@Table(name = "smartphone")
+public class SmartphoneModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +22,7 @@ public class GamingModel {
     private Double precio;
 
     @Column
-    private Long unidades;
+    private int unidades;
 
     @ManyToOne
     @JoinColumn(name = "fabricante_id")
@@ -29,7 +30,6 @@ public class GamingModel {
 
     @Column
     private String image;
-
 
     public Long getId() {
         return id;
@@ -63,11 +63,11 @@ public class GamingModel {
         this.precio = precio;
     }
 
-    public Long getUnidades() {
+    public int getUnidades() {
         return unidades;
     }
 
-    public void setUnidades(Long unidades) {
+    public void setUnidades(int unidades) {
         this.unidades = unidades;
     }
 

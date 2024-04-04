@@ -24,6 +24,8 @@ public class ComponentsModel {
 
     @Column
     private int unidades;
+    @Column
+    private String image;
 
     public Long getId() {
         return id;
@@ -56,4 +58,28 @@ public class ComponentsModel {
     public void setFabricante(EnterpriseModel fabricante) {
         this.fabricante = fabricante;
     }
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public int getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(int unidades) {
+        this.unidades = unidades;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 }

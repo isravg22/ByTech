@@ -23,22 +23,8 @@ public class OrdenadorModel {
     private Double precio;
     @Column
     private Long unidades;
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-
-    public Long getUnidades() {
-        return unidades;
-    }
-
-    public void setUnidades(Long unidades) {
-        this.unidades = unidades;
-    }
+    @Column
+    private String image;
 
     public Long getId() {
         return id;
@@ -70,5 +56,29 @@ public class OrdenadorModel {
 
     public void setFabricante(EnterpriseModel fabricante) {
         this.fabricante = fabricante;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Long getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(Long unidades) {
+        this.unidades = unidades;
     }
 }

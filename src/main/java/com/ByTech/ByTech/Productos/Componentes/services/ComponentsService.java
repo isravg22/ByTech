@@ -32,6 +32,9 @@ public class ComponentsService {
         componentsModel.setNombre(request.getNombre());
         componentsModel.setDescripcion(request.getDescripcion());
         componentsModel.setFabricante(request.getFabricante());
+        componentsModel.setPrecio(request.getPrecio());
+        componentsModel.setUnidades(request.getUnidades());
+        componentsModel.setImage(request.getImage());
 
         componentsRepository.save(componentsModel);
 
