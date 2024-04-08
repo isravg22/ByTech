@@ -10,47 +10,62 @@ import Image from 'next/image';
 export default function Registro() {
     const router = useRouter();
 
-    const [firstName, setFirstName] = useState('')
-    const [lastName1, setLastName1] = useState('')
-    const [lastName2, setLastName2] = useState('')
-    const [email, setEmail] = useState('')
-    const [userName, setUserName] = useState('')
-    const [password, setPassword] = useState('')
-    const [password1, setPassword1] = useState('')
-    const lastName = lastName1 + ' ' + lastName2;
-    const rol='user';
-    const activated=0;
+    const [inputUser, setInputUser] = useState<{
+        firstName: string;
+        lastName1: string;
+        lastName2: string;
+        email: string;
+        userName: string;
+        password: string;
+        password2: string;
+    }>({
+        firstName: '',
+        lastName1: '',
+        lastName2: '',
+        email: '',
+        userName: '',
+        password: '',
+        password2: '',
+    });
+
+    const handleChangeUser = (event: { target: { name: any; value: any; }; }) => {
+        const { name, value } = event.target;
+        setInputUser(prevInputs => ({ ...prevInputs, [name]: value }));
+    };
+
 
     const insertUser = async () => {
-        if (!firstName || !lastName1 || !email || !userName || !password || !password1) {
+        const { firstName, lastName1, lastName2, email, userName, password, password2 } = inputUser;
+        if (!firstName || !lastName1 || !email || !userName || !password || !lastName2) {
             toast.error('Por favor completa todos los campos.');
             return;
-        }    
-        if (password !== password1) {
+        }
+        if (password !== password2) {
             toast.error('Las contraseñas no coinciden.');
             return;
-        }    
+        }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             toast.error('El correo electrónico no tiene un formato válido.');
             return;
-        }    
+        }
         if (password.length < 8) {
             toast.error('La contraseña debe tener al menos 8 caracteres.');
             return;
-        }    
+        }
         const usernameRegex = /^[a-zA-Z0-9_]+$/;
         if (!usernameRegex.test(userName)) {
             toast.error('El nombre de usuario solo puede contener letras, números y guiones bajos.');
             return;
-        }    
+        }
         try {
+            const lastName = `${lastName1} ${lastName2}`;
             const response = await fetch('http://localhost:8000/user/insertUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ firstName, lastName, email, userName, password, rol, activated })
+                body: JSON.stringify({ firstName, lastName, email, userName, password, rol: 'user', activated: 0 })
             });
             if (response.ok) {
                 toast.success('Usuario creado correctamente');
@@ -63,28 +78,26 @@ export default function Registro() {
             toast.error('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
         }
     }
-    
+
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <div style={{ backgroundColor: 'white', padding: '2em', borderRadius: '10px', width: '30%' }}>
-                <Image src={imgLogo} alt="Logo" width="128" height="128" style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }} />
+        <div style={{ display: 'flex', justifyContent: 'center', height: 'auto' }}>
+            <div style={{ backgroundColor: 'white', padding: '1em', borderRadius: '10px',marginTop:'0.5%', display: 'flex', flexDirection: 'column',width:'30%' }}>
+                <Image src={imgLogo} alt="Logo" width="128" height="128" style={{ display: 'flex', justifyContent: 'center',margin:'0 auto' }} />
                 <p style={{ marginBottom: '0.5em', fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>Crear cuenta</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
-                    <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Nombre:</label>
-                    <input type="text" placeholder="Ejemplo" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setFirstName(event.target.value)} />
-                    <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Primer apellido:</label>
-                    <input type="text" placeholder="Ejemplo" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setLastName1(event.target.value)} />
-                    <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Segundo apellido:</label>
-                    <input type="text" placeholder="Ejemplo" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setLastName2(event.target.value)} />
-                    <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Correo:</label>
-                    <input type="text" placeholder="Ejemplo123" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setEmail(event.target.value)} />
-                    <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Nombre de usuario:</label>
-                    <input type="text" placeholder="Ejemplo123" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setUserName(event.target.value)} />
-                    <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Contraseña:</label>
-                    <input type="password" placeholder="***********" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setPassword(event.target.value)} />
-                    <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Repetir contraseña:</label>
-                    <input type="password" placeholder="***********" style={{ padding: '0.3em', borderRadius: '3px', fontSize: '14px' }} onChange={(event) => setPassword1(event.target.value)} />
+                    {['Nombre', 'Primer apellido', 'Segundo apellido', 'Correo', 'Nombre de usuario', 'Contraseña', 'Repetir contraseña'].map((label, index) => (
+                        <div key={index}>
+                            <label style={{ fontWeight: 'bold', fontSize: '13px' }}>{label}</label>
+                            <input type={index>=5 ?'password':'text'} placeholder='Ejemplo'
+                                style={ {padding:'0.3em', borderRadius:'3px',fontSize:'13px', border:'1px solid black', width:'100%'}} 
+                                name={Object.keys(inputUser)[index] as keyof typeof inputUser}
+                                value={inputUser[Object.keys(inputUser)[index] as keyof typeof inputUser]}
+                                onChange={handleChangeUser}/>
+
+                        </div>
+                    ))}
+                    
                     <p style={{ fontSize: '14px', textAlign: 'center' }}>
                         Si ya tienes cuenta, pulsa <strong><Link href="/">aquí</Link></strong>.
                     </p>

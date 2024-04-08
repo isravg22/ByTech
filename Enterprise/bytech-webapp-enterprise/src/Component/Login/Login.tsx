@@ -25,7 +25,7 @@ export default function Login() {
       
       if (response.ok) {
         const data = await response.json();
-        if(data.rol==="admin"||data.rol==="superadmin"||data.rol==="enterprise"||data.rol==="workers"){
+        if(data.rol==="admin"||data.rol==="superadmin"||data.rol==="boss"||data.rol==="workers"){
           console.log('Inicio de sesión correcto');        
           localStorage.setItem('idUser', data.id);
           router.push('/Home');
@@ -43,7 +43,7 @@ export default function Login() {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100hv',marginTop:'7%'}}>
+    <div style={{display:'flex',marginTop:'2%',justifyContent:'center', height: '80hv'}}>
       <div style={{ backgroundColor: 'white', padding: '2em', borderRadius: '20px', width: '30%' }}>
         <Image src={imgLogo} alt="Logo" width="256" height="256" style={{ display: 'flex', justifyContent: 'center', margin: ' 0 auto' }} priority />
         <p style={{ marginBottom: '1em', fontSize: '32px', fontWeight: 'bold', textAlign: 'center' }}>Bienvenido a ByTech</p>

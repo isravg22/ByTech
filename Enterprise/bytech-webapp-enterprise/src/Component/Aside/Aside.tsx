@@ -1,16 +1,10 @@
 import Link from "next/link";
-import { AiFillHome, AiFillShopping } from "react-icons/ai";
+import { AiFillHome } from "react-icons/ai";
 import { CgProfile, CgBox } from "react-icons/cg";
-import { useState } from "react";
-import SubMenu from "../SubMenu/SubMenu";
-import { Libre_Franklin } from "next/font/google";
+import { BsPersonWorkspace } from "react-icons/bs";
 
 export default function Aside() {
-    const [showSubMenu, setShowSubMenu] = useState(false);
-
-    const toggleSubMenu = () => {
-        setShowSubMenu(!showSubMenu);
-    };
+    
 
     return (
         <aside
@@ -28,11 +22,10 @@ export default function Aside() {
                         </Link>
                     </li>
                     <li>
-                        <Link href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" onClick={toggleSubMenu}>
-                            <AiFillShopping className="w-6 h-6 mr-3 text-gray-500"/>
-                            <span>Productos</span>
+                        <Link href="/Workers" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <BsPersonWorkspace className="w-6 h-6 mr-3 text-gray-500"/>
+                            <span>Trabajadores</span>
                         </Link>
-                        {showSubMenu && <SubMenu />} 
                     </li>
                     <li>
                         <Link href="/Profile" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -43,7 +36,7 @@ export default function Aside() {
                     <li>
                         <Link href="/Order" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <CgBox className="w-6 h-6 mr-3 text-gray-500" />
-                            <span>Pedidos</span>
+                            <span>Pedidos a realizar</span>
                         </Link>
                     </li>
                 </ul>

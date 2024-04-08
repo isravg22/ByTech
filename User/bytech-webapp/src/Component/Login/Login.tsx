@@ -14,7 +14,7 @@ export default function Login() {
   const [userName, setName] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
-  
+
 
   const goHome = async () => {
     try {
@@ -25,13 +25,17 @@ export default function Login() {
         },
         body: JSON.stringify({ userName, password })
       });
-  
+
       if (response.ok) {
-        console.log('Inicio de sesión correcto');
-  
         const data = await response.json();
-        localStorage.setItem('idUser', data.id);
-        router.push('/Home');
+        if (data.rol === 'admin' || data.rol === 'superadmin' || data.rol === 'user') {
+          console.log('Inicio de sesión correcto');
+          localStorage.setItem('idUser', data.id);
+          router.push('/Home');
+        }else{
+          toast.error('No tienes permisos necesarios');
+        }
+
       } else {
         toast.error('Credenciales incorrectas');
       }
@@ -40,10 +44,10 @@ export default function Login() {
       toast.error('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
     }
   }
-  
+
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100hv',marginTop:'7%'}}>
+    <div style={{ display: 'flex', marginTop: '2%', justifyContent: 'center', height: '80hv' }}>
       <div style={{ backgroundColor: 'white', padding: '2em', borderRadius: '20px', width: '30%' }}>
         <Image src={imgLogo} alt="Logo" width="256" height="256" style={{ display: 'flex', justifyContent: 'center', margin: ' 0 auto' }} priority />
         <p style={{ marginBottom: '1em', fontSize: '32px', fontWeight: 'bold', textAlign: 'center' }}>Bienvenido a ByTech</p>

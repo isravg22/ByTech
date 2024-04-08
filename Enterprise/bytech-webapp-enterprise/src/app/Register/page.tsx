@@ -140,33 +140,35 @@ export default function Registro() {
     };
     
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
-            <div style={{ backgroundColor: 'white', padding: '2em', borderRadius: '10px', width: '30%', marginTop: '5%', display: 'flex', flexDirection: 'column' }}>
-                <Image src={imgLogo} alt="Logo" width="128" height="128" style={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }} />
-                <p style={{ marginBottom: '0.5em', fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>Crear cuenta de empresa</p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', height: 'auto' }}>
+            <div style={{ backgroundColor: 'white', padding: '1em', borderRadius: '10px', marginTop: '0.5%', display: 'flex', flexDirection: 'column', width: '30%' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5em' }}>
+                    <Image src={imgLogo} alt="Logo" width="65" height="65" />
+                    <h3 style={{ fontSize: '25px', fontWeight: 'bold',}}>Crear cuenta de empresa</h3>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
                     {['Nombre de la Empresa', 'NIF', 'Descripción'].map((label, index) => (
                         <div key={index} >
-                            <p style={{ fontWeight: 'bold', fontSize: '16px' }}>{label}</p>
+                            <label style={{ fontWeight: 'bold', fontSize: '13px' }}>{label}</label>
                             <input
-                                type={ "text"}
+                                type="text"
                                 placeholder={`Ejemplo`}
-                                style={{ padding: '0.3em', borderRadius: '3px', fontSize:'15px' , border: '1px solid black',width:'100%' }}
-                                name={Object.keys(inputsEnterprise)[index] as keyof typeof inputsEnterprise}
+                                style={{ padding: '0.3em', borderRadius: '3px', fontSize: '13px', border: '1px solid black', width: '100%' }}
+                                name={Object.keys(inputsEnterprise)[index]}
                                 value={inputsEnterprise[Object.keys(inputsEnterprise)[index] as keyof typeof inputsEnterprise]}
                                 onChange={handleChangeEnterprise}
                             />
                         </div>
                     ))}
-                    {[ 'Nombre', 'Primer apellido', 'Segundo apellido', 'Correo', 'Nombre de usuario', 'Contraseña', 'Repetir contraseña'].map((label, index) => (
+                    {['Nombre', 'Primer apellido', 'Segundo apellido', 'Correo', 'Nombre de usuario', 'Contraseña', 'Repetir contraseña'].map((label, index) => (
                         <div key={index} >
-                            <p style={{ fontWeight: 'bold', fontSize: '16px' }}>{label}</p>
+                            <label style={{ fontWeight: 'bold', fontSize: '13px' }}>{label}</label>
                             <input
                                 type={index >= 5 ? "password" : "text"}
                                 placeholder={`Ejemplo${index === 4 ? "123" : ""}`}
-                                style={{ padding: '0.3em', borderRadius: '3px', fontSize:'15px' , border: '1px solid black',width:'100%' }}
-                                name={Object.keys(inputUser)[index] as keyof typeof inputUser}
-                                value={inputUser[Object.keys(inputUser)[index] as keyof typeof inputUser]}
+                                style={{ padding: '0.3em', borderRadius: '3px', fontSize: '13px', border: '1px solid black', width: '100%' }}
+                                name={Object.keys(inputUser)[index]}
+                                value={inputUser[Object.keys(inputUser)[index] as keyof typeof inputUser] }
                                 onChange={handleChangeUser}
                             />
                         </div>

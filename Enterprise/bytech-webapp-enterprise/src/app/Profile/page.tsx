@@ -72,7 +72,7 @@ export default function Profile() {
         <div>
             <NavBar />
             <div>
-                <div className="container flex-grow mx-auto p-4 bg-white rounded-lg shadow-lg" style={{ justifyContent:'center',width:'50%',marginTop:'5rem'}}>
+                <div className="container flex-grow mx-auto p-4 bg-white rounded-lg shadow-lg" style={{ justifyContent:'center',width:'40%',marginTop:'5rem'}}>
                     <div className="flex flex-col items-center justify-center mb-6">
                         <Image src={imageLogo} alt="Logotipo" height={100} width={100} />
                         <h2 className="text-3xl font-semibold mb-6">Perfil de Usuario</h2>
