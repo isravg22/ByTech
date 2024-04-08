@@ -1,5 +1,6 @@
 package com.ByTech.ByTech.User.models;
 
+import com.ByTech.ByTech.Fabricante.models.EnterpriseModel;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,20 +10,33 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+
+    @Column(name = "first_name")
     private String firstName;
-    @Column
+
+    @Column(name = "last_name")
     private String lastName;
-    @Column
+
+    @Column(name = "email")
     private String email;
-    @Column
+
+    @Column(name = "password")
     private String password;
-    @Column
-    private String userName;
-    @Column
+
+    @Column(name = "rol")
     private String rol;
-    @Column
+
+    @Column(name = "activated")
     private int activated;
+
+    @Column(name = "user_name")
+    private String userName;
+
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id")
+    private EnterpriseModel enterprise;
+
+    // Getters y setters
 
     public Long getId() {
         return id;
@@ -86,5 +100,13 @@ public class UserModel {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public EnterpriseModel getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(EnterpriseModel enterprise) {
+        this.enterprise = enterprise;
     }
 }

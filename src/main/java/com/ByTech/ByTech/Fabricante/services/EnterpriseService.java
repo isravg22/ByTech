@@ -2,6 +2,8 @@ package com.ByTech.ByTech.Fabricante.services;
 
 import com.ByTech.ByTech.Fabricante.models.EnterpriseModel;
 import com.ByTech.ByTech.Fabricante.repositories.IEnterpriseRepository;
+import com.ByTech.ByTech.User.models.UserModel;
+import com.ByTech.ByTech.User.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ public class EnterpriseService {
 
     @Autowired
     IEnterpriseRepository enterpriseRepository;
+    @Autowired
+    IUserRepository userRepository;
 
     public ArrayList<EnterpriseModel> getEnterprise(){
         return (ArrayList<EnterpriseModel>) enterpriseRepository.findAll();
@@ -29,7 +33,7 @@ public class EnterpriseService {
     public EnterpriseModel updateByID(EnterpriseModel request,Long id){
         EnterpriseModel enterpriseModel = enterpriseRepository.findById(id).get();
 
-        enterpriseModel.setNIF(request.getNIF());
+        enterpriseModel.setNif(request.getNif());
         enterpriseModel.setNombre(request.getNombre());
         enterpriseModel.setBoss(request.getBoss());
         enterpriseModel.setWorkers(request.getWorkers());

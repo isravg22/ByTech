@@ -2,9 +2,7 @@ package com.ByTech.ByTech.Fabricante.models;
 
 import com.ByTech.ByTech.User.models.UserModel;
 import jakarta.persistence.*;
-import org.apache.catalina.User;
-
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Enterprise")
@@ -14,28 +12,23 @@ public class EnterpriseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "nombre")
     private String nombre;
-    @Column
+
+    @Column(name = "descripcion")
     private String descripcion;
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    @Column
-    private String NIF;
+    @Column(name = "nif")
+    private String nif;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserModel Boss;
+    @JoinColumn(name = "boss_id")
+    private UserModel boss;
 
-    @Column
-    private ArrayList<UserModel> workers;
+    @OneToMany(mappedBy = "enterprise")
+    private List<UserModel> workers;
+
+    // Getters y setters
 
     public Long getId() {
         return id;
@@ -53,27 +46,35 @@ public class EnterpriseModel {
         this.nombre = nombre;
     }
 
-    public String getNIF() {
-        return NIF;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNIF(String NIF) {
-        this.NIF = NIF;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 
     public UserModel getBoss() {
-        return Boss;
+        return boss;
     }
 
     public void setBoss(UserModel boss) {
-        Boss = boss;
+        this.boss = boss;
     }
 
-    public ArrayList<UserModel> getWorkers() {
+    public List<UserModel> getWorkers() {
         return workers;
     }
 
-    public void setWorkers(ArrayList<UserModel> workers) {
+    public void setWorkers(List<UserModel> workers) {
         this.workers = workers;
     }
 }
