@@ -4,9 +4,8 @@ import Link from 'next/link';
 
 export default function Footer() {
     return (
-        <footer className="bg-white dark:bg-gray-900 mt-auto" style={{marginTop:'1%'}}>
-            <div className="mx-auto w-full max-w-screen-xl">
-                <div className="px-8 py-6 bg-gray-100 dark:bg-gray-700 md:flex md:items-center md:justify-between">
+        <footer className="bg-white dark:bg-gray-900">
+                <div className="mx-auto w-full max-w-screen-xl px-8 py-6 bg-gray-100 dark:bg-gray-700 md:flex md:items-center md:justify-between">
                     <span className="text-sm text-gray-500 dark:text-gray-300 sm:text-center">© 2024 BYTECH™.</span>
                     <div className="flex items-center space-x-8 rtl:space-x-reverse">
                         <div className="flex items-center ">
@@ -28,14 +27,6 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <style jsx>{`
-                footer {
-                    position: flex;
-                    bottom: 0;
-                    width: 100%;
-                }
-            `}</style>
-        </footer>
+            </footer>
     );
 }

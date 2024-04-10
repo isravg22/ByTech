@@ -32,9 +32,8 @@ public class UserModel {
     @Column(name = "user_name")
     private String userName;
 
-    @ManyToOne
-    @JoinColumn(name = "enterprise_id")
-    private EnterpriseModel enterprise;
+    @Column (name = "enterprise")
+    private Long enterprise;
 
     // Getters y setters
 
@@ -102,11 +101,11 @@ public class UserModel {
         this.userName = userName;
     }
 
-    public EnterpriseModel getEnterprise() {
+    public Long getEnterprise() {
         return enterprise;
     }
 
-    public void setEnterprise(EnterpriseModel enterprise) {
+    public void setEnterprise(Long enterprise) {
         this.enterprise = enterprise;
     }
 }

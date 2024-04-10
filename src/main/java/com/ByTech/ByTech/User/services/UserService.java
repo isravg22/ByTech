@@ -40,6 +40,7 @@ public class UserService {
         userModel.setRol(request.getRol());
         userModel.setActivated(request.getActivated());
         userModel.setUserName(request.getUserName());
+        userModel.setEnterprise(request.getEnterprise());
 
         userRepository.save(userModel);
 

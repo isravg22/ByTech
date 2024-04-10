@@ -106,6 +106,7 @@ export default function Registro() {
             if (responseUser.ok) {
                 const userData = await responseUser.json();
                 const bossId = userData.id;
+                
                 const responseEnterprise = await fetch('http://localhost:8000/enterprise/insertEnterprise', {
                     method: 'POST',
                     headers: {
@@ -115,13 +116,24 @@ export default function Registro() {
                         nombre,
                         nif,
                         descripcion,
-                        boss:{id:bossId,firstName:firstName,lastName:lastName,email:email,rol:"boss",activated:1,password:password,userName:userName}
+                        boss:bossId
                     })
                 });
     
                 if (responseEnterprise.ok) {
-                    toast.success('Empresa creada correctamente');
-                    router.push('/');
+                    const enterpriseData= await responseEnterprise.json();
+                    const enterprise_id= enterpriseData.id;
+                    
+                    const updateUser=await fetch(`http://localhost:8000/user/${bossId}`,{
+                        method:'PUT',
+                        headers:{'Content-Type':'application/json'},
+                        body:JSON.stringify({...userData,enterprise:enterprise_id})
+                    })
+                    if(updateUser.ok){
+                        toast.success('Empresa creada correctamente');
+                        router.push('/');
+                    }
+                    
                 } else {
                     const errorData = await responseEnterprise.json();
                     if (errorData.message) {

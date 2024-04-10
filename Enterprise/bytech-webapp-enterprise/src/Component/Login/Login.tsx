@@ -25,9 +25,10 @@ export default function Login() {
       
       if (response.ok) {
         const data = await response.json();
-        if(data.rol==="admin"||data.rol==="superadmin"||data.rol==="boss"||data.rol==="workers"){
+        if(data.rol==="admin"||data.rol==="superadmin"||data.rol==="boss"||data.rol==="worker"){
           console.log('Inicio de sesión correcto');        
           localStorage.setItem('idUser', data.id);
+          localStorage.setItem("idEnterprise", data.enterprise);
           router.push('/Home');
         }else{
           toast.error('No tiene los permisos necesarios');

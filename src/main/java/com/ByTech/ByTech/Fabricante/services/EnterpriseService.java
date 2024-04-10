@@ -36,8 +36,8 @@ public class EnterpriseService {
         enterpriseModel.setNif(request.getNif());
         enterpriseModel.setNombre(request.getNombre());
         enterpriseModel.setBoss(request.getBoss());
-        enterpriseModel.setWorkers(request.getWorkers());
         enterpriseModel.setDescripcion(request.getDescripcion());
+        enterpriseModel.setWorkers(request.getWorkers());
 
         enterpriseRepository.save(enterpriseModel);
 
@@ -52,4 +52,5 @@ public class EnterpriseService {
             return false;
         }
     }
+
 }

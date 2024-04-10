@@ -29,13 +29,7 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            <style jsx>{`
-                footer {
-                    position: flex;
-                    bottom: 0;
-                    width: 100%;
-                }
-            `}</style>
+            
         </footer>
     );
 }

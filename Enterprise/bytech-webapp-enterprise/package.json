@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@mantine/carousel": "^7.6.1",
     "@mantine/charts": "^7.6.1",
     "@mantine/code-highlight": "^7.6.1",
@@ -22,6 +24,7 @@
     "@mantine/nprogress": "^7.6.1",
     "@mantine/spotlight": "^7.6.1",
     "@mantine/tiptap": "^7.6.1",
+    "@mui/material": "^5.15.15",
     "@tabler/icons-react": "^2.47.0",
     "@tailwindcss/forms": "^0.5.7",
     "@tiptap/extension-link": "^2.2.4",

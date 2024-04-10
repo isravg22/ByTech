@@ -21,12 +21,11 @@ public class EnterpriseModel {
     @Column(name = "nif")
     private String nif;
 
-    @ManyToOne
-    @JoinColumn(name = "boss_id")
-    private UserModel boss;
+    @Column
+    private Long boss;
 
-    @OneToMany(mappedBy = "enterprise")
-    private List<UserModel> workers;
+    @ElementCollection
+    private List<Long> workers;
 
     // Getters y setters
 
@@ -62,19 +61,31 @@ public class EnterpriseModel {
         this.nif = nif;
     }
 
-    public UserModel getBoss() {
+    public Long getBoss() {
         return boss;
     }
 
-    public void setBoss(UserModel boss) {
+    public void setBoss(Long boss) {
         this.boss = boss;
     }
 
-    public List<UserModel> getWorkers() {
+    public List<Long> getWorkers() {
         return workers;
     }
 
-    public void setWorkers(List<UserModel> workers) {
+    public void setWorkers(List<Long> workers) {
         this.workers = workers;
+    }
+
+    @Override
+    public String toString() {
+        return "EnterpriseModel{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", nif='" + nif + '\'' +
+                ", boss=" + boss +
+                ", workers=" + workers +
+                '}';
     }
 }
