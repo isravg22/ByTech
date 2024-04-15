@@ -13,23 +13,19 @@ public class GamingModel {
 
     @Column
     private String nombre;
+    @Column
+    private String Descripcion;
 
     @Column
-    private String descripcion;
+    private Long fabricante;
 
     @Column
     private Double precio;
 
     @Column
-    private Long unidades;
-
-    @ManyToOne
-    @JoinColumn(name = "fabricante_id")
-    private EnterpriseModel fabricante;
-
+    private int unidades;
     @Column
     private String image;
-
 
     public Long getId() {
         return id;
@@ -48,13 +44,20 @@ public class GamingModel {
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return Descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        Descripcion = descripcion;
     }
 
+    public Long getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(Long fabricante) {
+        this.fabricante = fabricante;
+    }
     public Double getPrecio() {
         return precio;
     }
@@ -63,20 +66,12 @@ public class GamingModel {
         this.precio = precio;
     }
 
-    public Long getUnidades() {
+    public int getUnidades() {
         return unidades;
     }
 
-    public void setUnidades(Long unidades) {
+    public void setUnidades(int unidades) {
         this.unidades = unidades;
-    }
-
-    public EnterpriseModel getFabricante() {
-        return fabricante;
-    }
-
-    public void setFabricante(EnterpriseModel fabricante) {
-        this.fabricante = fabricante;
     }
 
     public String getImage() {

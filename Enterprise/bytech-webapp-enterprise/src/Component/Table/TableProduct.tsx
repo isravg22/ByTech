@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
-export default function Table() {
+export default function TableProduct() {
     const [dataWorkers, setDataWorkers] = useState([]);
-    const [workerInfo, setWorkerInfo] = useState<any[]>([]); // Inicializado con un tipo más genérico
+    const [workerInfo, setWorkerInfo] = useState<any[]>([]); 
 
     const getIdWorkers = async () => {
         try {
@@ -64,8 +64,6 @@ export default function Table() {
             getInfoUser();
         }
     }, [dataWorkers]);
-
-
     return (
         <div style={{ overflowX: 'auto', width: "100%", height: '72vh' }}>
             <table style={{
@@ -84,18 +82,15 @@ export default function Table() {
                     </tr>
                 </thead>
                 <tbody>
-                    {workerInfo.map((worker, index) => (
-                        <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f9f9f9' : '#ffffff' }}>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>{worker.firstName}</td>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>{worker.lastName}</td>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>{worker.email}</td>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>{worker.rol}</td>
-                            <td><button onClick={() => deleteWorker(index)}><FaTrash /></button></td>
+                <tr style={{ backgroundColor: 1 % 2 === 0 ? '#f9f9f9' : '#ffffff' }}>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>as</td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>as</td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>as</td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>as</td>
+                            <td><button ><FaTrash /></button></td>
                         </tr>
-                    ))}
                 </tbody>
             </table>
         </div>
-
     );
-}
+};

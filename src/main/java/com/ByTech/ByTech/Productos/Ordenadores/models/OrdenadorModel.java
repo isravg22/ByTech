@@ -3,6 +3,8 @@ package com.ByTech.ByTech.Productos.Ordenadores.models;
 import com.ByTech.ByTech.Fabricante.models.EnterpriseModel;
 import jakarta.persistence.*;
 
+import java.util.Base64;
+
 @Entity
 @Table(name = "ordenador")
 public class OrdenadorModel {
@@ -15,16 +17,17 @@ public class OrdenadorModel {
     private String nombre;
     @Column
     private String Descripcion;
-    @ManyToOne
-    @JoinColumn(name = "fabricante_id")
-    private EnterpriseModel fabricante;
+
+    @Column
+    private Long fabricante;
 
     @Column
     private Double precio;
+
     @Column
-    private Long unidades;
-    @Column
-    private String image;
+    private int unidades;
+    @Lob
+    private byte[] image;
 
     public Long getId() {
         return id;
@@ -50,22 +53,13 @@ public class OrdenadorModel {
         Descripcion = descripcion;
     }
 
-    public EnterpriseModel getFabricante() {
+    public Long getFabricante() {
         return fabricante;
     }
 
-    public void setFabricante(EnterpriseModel fabricante) {
+    public void setFabricante(Long fabricante) {
         this.fabricante = fabricante;
     }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public Double getPrecio() {
         return precio;
     }
@@ -74,11 +68,19 @@ public class OrdenadorModel {
         this.precio = precio;
     }
 
-    public Long getUnidades() {
+    public int getUnidades() {
         return unidades;
     }
 
-    public void setUnidades(Long unidades) {
+    public void setUnidades(int unidades) {
         this.unidades = unidades;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

@@ -15,9 +15,9 @@ public class ComponentsModel {
     private String nombre;
     @Column
     private String Descripcion;
-    @ManyToOne
-    @JoinColumn(name = "fabricante_id")
-    private EnterpriseModel fabricante;
+
+    @Column
+    private Long fabricante;
 
     @Column
     private Double precio;
@@ -51,11 +51,11 @@ public class ComponentsModel {
         Descripcion = descripcion;
     }
 
-    public EnterpriseModel getFabricante() {
+    public Long getFabricante() {
         return fabricante;
     }
 
-    public void setFabricante(EnterpriseModel fabricante) {
+    public void setFabricante(Long fabricante) {
         this.fabricante = fabricante;
     }
     public Double getPrecio() {

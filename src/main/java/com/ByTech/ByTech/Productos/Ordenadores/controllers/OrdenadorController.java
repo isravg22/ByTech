@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/ordenador")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
 
 public class OrdenadorController {
     @Autowired
@@ -23,6 +24,11 @@ public class OrdenadorController {
 
     @PostMapping(path = "/insertOrdenador")
     public OrdenadorModel saveOrdenador(@RequestBody OrdenadorModel ordenador){
+        String image=ordenador.getImage() +"";
+        String imageDataBytes=image.substring(image.indexOf(",")+1);
+        System.out.println("CADENA : "+imageDataBytes);
+        byte[] imageBytes= Base64.getDecoder().decode(imageDataBytes);
+        ordenador.setImage(imageBytes);
         return this.ordenadorService.saveOrdenador(ordenador);
     }
 

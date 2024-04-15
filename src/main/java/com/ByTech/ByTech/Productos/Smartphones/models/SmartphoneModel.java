@@ -14,20 +14,17 @@ public class SmartphoneModel {
 
     @Column
     private String nombre;
+    @Column
+    private String Descripcion;
 
     @Column
-    private String descripcion;
+    private Long fabricante;
 
     @Column
     private Double precio;
 
     @Column
     private int unidades;
-
-    @ManyToOne
-    @JoinColumn(name = "fabricante_id")
-    private EnterpriseModel fabricante;
-
     @Column
     private String image;
 
@@ -48,13 +45,20 @@ public class SmartphoneModel {
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return Descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        Descripcion = descripcion;
     }
 
+    public Long getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(Long fabricante) {
+        this.fabricante = fabricante;
+    }
     public Double getPrecio() {
         return precio;
     }
@@ -69,14 +73,6 @@ public class SmartphoneModel {
 
     public void setUnidades(int unidades) {
         this.unidades = unidades;
-    }
-
-    public EnterpriseModel getFabricante() {
-        return fabricante;
-    }
-
-    public void setFabricante(EnterpriseModel fabricante) {
-        this.fabricante = fabricante;
     }
 
     public String getImage() {

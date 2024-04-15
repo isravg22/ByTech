@@ -29,7 +29,7 @@ export default function Aside() {
                         </Link>
                     </li>
                     <li>
-                        <Link href="/Order" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <Link href="/Products" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <FaProductHunt  className="w-6 h-6 mr-3 text-gray-500" />
                             <span>Productos</span>
                         </Link>

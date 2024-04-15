@@ -1,13 +1,12 @@
 'use client'
-import { useState, useEffect } from "react";
-import Table from "@/Component/Table/TableWorker";
-import NavBar from "@/Component/NavBar/Navbar";
 import Footer from "@/Component/Footer/Footer";
-import WorkerModal from "@/Component/Modal/WorkerModal";
+import NavBar from "@/Component/NavBar/Navbar";
+import TableProduct from "@/Component/Table/TableProduct";
+import ProductModal from "@/Component/Modal/ProductModal";
 import { Button, Modal } from "@mui/material";
-import TableWorker from "@/Component/Table/TableWorker";
+import { useState,useEffect } from "react";
 
-export default function Workers() {
+export default function Products(){
     const [nameEnterprise, setNameEnterprise] = useState<string>();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -52,8 +51,7 @@ export default function Workers() {
     useEffect(() => {
         fetchEnterpriseData();
     }, []);
-
-    return (
+    return(
         <div>
             <NavBar />
             <div style={{
@@ -63,20 +61,18 @@ export default function Workers() {
                 <h1 style={{ marginBottom: '1rem', textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold', }}>{nameEnterprise}</h1>
 
 
-                <Button onClick={openModal} style={{ alignSelf: 'flex-end' }}>Añadir Trabajador</Button>
-                <TableWorker />
+                <Button onClick={openModal} style={{ alignSelf: 'flex-end' }}>Añadir Producto</Button>
+                <TableProduct />
                 <Modal
                     open={isModalOpen}
                     onClose={closeModal}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <WorkerModal closeModal={closeModal} />
+                    <ProductModal closeModal={closeModal} />
                 </Modal>
             </div>
             <Footer />
         </div>
-
-
-    );
+    )
 }

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Gaming")
-@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/gaming")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
 public class GamingController {
 
     @Autowired
