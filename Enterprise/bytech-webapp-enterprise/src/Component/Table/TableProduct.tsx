@@ -1,69 +1,80 @@
 'use client'
-
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
+interface Producto {
+    id: number;
+    nombre: string;
+    precio: number;
+    unidades: number;
+    image: string;
+    tipo: string;
+}
+
 export default function TableProduct() {
-    const [dataWorkers, setDataWorkers] = useState([]);
-    const [workerInfo, setWorkerInfo] = useState<any[]>([]); 
+    const [productos, setProductos] = useState<Producto[]>([]);
+    const idEnterprise = localStorage.getItem('idEnterprise');
 
-    const getIdWorkers = async () => {
+    const getProducts = async () => {
         try {
-            const idEnterprise = localStorage.getItem('idEnterprise');
-            const enterpriseResponse = await fetch(`http://localhost:8000/enterprise/${idEnterprise}`);
-            if (!enterpriseResponse.ok) {
-                throw new Error('Failed to fetch enterprise data');
-            }
-
-            const enterpriseData = await enterpriseResponse.json();
-            setDataWorkers(enterpriseData.workers);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-
-    const getInfoUser = async () => {
-        const infoArray = [];
-        for (const workerId of dataWorkers) {
-            try {
-                const response = await fetch(`http://localhost:8000/user/${workerId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user data');
-                }
-                const userData = await response.json();
-                infoArray.push(userData);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-        setWorkerInfo(infoArray);
-    };
-
-    const deleteWorker = async (index:number) => {
-        try {
-            const idEnterprise = localStorage.getItem('idEnterprise');
-            const response = await fetch(`http://localhost:8000/enterprise/${idEnterprise}/deleteWorker/${index}`, {
-                method: 'DELETE'
+            const responseOrdenador = await fetch(`http://localhost:8000/ordenador/fabricante/${idEnterprise}`, {
+                method: 'GET',
+                headers: { "Content-Type": "application/json" }
             });
-            if (response.ok) {
-                const updatedWorkerInfo = [...workerInfo];
-                updatedWorkerInfo.splice(index, 1);
-                setWorkerInfo(updatedWorkerInfo);
-            } else {
-                console.error('Failed to delete worker:', response.statusText);
-            }
+            const responseSmartphone = await fetch(`http://localhost:8000/smartphone/fabricante/${idEnterprise}`, {
+                method: 'GET',
+                headers: { "Content-Type": "application/json" }
+            });
+            const responseComponents = await fetch(`http://localhost:8000/components/fabricante/${idEnterprise}`, {
+                method: 'GET',
+                headers: { "Content-Type": "application/json" }
+            });
+            const responseGaming = await fetch(`http://localhost:8000/gaming/fabricante/${idEnterprise}`, {
+                method: 'GET',
+                headers: { "Content-Type": "application/json" }
+            });
+
+            const ordenadores = await responseOrdenador.json();
+            const smartphones = await responseSmartphone.json();
+            const components = await responseComponents.json();
+            const gaming = await responseGaming.json();
+
+            const allProducts = [
+                ...ordenadores.map((producto: Producto) => ({ ...producto, tipo: 'ordenador' })),
+                ...smartphones.map((producto: Producto) => ({ ...producto, tipo: 'smartphone' })),
+                ...components.map((producto: Producto) => ({ ...producto, tipo: 'component' })),
+                ...gaming.map((producto: Producto) => ({ ...producto, tipo: 'gaming' }))
+            ];
+            setProductos(allProducts);
         } catch (error) {
-            console.error('Error deleting worker:', error);
+            console.error('Error fetching data:', error);
         }
     }
-    
+
+    const deleteProduct = async (id: any, tipo: string) => {
+        console.log("Deleting product with id:", id);
+        try {
+            const response = await fetch(`http://localhost:8000/${tipo}/${id}`, {
+                method: 'DELETE'
+            });
+            console.log("Delete product API response:", response);
+            if (response.ok) {
+                const updatedProductos = productos.filter(producto => producto.id !== id);
+                console.log("Updated products after deletion:", updatedProductos);
+                setProductos(updatedProductos);
+            } else {
+                console.error('Error al eliminar el producto');
+            }
+        } catch (error) {
+            console.error('Error al eliminar el producto:', error);
+        }
+    };
 
     useEffect(() => {
-        getIdWorkers();
-        if (dataWorkers.length > 0) {
-            getInfoUser();
-        }
-    }, [dataWorkers]);
+        console.log("Component mounted");
+        getProducts();
+    }, [productos]);
+
     return (
         <div style={{ overflowX: 'auto', width: "100%", height: '72vh' }}>
             <table style={{
@@ -74,23 +85,27 @@ export default function TableProduct() {
             }}>
                 <thead>
                     <tr>
+                        <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Imagen</th>
                         <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Nombre</th>
-                        <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Apellido</th>
-                        <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Correo</th>
-                        <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Rol</th>
+                        <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Precio</th>
+                        <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Unidades</th>
                         <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}></th>
                     </tr>
                 </thead>
                 <tbody>
-                <tr style={{ backgroundColor: 1 % 2 === 0 ? '#f9f9f9' : '#ffffff' }}>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>as</td>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>as</td>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>as</td>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>as</td>
-                            <td><button ><FaTrash /></button></td>
+                    {productos.map((producto, index) => (
+                        <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f9f9f9' : '#ffffff' }}>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>
+                                <img src={producto.image} alt="Producto" style={{ width: '100px' }} />
+                            </td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>{producto.nombre}</td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>{producto.precio}</td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>{producto.unidades}</td>
+                            <td><button onClick={() => deleteProduct(producto.id, producto.tipo)}><FaTrash /></button></td>
                         </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
     );
-};
+}

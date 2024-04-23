@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
@@ -11,84 +11,81 @@ interface ProductModalProps {
 
 const ProductModal: React.FC<ProductModalProps> = ({ closeModal }) => {
     const [selectedType, setSelectedType] = useState<string>();
-    const imgRef = useRef(null);
-    const [imagenData, setImagenData] = useState<string>();
+    const imgRef = useRef<HTMLInputElement>(null);
     const [inputPrecio, setInputPrecio] = useState<number>();
     const [inputUnidades, setInputUnidades] = useState<number>();
     const [inputNombre, setInputNombre] = useState<string>();
     const [inputDescripcion, setInputDescripcion] = useState<string>();
 
-    const handleTypeChange = (event: any) => {
+    const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedType(event.target.value);
     }
 
     const handleImage = () => {
-        const img = imgRef.current?.files[0];
-        const fileName = img.name;
+        const img = imgRef.current?.files?.[0];
         if (img) {
             const reader = new FileReader();
             reader.onload = function (event) {
                 const imageDataUrl = event.target?.result;
                 console.log('ImageSrc: ', imageDataUrl);
-                setImagenData(imageDataUrl as string);
+                // Aquí no es necesario almacenar la imagen como base64
             };
             reader.readAsDataURL(img);
         }
     }
+
     const handlePrecioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputPrecio(parseInt(event.target.value));
     };
-    
+
     const handleUnidadesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputUnidades(parseInt(event.target.value));
     };
-    
+
     const handleNombreChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputNombre(event.target.value);
     };
-    
+
     const handleDescripcionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputDescripcion(event.target.value);
     };
-    
-
-
 
     const insertProduct = async (type: any) => {
         const idEnterprise = localStorage.getItem('idEnterprise');
-        let field,value;
-        if (!inputPrecio || !inputUnidades || !inputNombre || !inputDescripcion || !imagenData) {
-            console.log('precio',inputPrecio);
-            console.log('unida',inputUnidades);
-            console.log('nombnre',inputNombre);
-            console.log('desc',inputDescripcion);
-            console.log(imagenData);
+        let field, value;
+        if (!inputPrecio || !inputUnidades || !inputNombre || !inputDescripcion || !imgRef.current?.files) {
             toast.error('Por favor completa todos los campos.');
             return;
         }
         if (type === 'Ordenador') {
-            field='ordenador';
-            value='insertOrdenador';
+            field = 'ordenador';
+            value = 'insertOrdenador';
         } else if (type === "Componente") {
-            field="componente";
-            value='insertComponente';
+            field = "components";
+            value = 'insertComponents';
         } else if (type === 'Gaming') {
-            field='gaming';
-            value='insertGaming';
+            field = 'gaming';
+            value = 'insertGaming';
         } else {
-            field='smartphone';
-            value='insertSmartphone';
+            field = 'smartphone';
+            value = 'insertSmartphone';
         }
 
-        console.log('field',field);
-        console.log('value',value);
+        const formData = new FormData();
+        formData.append('nombre', inputNombre);
+        formData.append('descripcion', inputDescripcion);
+        formData.append('precio', inputPrecio.toString());
+        formData.append('unidades', inputUnidades.toString());
+        formData.append('fabricante', idEnterprise?.toString()!);
+
+        if (imgRef.current?.files?.length) {
+            formData.append('image', imgRef.current.files[0] as File);
+        }
+
         try {
             const response = await fetch(`http://localhost:8000/${field}/${value}`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nombre: inputNombre, descripcion: inputDescripcion, precio: inputPrecio, unidades: inputUnidades, fabricante: idEnterprise, image: imagenData })
+                body: formData 
             });
 
             if (response.ok) {
@@ -102,26 +99,25 @@ const ProductModal: React.FC<ProductModalProps> = ({ closeModal }) => {
             toast.error('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
         }
     };
-    useEffect(() => {
-    },[selectedType]);
+
+
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', height: 'auto' }}>
-            <div style={{ backgroundColor: 'white', padding: '1em', borderRadius: '10px', marginTop: '5%', display: 'flex', flexDirection: 'column', width: '30%' }}>
-                <span className="close" onClick={closeModal} style={{ cursor: 'pointer' }}>&times;</span>
+        <div style={{ display: 'flex', justifyContent: 'center', height: 'auto', width: '100%' }}>
+            <div style={{ backgroundColor: 'white', padding: '1em', borderRadius: '10px', marginTop: '5%', display: 'flex', flexDirection: 'column', boxShadow: '0 3px 6px rgba(0, 0, 0, 0.1)', width: '100%', maxWidth: '500px' }}>
+                <span className="close" onClick={closeModal} style={{ cursor: 'pointer', alignSelf: 'flex-end', fontSize: '20px', marginTop: '-10px' }}>&times;</span>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.5em' }}>
                     <Image src={imgLogo} alt="Logo" width="65" height="65" />
-                    <h3 style={{ fontSize: '25px', fontWeight: 'bold' }}>Añadir Producto</h3>
+                    <h3 style={{ fontSize: '25px', fontWeight: 'bold', marginLeft: '10px' }}>Añadir Producto</h3>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                     {
-                        ['Tipo', 'Nombre', 'Descripcion', 'Precio', 'Unidades', 'Imagen'].map((label, index) => {
+                        ['Tipo', 'Nombre', 'Descripción', 'Precio', 'Unidades', 'Imagen'].map((label, index) => {
                             return (
-                                <div key={index}>
-
-                                    <label>{label}</label>
+                                <div key={index} style={{ marginBottom: '10px' }}>
+                                    <label style={{ marginBottom: '5px', fontSize: '16px' }}>{label}</label>
                                     {label === 'Tipo' ? (
-                                        <select onChange={handleTypeChange} value={selectedType}>
+                                        <select style={{ padding: '5px', fontSize: '16px', borderRadius: '5px', width: '100%' }} onChange={handleTypeChange} value={selectedType}>
                                             {productType.map((content, index) => (
                                                 <option key={index} value={content.value}>
                                                     {content.value}
@@ -130,25 +126,16 @@ const ProductModal: React.FC<ProductModalProps> = ({ closeModal }) => {
                                         </select>
                                     ) : label === 'Imagen' ? (
                                         <input type={'file'} accept={'image/*'} ref={imgRef} onChange={handleImage} />
-                                    ) : label === 'Precio' ? (
-                                        <input type='number' onChange={handlePrecioChange} />
-                                    ) : label === 'Unidades' ? (
-                                        <input type='number' onChange={handleUnidadesChange} />
-                                    ) : label === 'Nombre' ? (
-                                        <input type='text' onChange={handleNombreChange} />
-                                    ) : label === 'Descripcion' ? (
-                                        <input type='text' onChange={handleDescripcionChange} />
+                                    ) : label === 'Precio' || label === 'Unidades' ? (
+                                        <input type='number' style={{ padding: '5px', fontSize: '16px', borderRadius: '5px', width: '100%' }} onChange={label === 'Precio' ? handlePrecioChange : handleUnidadesChange} />
+                                    ) : label === 'Nombre' || label === 'Descripción' ? (
+                                        <input type='text' style={{ padding: '5px', fontSize: '16px', borderRadius: '5px', width: '100%' }} onChange={label === 'Nombre' ? handleNombreChange : handleDescripcionChange} />
                                     ) : null}
-
-
                                 </div>
                             )
                         })
-
                     }
-
-                    <p>{selectedType}</p>
-                    <button style={{ backgroundColor: '#00a2ff', padding: '0.3em 0', borderRadius: '3px', border: 'none', color: 'white', fontWeight: 'bold', fontSize: '16px', marginTop: '3%' }} onClick={() => insertProduct(selectedType)}>
+                    <button style={{ backgroundColor: '#00a2ff', padding: '0.5em 1em', borderRadius: '5px', border: 'none', color: 'white', fontWeight: 'bold', fontSize: '18px', marginTop: '10px', cursor: 'pointer' }} onClick={() => insertProduct(selectedType)}>
                         Añadir Producto
                     </button>
                 </div>

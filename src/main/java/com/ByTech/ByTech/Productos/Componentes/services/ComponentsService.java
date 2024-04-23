@@ -2,11 +2,13 @@ package com.ByTech.ByTech.Productos.Componentes.services;
 
 import com.ByTech.ByTech.Productos.Componentes.models.ComponentsModel;
 import com.ByTech.ByTech.Productos.Componentes.repositories.IComponentsRepository;
+import com.ByTech.ByTech.Productos.Gaming.models.GamingModel;
 import com.ByTech.ByTech.Productos.Ordenadores.models.OrdenadorModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,5 +50,9 @@ public class ComponentsService {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public List<ComponentsModel> getComponentsByFabricante(Long idEnterprise){
+        return componentsRepository.findByFabricante(idEnterprise);
     }
 }

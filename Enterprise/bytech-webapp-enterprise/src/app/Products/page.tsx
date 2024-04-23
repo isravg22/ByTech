@@ -4,7 +4,7 @@ import NavBar from "@/Component/NavBar/Navbar";
 import TableProduct from "@/Component/Table/TableProduct";
 import ProductModal from "@/Component/Modal/ProductModal";
 import { Button, Modal } from "@mui/material";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Products(){
     const [nameEnterprise, setNameEnterprise] = useState<string>();
@@ -46,11 +46,10 @@ export default function Products(){
         }
     };
 
-    
-
     useEffect(() => {
         fetchEnterpriseData();
     }, []);
+
     return(
         <div>
             <NavBar />

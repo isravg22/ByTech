@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,5 +51,8 @@ public class SmartphoneService {
         }catch (Exception e){
             return false;
         }
+    }
+    public List<SmartphoneModel> getSmartphonesByFabricante(Long idEnterprise){
+        return smartphoneRepository.findByFabricante(idEnterprise);
     }
 }

@@ -4,8 +4,11 @@ import com.ByTech.ByTech.Productos.Ordenadores.models.OrdenadorModel;
 import com.ByTech.ByTech.Productos.Ordenadores.repositories.IOrdenadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +21,7 @@ public class OrdenadorService {
     }
 
     public OrdenadorModel saveOrdenador(OrdenadorModel ordenador){
+
         return ordenadorRepository.save(ordenador);
     }
 
@@ -48,4 +52,10 @@ public class OrdenadorService {
             return false;
         }
     }
+
+    public List<OrdenadorModel> getOrdenadoresByFabricante(Long idEnterprise){
+        return ordenadorRepository.findByFabricante(idEnterprise);
+    }
+
+
 }

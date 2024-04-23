@@ -27,7 +27,7 @@ public class OrdenadorModel {
     @Column
     private int unidades;
     @Lob
-    private byte[] image;
+    private String image;
 
     public Long getId() {
         return id;
@@ -76,11 +76,11 @@ public class OrdenadorModel {
         this.unidades = unidades;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }
