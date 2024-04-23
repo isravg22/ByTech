@@ -87,7 +87,7 @@ export default function Profile() {
                     <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mt-4">Guardar</button>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
         
     );

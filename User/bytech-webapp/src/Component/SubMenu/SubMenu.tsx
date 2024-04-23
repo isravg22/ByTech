@@ -9,23 +9,18 @@ export default function SubMenu() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/Smartphon" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
+                    <Link href="/Smartphone" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
                         <span>Smartphones</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/Components" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
+                    <Link href="/Componentes" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
                         <span>Componentes</span>
                     </Link>
                 </li>
                 <li>
                     <Link href="/Gaming" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
                         <span>Gaming</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/Monitor" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
-                        <span>Monitores</span>
                     </Link>
                 </li>
             </ul>

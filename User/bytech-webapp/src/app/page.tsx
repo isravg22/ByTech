@@ -1,8 +1,11 @@
+'use client'
 import Login from "@/Component/Login/Login";
-export default function FPage() {
+import { CarritoProvider } from "@/Context/Context";
+
+export default function MyApp({}) {
   return (
-    <div>
-      <Login />
-    </div>
-  )
+    <CarritoProvider>
+      <Login/>
+    </CarritoProvider>
+  );
 }
