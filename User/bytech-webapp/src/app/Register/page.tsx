@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import imgLogo from '@/app/img/logo.png';
 import Image from 'next/image';
+import { validateHeaderValue } from 'http';
 
 export default function Registro() {
     const router = useRouter();
@@ -59,13 +60,21 @@ export default function Registro() {
             return;
         }
         try {
+            console.log('nombre',firstName)
+            console.log('nombre',lastName1)
+            console.log('nombre',lastName2)
+            console.log('nombre',email)
+            console.log('nombre',userName)
+            console.log('nombre',password)
+            console.log('nombre',password2)
+
             const lastName = `${lastName1} ${lastName2}`;
             const response = await fetch('http://localhost:8000/user/insertUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ firstName, lastName, email, userName, password, rol: 'user', activated: 0 })
+                body: JSON.stringify({ firstName, lastName, email, userName, password, rol: 'user', activated: 0, enterprise:0})
             });
             if (response.ok) {
                 toast.success('Usuario creado correctamente');

@@ -2,6 +2,10 @@ package com.ByTech.ByTech.User.models;
 
 import com.ByTech.ByTech.Fabricante.models.EnterpriseModel;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name="user")
@@ -34,6 +38,8 @@ public class UserModel {
 
     @Column (name = "enterprise")
     private Long enterprise;
+
+
 
     // Getters y setters
 
@@ -108,4 +114,6 @@ public class UserModel {
     public void setEnterprise(Long enterprise) {
         this.enterprise = enterprise;
     }
+
+
 }

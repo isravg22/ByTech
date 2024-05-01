@@ -1,11 +1,20 @@
 'use client'
-import Login from "@/Component/Login/Login";
-import { CarritoProvider } from "@/Context/Context";
 
-export default function MyApp({}) {
+import { useState } from 'react';
+
+import Login from '@/Component/Login/Login';
+import { useRouter } from 'next/navigation';
+
+function MyApp() {
+  
+
+  
+
   return (
-    <CarritoProvider>
+    <>
       <Login/>
-    </CarritoProvider>
+    </>
   );
 }
+
+export default MyApp;
