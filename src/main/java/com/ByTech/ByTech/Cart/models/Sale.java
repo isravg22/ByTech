@@ -11,7 +11,7 @@ import java.util.Date;
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     @Column
     private Double total;
     @Column(columnDefinition = "DATE")
@@ -25,11 +25,11 @@ public class Sale {
         this.client = client;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

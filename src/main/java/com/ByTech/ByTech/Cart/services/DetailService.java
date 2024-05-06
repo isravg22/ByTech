@@ -23,7 +23,7 @@ public class DetailService {
         this.detailRepository.save(detail);
     }
 
-    public List<Detail> getDetailBySale(String saleId) {
+    public List<Detail> getDetailBySale(Long saleId) {
         return this.detailRepository.findBySale_Id(saleId);
     }
 }

@@ -5,10 +5,7 @@ import com.ByTech.ByTech.Cart.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ByTech.ByTech.Cart.models.Message;
 
 import org.springframework.security.core.Authentication;
@@ -19,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sale")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
 public class SaleController {
 
     private final SaleService saleService;

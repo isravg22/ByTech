@@ -9,36 +9,43 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/product")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
 public class ProductController {
     private final ProductService productService;
+
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
+
+    @GetMapping
+    public ResponseEntity<Object> getProductos(){
+        ArrayList<Product> productos = this.productService.getProductos();
+        return new ResponseEntity<>(productos, HttpStatus.OK);
+    }
+
     @GetMapping("/{product_id}")
-    public ResponseEntity<Object> getProductById(@PathVariable("product_id")String productId){
-        Optional<Product> productOptional = this.productService.getProductById(productId);
-        if (productOptional.isEmpty())
-            return new ResponseEntity<>(new Message("No encontrado"),HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
+    public ResponseEntity<Object> getProductById(@PathVariable("product_id") String productId) {
+        Optional<Product> productOptional = productService.getProductById(productId);
+        if (productOptional.isPresent()) {
+            return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new Message("No encontrado"), HttpStatus.NOT_FOUND);
+        }
     }
-    @GetMapping("/all")
-    public ResponseEntity<Object> getAllProducts(){
-        return new ResponseEntity<>(this.productService.getAllProducts(),HttpStatus.OK);
-    }
+
+
     @GetMapping("/best")
-    public ResponseEntity<List<Product>> getBestProducts(){
-        return new ResponseEntity<>(this.productService.getBestPriceProducts(),HttpStatus.OK);
+    public ResponseEntity<Object> getBestProducts(){
+        ArrayList<Product> bestProducts = this.productService.getBestPriceProducts();
+        return new ResponseEntity<>(bestProducts,HttpStatus.OK);
     }
-    @GetMapping("/related/{category}/{product_id}")
-    public ResponseEntity<Object> getRelatedProduct(@PathVariable("category")String category, @PathVariable("product_id")String productId){
-        return new ResponseEntity<>(this.productService.getRelatedProducts(category,productId),HttpStatus.OK);
-    }
+
     @PostMapping("/create")
     public ResponseEntity<Message> createProduct(@RequestBody Product product, BindingResult bindingResult){
         if (bindingResult.hasErrors())
@@ -46,6 +53,7 @@ public class ProductController {
         this.productService.saveProduct(product);
         return new ResponseEntity<>(new Message("Creado correctamente"),HttpStatus.OK);
     }
+
     @PutMapping("/update")
     public ResponseEntity<Message> updateProduct(@RequestBody Product product, BindingResult bindingResult){
         if (bindingResult.hasErrors())

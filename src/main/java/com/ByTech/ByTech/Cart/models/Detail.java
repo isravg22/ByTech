@@ -6,8 +6,7 @@ import jakarta.persistence.*;
 public class Detail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private String id;
+    private Long id;
     @ManyToOne(optional = false, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 
     private Product product;
@@ -17,11 +16,11 @@ public class Detail {
 
     private int amount;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

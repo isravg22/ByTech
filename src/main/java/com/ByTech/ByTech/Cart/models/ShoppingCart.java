@@ -9,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @ManyToOne(optional = false, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "id") // Add this line
@@ -22,11 +22,11 @@ public class ShoppingCart {
     @Column
     private int amount;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
