@@ -78,4 +78,8 @@ public class ShoppingCartService {
         }
         return shoppingCart;
     }
+
+    public ShoppingCart findById(Long id) {
+        return shoppingCartRepository.findById(id).orElse(null);
+    }
 }

@@ -1,155 +1,148 @@
 'use client'
-/* import Footer from "@/Component/Footer/Footer";
-import NavBar from "@/Component/NavBar/Navbar";
-import Image from "next/image";
-import { useEffect, useState } from 'react';
-
-interface Product {
-  category: string;
-  description: string;
-  id: number;
-  image: string;
-  name: string;
-  price: number;
-}
-interface Client {
-  activated: number;
-  email: string
-  enterprise: number
-  firstName: string
-  id: number
-  lastName: string
-  password: string
-  rol: string
-  userName: string
-}
-
-interface ShoppingCart {
-  id: number;
-  product: Product;
-  client: Client;
-  amount: number;
-}
-
-
-const Carrito = () => {
-  const [carrito, setCarrito] = useState<ShoppingCart[]>([]);
-  const [userName, setUserName] = useState<string>();
-
-  const getUserName = async () => {
-    const idUser = localStorage.getItem('idUser');
-
-    const response = await fetch(`http://localhost:8000/user/${idUser}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    })
-
-    if (response.ok) {
-      const userData = await response.json();
-      setUserName(userData.userName);
-    }
-  }
-  console.log('userName: ', userName)
-  const getProductos = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/shoppingList/user/${userName}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-      });
-      if (response.ok) {
-        const responseCarrito = await response.json();
-        console.log('carrito', responseCarrito);
-        setCarrito(responseCarrito);
-      }
-    } catch (error) {
-      console.error('Error al cargar el carrito:', error);
-    }
-  };
-
-  console.log(carrito)
-
-  useEffect(() => {
-    if (userName) {
-      getProductos();
-    }
-    getUserName();
-  }, [userName]);
-  
-
-  return (
-    <div>
-      <NavBar />
-      <h1 style={{ textAlign: 'center', marginTop: '5rem', fontSize: '25px', fontWeight: 'bold' }}>Carrito de compras</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2rem', padding: '2rem' }}>
-
-        {carrito.map((item, index) => (
-          <div key={index} style={{ width: '300px', height: '470px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ width: '150px', height: '150px', position: 'relative' }}>
-              <Image src={item.product.image} alt='Imagen de un producto' layout="fill" objectFit="contain" />
-            </div>
-            <div style={{ width: '100%', height: '150px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <p style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'center', width: '100%' }}>{item.product.name}</p>
-              <p style={{ fontSize: '1rem', marginBottom: '0.5rem', textAlign: 'center', width: '100%' }}>{item.product.description}</p>
-              <p style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'center', width: '100%' }}>{item.product.price} €</p>
-              <p style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'center', width: '100%' }}>Cantidad: {item.amount}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <Footer />
-    </div>
-  );
-};
-
-export default Carrito;
- */
-
 import { useState, useEffect } from 'react';
+import NavBar from '@/Component/NavBar/Navbar';
+import Footer from '@/Component/Footer/Footer';
+import { Typography, Button, Divider, TextField } from '@mui/material';
 
-// Definir el tipo de dato para los productos en el carrito
 type CartItem = {
   id: number;
   product: {
     id: number;
     name: string;
     price: number;
+    image: string;
   };
   amount: number;
 };
 
 const Cartito = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]); // Asegurarse de que el estado sea un array de elementos del carrito
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const idUser = localStorage.getItem('idUser');
+
+  const getCart = async () => {
+    try {
+      const responseUser = await fetch(`http://localhost:8000/user/${idUser}`);
+      if (!responseUser.ok) {
+        throw new Error('Error fetching user data');
+      }
+      const userData = await responseUser.json();
+      const userName = userData.userName;
+
+      const response = await fetch(`http://localhost:8000/shoppingList/user/${userName}`);
+      if (!response.ok) {
+        throw new Error('Error fetching shopping cart data');
+      }
+      const data = await response.json();
+      setCartItems(data);
+    } catch (error) {
+      console.error('Error getting shopping cart data:', error);
+    }
+  };
 
   useEffect(() => {
-    fetch('http://localhost:8080/shoppingList')
-      .then((response) => response.json())
-      .then((data: CartItem[]) => { // Asegurarse de que los datos se conviertan a un array de elementos del carrito
-        setCartItems(data);
-      });
+    getCart();
   }, []);
 
   const removeFromCart = (id: number) => {
-    fetch(`http://localhost:8080/shoppingList/clean/${id}`, {
+    fetch(`http://localhost:8000/shoppingList/clean/${id}`, {
       method: 'DELETE',
-    }).then(() => {
-      setCartItems(cartItems.filter((item) => item.id !== id));
-    });
+    })
+      .then(() => {
+        setCartItems(cartItems.filter((item) => item.id !== id));
+      })
+      .catch((error) => {
+        console.error('Error removing item from cart:', error);
+      });
   };
+
+  const updateAmount = (id: number, newAmount: number) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.id === id) {
+        return { ...item, amount: newAmount };
+      }
+      return item;
+    });
+  
+    setCartItems(updatedCartItems);
+  
+    fetch(`http://localhost:8000/shoppingList/updateProductQuantity/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount: newAmount }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error updating item quantity: ${response.statusText}`);
+        }
+      })
+      .catch((error) => {
+        console.error('Error updating item quantity:', error);
+        // Revertir el cambio en el estado local
+        setCartItems(cartItems.map((item) => {
+          if (item.id === id) {
+            return { ...item, amount: item.amount };
+          }
+          return item;
+        }));
+      });
+  };
+  
+  
+  
 
   return (
     <div>
-      <h1>Carrito de Compras</h1>
-      <div>
-        {cartItems.map((item) => (
-          <div key={item.id}>
-            <h2>{item.product.name}</h2>
-            <p>Precio: ${item.product.price}</p>
-            <p>Cantidad: {item.amount}</p>
-            <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
-            <hr />
-          </div>
-        ))}
+      <NavBar />
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+        <Typography variant="h3" align="center" gutterBottom style={{ marginTop: '7%' }}>
+          Carrito de compras
+        </Typography>
+        <div>
+          {cartItems.map((item) => (
+            <div key={item.id} style={{ marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+              <img src={item.product.image} alt={item.product.name} style={{ width: '100px', marginRight: '20px' }} />
+              <div>
+                <Typography variant="h5" gutterBottom>
+                  {item.product.name}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  Precio: ${item.product.price}
+                </Typography>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                  <Typography variant="body1" gutterBottom style={{ marginRight: '10px' }}>
+                    Cantidad:
+                  </Typography>
+                  <Button variant="outlined" onClick={() => updateAmount(item.id, item.amount - 1)} disabled={item.amount === 1}>
+                    -
+                  </Button>
+                  <TextField
+                    type="number"
+                    variant="outlined"
+                    value={item.amount}
+                    onChange={(e) => {
+                      const newAmount = parseInt(e.target.value);
+                      if (!isNaN(newAmount) && newAmount >= 1) {
+                        updateAmount(item.id, newAmount);
+                      }
+                    }}
+                    style={{ width: '60px', margin: '0 10px', justifyContent:'center' }}
+                  />
+                  <Button variant="outlined" onClick={() => updateAmount(item.id, item.amount + 1)}>
+                    +
+                  </Button>
+                </div>
+                <Button variant="contained" color="error" onClick={() => removeFromCart(item.id)}>
+                  Eliminar
+                </Button>
+                <Divider style={{ margin: '20px 0' }} />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };

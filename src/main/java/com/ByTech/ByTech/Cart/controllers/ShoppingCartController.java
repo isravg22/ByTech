@@ -58,22 +58,21 @@ public class ShoppingCartController {
         return shoppingCartService.addProduct(shoppingCart);
     }
 
-    @PutMapping(path = "/updateProductQuantity")
-    public ResponseEntity<Message> updateProductQuantity( @RequestBody ShoppingCart shoppingCart,
-                                                          BindingResult bindingResult){
-        if (bindingResult.hasErrors())
-            return new ResponseEntity<>(new Message("Revise los campos"), HttpStatus.BAD_REQUEST);
-
-        ShoppingCart existingItem = this.shoppingCartService.findByClientAndProduct(shoppingCart.getClient().getUserName(), shoppingCart.getProduct().getId());
-        System.out.println("hola pruena"+existingItem);
+    @PutMapping("/updateProductQuantity/{id}")
+    public ResponseEntity<Message> updateProductQuantity(
+            @RequestBody ShoppingCart shoppingCart,
+            @PathVariable("id") Long id) {
+        ShoppingCart existingItem = this.shoppingCartService.findById(id);
         if (existingItem != null) {
             existingItem.setAmount(shoppingCart.getAmount());
-            this.shoppingCartService.updateProduct(existingItem); // Actualiza la cantidad del producto en el carrito
-            return new ResponseEntity<>(new Message("Cantidad de producto actualizada"),HttpStatus.OK);
+            this.shoppingCartService.updateProduct(existingItem);
+            return new ResponseEntity<>(new Message("Cantidad de producto actualizada"), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(new Message("El producto no está en el carrito, use POST para agregarlo"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Message("El producto no está en el carrito"), HttpStatus.NOT_FOUND);
         }
     }
+
+
 
 
 
@@ -90,4 +89,3 @@ public class ShoppingCartController {
 
 
 }
-

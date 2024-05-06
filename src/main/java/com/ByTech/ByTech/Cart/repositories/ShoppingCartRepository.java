@@ -11,4 +11,5 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long
     ShoppingCart findByProduct_IdAndClient_UserName(Long productId, String clientEmail);
     void deleteByClient_Id(Long clientId);
     Long countByClient_Id(Long clientId);
+
 }
