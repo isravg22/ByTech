@@ -1,0 +1,1 @@
+export const getApiUrl = (path:any) => `https://localhost:8000/${path}`
