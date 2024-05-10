@@ -72,10 +72,6 @@ public class ShoppingCartController {
         }
     }
 
-
-
-
-
     @DeleteMapping("/clean/{item_id}")
     public ResponseEntity<Message> removeProduct(@PathVariable("item_id")Long id){
         this.shoppingCartService.removeProduct(id);
@@ -86,6 +82,7 @@ public class ShoppingCartController {
     public ShoppingCart updateUserById(@RequestBody ShoppingCart request , @PathVariable("id") Long id){
         return this.shoppingCartService.updateByID(request, id);
     }
+
 
 
 }

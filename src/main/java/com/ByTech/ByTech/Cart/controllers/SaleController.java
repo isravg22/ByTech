@@ -1,6 +1,7 @@
 package com.ByTech.ByTech.Cart.controllers;
 
 import com.ByTech.ByTech.Cart.models.Sale;
+import com.ByTech.ByTech.Cart.models.ShoppingCart;
 import com.ByTech.ByTech.Cart.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,26 +26,15 @@ public class SaleController {
     public SaleController(SaleService saleService) {
         this.saleService = saleService;
     }
-    @GetMapping("/client")
-    public ResponseEntity<List<Sale>> getByClient() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            String userName = ((UserDetails) authentication.getPrincipal()).getUsername();
+
+    @GetMapping("/client/{userName}")
+    public ResponseEntity<List<Sale>> getByClient(@PathVariable String userName) {
             return new ResponseEntity<>(this.saleService.getSalesByClient(userName), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
     }
 
-    @PostMapping(path = "/create")
-    public ResponseEntity<Message> createSale() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            String userName = ((UserDetails) authentication.getPrincipal()).getUsername();
-            this.saleService.createSale(userName);
-            return new ResponseEntity<>(new Message("Compra exitosa"), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    @PostMapping(path = "/create/{userName}")
+    public ResponseEntity<Sale> createSale(@PathVariable String userName) {
+        Sale sale = this.saleService.createSale(userName);
+        return new ResponseEntity<>(sale, HttpStatus.OK);
     }
 }

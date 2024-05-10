@@ -12,11 +12,11 @@ public class ShoppingCart {
     private Long id;
 
     @ManyToOne(optional = false, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", referencedColumnName = "id") // Add this line
+    @JoinColumn(name = "product_id", referencedColumnName = "id") // Aquí es donde se establece la relación correcta
     private Product product;
 
     @ManyToOne(optional = false, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_id", referencedColumnName = "id") // Add this line
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private UserModel client;
 
     @Column

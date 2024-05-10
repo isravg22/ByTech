@@ -12,14 +12,20 @@ public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column
     private Double total;
+
     @Column(columnDefinition = "DATE")
     private Date date;
+
     @ManyToOne(optional = false, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private UserModel client;
 
-    public Sale(double total, Date date, UserModel client) {
+    public Sale() {
+    }
+
+    public Sale(Double total, Date date, UserModel client) {
         this.total = total;
         this.date = date;
         this.client = client;

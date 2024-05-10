@@ -41,7 +41,7 @@ public class ShoppingCartService {
 
     public ResponseEntity<Message> addProduct(ShoppingCart shoppingCart) {
         ShoppingCart existingItem = findByClientAndProduct(shoppingCart.getClient().getUserName(), shoppingCart.getProduct().getId());
-        System.out.println(existingItem);
+        
         if (existingItem != null) {
             // Si el producto ya existe en el carrito, se suma la cantidad
             existingItem.setAmount(existingItem.getAmount() + shoppingCart.getAmount());
