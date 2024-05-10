@@ -1,5 +1,6 @@
 package com.ByTech.ByTech.Cart.models;
 
+import com.ByTech.ByTech.Fabricante.models.EnterpriseModel;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.GenericGenerator;
@@ -20,6 +21,11 @@ public class Product {
     private String category;
     @Column
     private String image;
+    @Column
+    private Long unidades;
+    @Column
+    private Long enterprise_id;
+
 
     public Long getId() {
         return id;
@@ -67,5 +73,21 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Long getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(Long unidades) {
+        this.unidades = unidades;
+    }
+
+    public Long getEnterprise_id() {
+        return enterprise_id;
+    }
+
+    public void setEnterprise_id(Long enterprise_id) {
+        this.enterprise_id = enterprise_id;
     }
 }
