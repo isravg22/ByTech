@@ -48,4 +48,8 @@ public class ProductService {
     public ArrayList<Product> getProductos(){
         return (ArrayList<Product>) productRepository.findAll();
     }
+
+    public ArrayList<Product> getProductByCategory(String category){
+        return this.productRepository.findByCategory(category);
+    }
 }

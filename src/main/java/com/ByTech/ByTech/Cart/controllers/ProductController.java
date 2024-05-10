@@ -61,4 +61,10 @@ public class ProductController {
         this.productService.saveProduct(product);
         return new ResponseEntity<>(new Message("Actualizado correctamente"),HttpStatus.OK);
     }
+
+    @GetMapping("/type/{category}")
+    public ResponseEntity<Object> getProductByCategory(@PathVariable("category") String category) {
+        ArrayList<Product> productsByCategory = this.productService.getProductByCategory(category);
+        return new ResponseEntity<>(productsByCategory, HttpStatus.OK);
+    }
 }

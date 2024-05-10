@@ -9,4 +9,5 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product,String> {
     ArrayList<Product> findByCategoryAndIdNot(String category, Long ProductId);
     ArrayList<Product> findFirst4ByOrderByPriceAsc();
+    ArrayList<Product> findByCategory(String category);
 }

@@ -1,4 +1,5 @@
 'use client'
+
 import { Button, Grid, IconButton, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
@@ -7,7 +8,9 @@ import NavBar from '@/Component/NavBar/Navbar';
 import Footer from '@/Component/Footer/Footer';
 import Image from 'next/image';
 import { Producto } from '@/Interface/Product';
+
 export default function Detail() {
+  
   const [amountToAdd, setAmount] = useState<number>(1)
   const id = localStorage.getItem('idProducto');
   const [infoProduct, setInfoProduct] = useState<Producto>();
