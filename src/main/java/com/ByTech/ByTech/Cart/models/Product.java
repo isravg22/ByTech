@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "product")
 public class Product {
@@ -24,7 +26,11 @@ public class Product {
     @Column
     private Long unidades;
     @Column
-    private Long enterprise_id;
+    private Long fabricante;
+
+    @Column(columnDefinition = "DATE")
+    private Date date;
+
 
 
     public Long getId() {
@@ -83,11 +89,19 @@ public class Product {
         this.unidades = unidades;
     }
 
-    public Long getEnterprise_id() {
-        return enterprise_id;
+    public Long getFabricante() {
+        return fabricante;
     }
 
-    public void setEnterprise_id(Long enterprise_id) {
-        this.enterprise_id = enterprise_id;
+    public void setFabricante(Long fabricante) {
+        this.fabricante = fabricante;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

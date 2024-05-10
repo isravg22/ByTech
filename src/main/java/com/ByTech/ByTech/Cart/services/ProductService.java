@@ -2,21 +2,21 @@ package com.ByTech.ByTech.Cart.services;
 
 import com.ByTech.ByTech.Cart.models.Product;
 import com.ByTech.ByTech.Cart.repositories.ProductRepository;
+import com.ByTech.ByTech.Cart.repositories.SaleRepository;
+import com.ByTech.ByTech.Productos.Gaming.models.GamingModel;
 import com.ByTech.ByTech.Productos.Ordenadores.models.OrdenadorModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 
 @Service
 @Transactional
 public class ProductService {
     private final ProductRepository productRepository;
+
     @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -34,11 +34,11 @@ public class ProductService {
         }
         return randomProducts;
     }
-    public void saveProduct(Product product){
-        this.productRepository.save(product);
+    public Product saveProduct(Product product){
+        return this.productRepository.save(product);
     }
 
-    public Optional<Product> getProductById(String id){
+    public Optional<Product> getProductById(Long id){
         return this.productRepository.findById(id);
     }
     public ArrayList<Product> getBestPriceProducts(){
@@ -52,4 +52,22 @@ public class ProductService {
     public ArrayList<Product> getProductByCategory(String category){
         return this.productRepository.findByCategory(category);
     }
+
+    public Long findByMonthAndEnterpriseId(int month, Long enterpriseId) {
+        return this.productRepository.findByMonthAndEnterpriseId(month, enterpriseId);
+    }
+
+    public List<Product> getProductByFabricante(Long idEnterprise){
+        return productRepository.findByFabricante(idEnterprise);
+    }
+
+    public  Boolean deleteProduct(Long id){
+        try{
+            productRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 }

@@ -28,7 +28,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ closeModal }) => {
             reader.onload = function (event) {
                 const imageDataUrl = event.target?.result;
                 console.log('ImageSrc: ', imageDataUrl);
-                // Aquí no es necesario almacenar la imagen como base64
             };
             reader.readAsDataURL(img);
         }
@@ -52,42 +51,30 @@ const ProductModal: React.FC<ProductModalProps> = ({ closeModal }) => {
 
     const insertProduct = async (type: any) => {
         const idEnterprise = localStorage.getItem('idEnterprise');
-        let field, value;
         if (!inputPrecio || !inputUnidades || !inputNombre || !inputDescripcion || !imgRef.current?.files) {
             toast.error('Por favor completa todos los campos.');
             return;
         }
-        if (type === 'Ordenador') {
-            field = 'ordenador';
-            value = 'insertOrdenador';
-        } else if (type === "Componente") {
-            field = "components";
-            value = 'insertComponents';
-        } else if (type === 'Gaming') {
-            field = 'gaming';
-            value = 'insertGaming';
-        } else {
-            field = 'smartphone';
-            value = 'insertSmartphone';
-        }
-
+    
         const formData = new FormData();
-        formData.append('nombre', inputNombre);
-        formData.append('descripcion', inputDescripcion);
-        formData.append('precio', inputPrecio.toString());
+        formData.append('name', inputNombre);
+        formData.append('description', inputDescripcion);
+        formData.append('price', inputPrecio.toString());
         formData.append('unidades', inputUnidades.toString());
         formData.append('fabricante', idEnterprise?.toString()!);
-
+        formData.append('date', new Date().toISOString());
+        formData.append('category', type);
+    
         if (imgRef.current?.files?.length) {
             formData.append('image', imgRef.current.files[0] as File);
         }
-
+    
         try {
-            const response = await fetch(`http://localhost:8000/${field}/${value}`, {
+            const response = await fetch(`http://localhost:8000/product/insertProduct`, {
                 method: 'POST',
                 body: formData 
             });
-
+    
             if (response.ok) {
                 console.log('Producto agregado con éxito');
                 closeModal();
@@ -99,6 +86,8 @@ const ProductModal: React.FC<ProductModalProps> = ({ closeModal }) => {
             toast.error('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
         }
     };
+    
+    
 
 
     return (

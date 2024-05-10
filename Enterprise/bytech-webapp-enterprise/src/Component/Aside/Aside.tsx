@@ -43,7 +43,7 @@ export default function Aside() {
                     <li>
                         <Link href="/Order" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <CgBox className="w-6 h-6 mr-3 text-gray-500" />
-                            <span>Pedidos a realizar</span>
+                            <span>Pedidos Realizados</span>
                         </Link>
                     </li>
                 </ul>

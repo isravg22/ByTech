@@ -3,13 +3,29 @@ package com.ByTech.ByTech.Cart.controllers;
 import com.ByTech.ByTech.Cart.models.Message;
 import com.ByTech.ByTech.Cart.models.Product;
 import com.ByTech.ByTech.Cart.services.ProductService;
+import com.ByTech.ByTech.Productos.Componentes.models.ComponentsModel;
+import com.ByTech.ByTech.Productos.Gaming.models.GamingModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetUrlRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,6 +33,7 @@ import java.util.Optional;
 @CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
 public class ProductController {
     private final ProductService productService;
+    private final String BUCKET_NAME= "s3-bytech";
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -30,7 +47,7 @@ public class ProductController {
     }
 
     @GetMapping("/{product_id}")
-    public ResponseEntity<Object> getProductById(@PathVariable("product_id") String productId) {
+    public ResponseEntity<Object> getProductById(@PathVariable("product_id") Long productId) {
         Optional<Product> productOptional = productService.getProductById(productId);
         if (productOptional.isPresent()) {
             return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
@@ -46,12 +63,45 @@ public class ProductController {
         return new ResponseEntity<>(bestProducts,HttpStatus.OK);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Message> createProduct(@RequestBody Product product, BindingResult bindingResult){
-        if (bindingResult.hasErrors())
-            return new ResponseEntity<>(new Message("Revise los campos"),HttpStatus.BAD_REQUEST);
-        this.productService.saveProduct(product);
-        return new ResponseEntity<>(new Message("Creado correctamente"),HttpStatus.OK);
+    @PostMapping(path = "/insertProduct")
+    public Product saveProduct(@RequestParam("name") String name,
+                                         @RequestParam("description") String description,
+                                         @RequestParam("price") Double price,
+                                         @RequestParam("unidades") Long unidades,
+                                         @RequestParam("fabricante") Long fabricante,
+                                         @RequestParam("image") MultipartFile image,
+                                         @RequestParam("category") String category,
+                               @RequestParam("date") String dateString) {
+        try {
+            if (name == null || description == null || price == null || fabricante == null || image == null || image.isEmpty() || unidades==null|| category==null||dateString==null) {
+                throw new RuntimeException("Por favor, completa todos los campos.");
+            }
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+            Date date = df.parse(dateString);
+
+            Product product = new Product();
+            product.setName(name);
+            product.setDescription(description);
+            product.setPrice(price);
+            product.setUnidades(unidades);
+            product.setFabricante(fabricante);
+            product.setCategory(category);
+            product.setDate(date);
+
+            byte[] imageBytes = image.getBytes();
+            String imageName = image.getOriginalFilename();
+            String imageUrl = uploadImageToS3(imageName, imageBytes);
+            product.setImage(imageUrl);
+
+
+            return this.productService.saveProduct(product);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al guardar la imagen.");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @PutMapping("/update")
@@ -66,5 +116,57 @@ public class ProductController {
     public ResponseEntity<Object> getProductByCategory(@PathVariable("category") String category) {
         ArrayList<Product> productsByCategory = this.productService.getProductByCategory(category);
         return new ResponseEntity<>(productsByCategory, HttpStatus.OK);
+    }
+
+    @GetMapping("/unidadesTotales/{month}/{enterpriseId}")
+    public ResponseEntity<Object> findByMonthAndEnterpriseId(@PathVariable("month") int month, @PathVariable("enterpriseId") Long enterpriseId) {
+        Long findByMonthAndEnterpriseId = this.productService.findByMonthAndEnterpriseId(month, enterpriseId);
+        return new ResponseEntity<>(findByMonthAndEnterpriseId, HttpStatus.OK);
+    }
+
+    @GetMapping("/fabricante/{idEnterprise}")
+    public List<Product> getProductByFabricante(@PathVariable Long idEnterprise){
+        return this.productService.getProductByFabricante(idEnterprise);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public String deleteOrdenadorById(@PathVariable("id") Long id){
+        boolean ok=this.productService.deleteProduct(id);
+        if(ok){
+            return "Ordenador with id "+id+" deleted!";
+        }else{
+            return "Error, we have a problem and can´t delete ordenador with id "+id;
+        }
+    }
+
+
+    private String uploadImageToS3(String imageName, byte[] imageBytes) {
+        String accessKey = "AKIA6ODUZLCDVXD3I6H7";
+        String secretKey = "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";
+
+        AwsBasicCredentials awsCredentials = AwsBasicCredentials.create(accessKey, secretKey);
+        StaticCredentialsProvider credentialsProvider = StaticCredentialsProvider.create(awsCredentials);
+
+        S3Client s3Client = S3Client.builder()
+                .credentialsProvider(credentialsProvider)
+                .region(Region.EU_WEST_3)
+                .build();
+
+        try {
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+            software.amazon.awssdk.core.sync.RequestBody requestBody = software.amazon.awssdk.core.sync.RequestBody.fromBytes(imageBytes);
+            s3Client.putObject(PutObjectRequest.builder()
+                            .bucket(BUCKET_NAME)
+                            .key(imageName)
+                            .build(),
+                    requestBody);
+
+            return s3Client.utilities().getUrl(GetUrlRequest.builder().bucket(BUCKET_NAME).key(imageName).build()).toExternalForm();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            s3Client.close();
+        }
     }
 }
