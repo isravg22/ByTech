@@ -2,14 +2,12 @@ package com.ByTech.ByTech.Cart.controllers;
 
 import com.ByTech.ByTech.Cart.models.ShoppingCart;
 import com.ByTech.ByTech.Cart.services.ShoppingCartService;
-import com.ByTech.ByTech.User.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.ByTech.ByTech.Cart.models.Message;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

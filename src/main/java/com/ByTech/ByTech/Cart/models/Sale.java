@@ -2,9 +2,6 @@ package com.ByTech.ByTech.Cart.models;
 
 import com.ByTech.ByTech.User.models.UserModel;
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.hibernate.annotations.GenericGenerator;
-
 import java.util.Date;
 
 @Entity

@@ -2,13 +2,9 @@ package com.ByTech.ByTech.Cart.services;
 
 import com.ByTech.ByTech.Cart.models.Product;
 import com.ByTech.ByTech.Cart.repositories.ProductRepository;
-import com.ByTech.ByTech.Cart.repositories.SaleRepository;
-import com.ByTech.ByTech.Productos.Gaming.models.GamingModel;
-import com.ByTech.ByTech.Productos.Ordenadores.models.OrdenadorModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.*;
 
 

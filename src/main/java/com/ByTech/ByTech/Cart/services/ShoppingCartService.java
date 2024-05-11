@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -43,13 +42,12 @@ public class ShoppingCartService {
         ShoppingCart existingItem = findByClientAndProduct(shoppingCart.getClient().getUserName(), shoppingCart.getProduct().getId());
         
         if (existingItem != null) {
-            // Si el producto ya existe en el carrito, se suma la cantidad
             existingItem.setAmount(existingItem.getAmount() + shoppingCart.getAmount());
-            updateProduct(existingItem); // Actualiza la cantidad del producto en el carrito
+            updateProduct(existingItem);
             System.out.println("Cantidad de producto actualizada: " + existingItem.getAmount());
             return new ResponseEntity<>(new Message("Cantidad de producto actualizada"), HttpStatus.OK);
         } else {
-            addNewProduct(shoppingCart); // Agrega un nuevo item al carrito
+            addNewProduct(shoppingCart);
             System.out.println("Producto agregado al carrito: " + shoppingCart.getProduct().getName() + " - Cantidad: " + shoppingCart.getAmount());
             return new ResponseEntity<>(new Message("Producto agregado al carrito"), HttpStatus.OK);
         }

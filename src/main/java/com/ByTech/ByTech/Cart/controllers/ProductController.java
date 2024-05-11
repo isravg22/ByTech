@@ -3,8 +3,6 @@ package com.ByTech.ByTech.Cart.controllers;
 import com.ByTech.ByTech.Cart.models.Message;
 import com.ByTech.ByTech.Cart.models.Product;
 import com.ByTech.ByTech.Cart.services.ProductService;
-import com.ByTech.ByTech.Productos.Componentes.models.ComponentsModel;
-import com.ByTech.ByTech.Productos.Gaming.models.GamingModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -118,11 +115,16 @@ public class ProductController {
         return new ResponseEntity<>(productsByCategory, HttpStatus.OK);
     }
 
-    @GetMapping("/unidadesTotales/{month}/{enterpriseId}")
-    public ResponseEntity<Object> findByMonthAndEnterpriseId(@PathVariable("month") int month, @PathVariable("enterpriseId") Long enterpriseId) {
-        Long findByMonthAndEnterpriseId = this.productService.findByMonthAndEnterpriseId(month, enterpriseId);
-        return new ResponseEntity<>(findByMonthAndEnterpriseId, HttpStatus.OK);
+    @GetMapping("/unidadesTotales/{enterpriseId}")
+    public ResponseEntity<Object> findByMonthAndEnterpriseId(@PathVariable("enterpriseId") Long enterpriseId) {
+        ArrayList<Long> unidadesTotales = new ArrayList<>();
+        for (int month = 1; month <= 12; month++) {
+            Long findByMonthAndEnterpriseId = this.productService.findByMonthAndEnterpriseId(month, enterpriseId);
+            unidadesTotales.add(findByMonthAndEnterpriseId);
+        }
+        return new ResponseEntity<>(unidadesTotales, HttpStatus.OK);
     }
+
 
     @GetMapping("/fabricante/{idEnterprise}")
     public List<Product> getProductByFabricante(@PathVariable Long idEnterprise){
