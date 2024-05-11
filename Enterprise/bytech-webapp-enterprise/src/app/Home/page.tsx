@@ -4,10 +4,9 @@ import NavBar from '@/Component/NavBar/Navbar';
 import Footer from '@/Component/Footer/Footer';
 import * as echarts from 'echarts';
 
-const HomePage = () => {
+export default function HomePage(){
   const [productData, setProductData] = useState([]);
   const idEnterprise = localStorage.getItem('idEnterprise');
-  const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +25,8 @@ const HomePage = () => {
   }, [idEnterprise]);
 
   useEffect(() => {
+    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
     const renderChart = () => {
       if (productData.length === months.length) {
         const chart = echarts.init(document.getElementById('chart'));
@@ -69,11 +70,10 @@ const HomePage = () => {
       <NavBar />
       <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
         <h1 style={{ marginTop: '60px', marginBottom: '20px', fontSize: '2rem', fontWeight: 'bold' }}>Bienvenido</h1>
-        <div id="chart" style={{ width: '100%', maxWidth: '1700px', height:'600px'}} />
+        <div id="chart" style={{ width: '100%', maxWidth: '1800px', height:'600px'}} />
       </div>
       <Footer />
     </div>
   );
 }
 
-export default HomePage;
