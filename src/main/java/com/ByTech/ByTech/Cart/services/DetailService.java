@@ -25,4 +25,8 @@ public class DetailService {
     public List<Detail> getDetailBySale(Long saleId) {
         return this.detailRepository.findBySale_Id(saleId);
     }
+
+    public Long getTotalProductsSoldByMonth(int month) {
+        return this.detailRepository.getTotalProductsSoldByMonth(month);
+    }
 }

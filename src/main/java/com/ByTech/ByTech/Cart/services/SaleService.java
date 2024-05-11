@@ -57,4 +57,8 @@ public class SaleService {
             throw new RuntimeException("Error creating sale", e);
         }
     }
+
+    public List<Sale> getSalesByMonth(int month) {
+        return this.saleRepository.findByMonth(month);
+    }
 }

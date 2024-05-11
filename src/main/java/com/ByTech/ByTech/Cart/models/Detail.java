@@ -2,6 +2,8 @@ package com.ByTech.ByTech.Cart.models;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 public class Detail {
     @Id
@@ -15,6 +17,8 @@ public class Detail {
     private Sale sale;
 
     private int amount;
+    @Column(columnDefinition = "DATE")
+    private Date date;
 
     public Long getId() {
         return id;
@@ -46,5 +50,13 @@ public class Detail {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -23,12 +23,17 @@ public class SaleController {
 
     @GetMapping("/client/{userName}")
     public ResponseEntity<List<Sale>> getByClient(@PathVariable String userName) {
-            return new ResponseEntity<>(this.saleService.getSalesByClient(userName), HttpStatus.OK);
+        return new ResponseEntity<>(this.saleService.getSalesByClient(userName), HttpStatus.OK);
     }
 
     @PostMapping(path = "/create/{userName}")
     public ResponseEntity<Sale> createSale(@PathVariable String userName) {
         Sale sale = this.saleService.createSale(userName);
         return new ResponseEntity<>(sale, HttpStatus.OK);
+    }
+
+    @GetMapping("/month/{month}")
+    public ResponseEntity<List<Sale>> getByMonth(@PathVariable int month) {
+        return new ResponseEntity<>(this.saleService.getSalesByMonth(month), HttpStatus.OK);
     }
 }
