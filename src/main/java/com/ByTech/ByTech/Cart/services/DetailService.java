@@ -26,7 +26,5 @@ public class DetailService {
         return this.detailRepository.findBySale_Id(saleId);
     }
 
-    public Long getTotalProductsSoldByMonth(int month) {
-        return this.detailRepository.getTotalProductsSoldByMonth(month);
-    }
+
 }

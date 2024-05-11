@@ -25,14 +25,4 @@ public class DetailController {
     public ResponseEntity<List<Detail>> getDetailsBySale(@PathVariable("sale_id")Long id){
         return new ResponseEntity<>(this.detailService.getDetailBySale(id), HttpStatus.OK);
     }
-
-    @GetMapping("/totalProductsSold/{month}")
-    public ResponseEntity<Long> getTotalProductsSold(@PathVariable int month) {
-        try {
-            Long totalProductsSold = this.detailService.getTotalProductsSoldByMonth(month);
-            return new ResponseEntity<>(totalProductsSold, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }
