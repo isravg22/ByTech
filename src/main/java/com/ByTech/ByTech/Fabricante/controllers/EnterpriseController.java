@@ -2,8 +2,6 @@ package com.ByTech.ByTech.Fabricante.controllers;
 
 import com.ByTech.ByTech.Fabricante.models.EnterpriseModel;
 import com.ByTech.ByTech.Fabricante.services.EnterpriseService;
-import com.ByTech.ByTech.Productos.Ordenadores.models.OrdenadorModel;
-import com.ByTech.ByTech.User.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
