@@ -15,7 +15,7 @@ export default function Component() {
 
   const getProducts = async () => {
     try {
-      const responseComponents = await fetch(`http://localhost:8000/product/type/components`, {
+      const responseComponents = await fetch(`http://localhost:8000/product/type/Componente`, {
         method: 'GET',
         headers: { "Content-Type": "application/json" }
       })
@@ -43,7 +43,7 @@ export default function Component() {
         {components.map((component, index) => (
           <div key={index} style={{ width: '300px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div style={{ marginBottom: '20px', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-              <Image src={component.image} alt={component.name} width={300} height={300} style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
+              <img src={component.image} alt={component.name}  style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
               <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{component.name.toUpperCase()}</h2>              

@@ -1,60 +1,35 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
-
-interface Producto {
+type Product = {
     id: number;
-    nombre: string;
-    precio: number;
-    unidades: number;
+    name: string;
+    price: number;
+    description: string;
+    category: string;
     image: string;
-    tipo: string;
+    unidades: number;
 }
-
 export default function TableProduct() {
-    const [productos, setProductos] = useState<Producto[]>([]);
+    const [productos, setProductos] = useState<Product[]>([]);
     const idEnterprise = localStorage.getItem('idEnterprise');
 
     const getProducts = async () => {
-        try {
-            const responseOrdenador = await fetch(`http://localhost:8000/ordenador/fabricante/${idEnterprise}`, {
-                method: 'GET',
-                headers: { "Content-Type": "application/json" }
-            });
-            const responseSmartphone = await fetch(`http://localhost:8000/smartphone/fabricante/${idEnterprise}`, {
-                method: 'GET',
-                headers: { "Content-Type": "application/json" }
-            });
-            const responseComponents = await fetch(`http://localhost:8000/components/fabricante/${idEnterprise}`, {
-                method: 'GET',
-                headers: { "Content-Type": "application/json" }
-            });
-            const responseGaming = await fetch(`http://localhost:8000/gaming/fabricante/${idEnterprise}`, {
-                method: 'GET',
-                headers: { "Content-Type": "application/json" }
-            });
+        const response = await fetch(`http://localhost:8000/product/fabricante/${idEnterprise}`, {
+            method: 'GET',
+            headers: { "Content-Type": "application/json" }
+        });
 
-            const ordenadores = await responseOrdenador.json();
-            const smartphones = await responseSmartphone.json();
-            const components = await responseComponents.json();
-            const gaming = await responseGaming.json();
-
-            const allProducts = [
-                ...ordenadores.map((producto: Producto) => ({ ...producto, tipo: 'ordenador' })),
-                ...smartphones.map((producto: Producto) => ({ ...producto, tipo: 'smartphone' })),
-                ...components.map((producto: Producto) => ({ ...producto, tipo: 'component' })),
-                ...gaming.map((producto: Producto) => ({ ...producto, tipo: 'gaming' }))
-            ];
-            setProductos(allProducts);
-        } catch (error) {
-            console.error('Error fetching data:', error);
+        if (response.ok) {
+            const data = await response.json();
+            setProductos(data);
         }
     }
 
-    const deleteProduct = async (id: any, tipo: string) => {
+    const deleteProduct = async (id: number) => {
         console.log("Deleting product with id:", id);
         try {
-            const response = await fetch(`http://localhost:8000/${tipo}/${id}`, {
+            const response = await fetch(`http://localhost:8000/product/${id}`, {
                 method: 'DELETE'
             });
             console.log("Delete product API response:", response);
@@ -71,9 +46,9 @@ export default function TableProduct() {
     };
 
     useEffect(() => {
-        console.log("Component mounted");
         getProducts();
     }, [productos]);
+
 
     return (
         <div style={{ overflowX: 'auto', width: "100%", height: '72vh' }}>
@@ -87,6 +62,8 @@ export default function TableProduct() {
                     <tr>
                         <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Imagen</th>
                         <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Nombre</th>
+                        <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Descripción</th>
+                        <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Categoria</th>
                         <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Precio</th>
                         <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}>Unidades</th>
                         <th style={{ backgroundColor: '#f2f2f2', padding: '12px', textAlign: 'left', fontWeight: 'bold' }}></th>
@@ -95,13 +72,16 @@ export default function TableProduct() {
                 <tbody>
                     {productos.map((producto, index) => (
                         <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#f9f9f9' : '#ffffff' }}>
+
                             <td style={{ padding: '12px', textAlign: 'left' }}>
                                 <img src={producto.image} alt="Producto" style={{ width: '100px' }} />
                             </td>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>{producto.nombre}</td>
-                            <td style={{ padding: '12px', textAlign: 'left' }}>{producto.precio}</td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>{producto.name.toUpperCase()}</td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>{producto.description}</td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>{producto.category}</td>
+                            <td style={{ padding: '12px', textAlign: 'left' }}>{producto.price} €</td>
                             <td style={{ padding: '12px', textAlign: 'left' }}>{producto.unidades}</td>
-                            <td><button onClick={() => deleteProduct(producto.id, producto.tipo)}><FaTrash /></button></td>
+                            <td><button onClick={() => deleteProduct(producto.id)}><FaTrash /></button></td>
                         </tr>
                     ))}
                 </tbody>

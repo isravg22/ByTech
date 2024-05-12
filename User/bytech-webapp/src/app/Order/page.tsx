@@ -111,7 +111,7 @@ const Cartito = () => {
             {cartItems.length > 0 ? (
               cartItems.map((item) => (
                 <div key={item.id} style={{ marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
-                  <Image src={item.product.image} alt={item.product.name} style={{ width: '100px', marginRight: '20px', borderRadius: '5px' }} width={300} height={300} />
+                  <img src={item.product.image} alt={item.product.name} style={{ width: '100px', marginRight: '20px', borderRadius: '5px' }}  />
                   <div>
                     <Typography variant="h5" gutterBottom>
                       {item.product.name}

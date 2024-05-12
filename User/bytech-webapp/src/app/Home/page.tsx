@@ -1,11 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import NavBar from '@/Component/NavBar/Navbar';
 import Footer from '@/Component/Footer/Footer';
 import { Producto } from '@/Interface/Product';
-
 
 const HomePage = () => {
   const [products, setProducts] = useState<Producto[]>([]);
@@ -51,7 +49,7 @@ const HomePage = () => {
         {products.map((product) => (
           <div key={product.id} style={{ padding: '20px', marginBottom: '40px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center', width: '300px' }}>
             <div style={{ marginBottom: '20px', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-              <Image src={product.image} alt={product.name} width={300} height={300} style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
+              <img src={product.image} alt={product.name} style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
               <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{product.name.toUpperCase()}</h2>              
@@ -75,4 +73,3 @@ const HomePage = () => {
   );
 };
 export default HomePage;
-

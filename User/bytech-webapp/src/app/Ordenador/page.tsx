@@ -15,7 +15,7 @@ export default function Ordenador() {
 
   const getProducts = async () => {
     try {
-      const responseOrdenador = await fetch(`http://localhost:8000/product/type/ordenador`, {
+      const responseOrdenador = await fetch(`http://localhost:8000/product/type/Ordenador`, {
         method: 'GET',
         headers: { "Content-Type": "application/json" }
       })
@@ -42,7 +42,7 @@ export default function Ordenador() {
         {ordenadores.map((ordenador, index) => (
           <div key={index} style={{ width: '300px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div style={{ marginBottom: '20px', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-              <Image src={ordenador.image} alt={ordenador.name} width={300} height={300} style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
+              <img src={ordenador.image} alt={ordenador.name} style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
               <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{ordenador.name.toUpperCase()}</h2>              
