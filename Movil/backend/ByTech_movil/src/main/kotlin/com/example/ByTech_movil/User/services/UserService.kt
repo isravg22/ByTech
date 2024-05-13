@@ -7,55 +7,50 @@ import org.springframework.stereotype.Service
 import java.util.Optional
 
 
+
 @Service
-class UserService {
-    @Autowired
-    var userRepository: IUserRepository? = null
+class UserService(@Autowired private val userRepository: IUserRepository) {
 
-    val users: MutableList<UserModel?>?
-        get() = userRepository?.findAll()!!
+    val users: List<UserModel>
+        get() = userRepository.findAll() as List<UserModel>
 
-    fun saveUser(user: UserModel?): UserModel {
-        return userRepository!!.save(user!!)
+    fun saveUser(user: UserModel): UserModel {
+        return userRepository.save(user)
     }
 
-    fun getById(id: Long?): Optional<UserModel?> {
-        return userRepository!!.findById(id!!)
+    fun getById(id: Long): Optional<UserModel?> {
+        return userRepository.findById(id)
     }
 
     fun getUserByCredential(userName: String, password: String): Optional<UserModel?>? {
-        return userRepository?.findByUserNameAndPassword(userName, password)
+        return userRepository.findByUserNameAndPassword(userName, password)
     }
 
-    fun updateByID(request: UserModel, id: Long?): UserModel {
-        val userModel: UserModel = userRepository?.findById(id!!)!!.get()
-
-        userModel.firstName=request.firstName
-        userModel.lastName=request.lastName
-        userModel.email=request.email
-        userModel.password=request.password
-        userModel.rol=request.rol
-        userModel.activated=request.activated
-        userModel.userName=request.userName
-        userModel.enterprise=request.enterprise
-
-        userRepository!!.save(userModel)
-
-        return userModel
-    }
-
-    fun deleteUser(id: Long?): Boolean {
-        try {
-            if (id != null) {
-                userRepository?.deleteById(id)
+    fun updateByID(request: UserModel, id: Long): UserModel {
+        return userRepository.findById(id).map { userModel ->
+            userModel.apply {
+                this?.firstName = request.firstName
+                this?.lastName = request.lastName
+                this?.email = request.email
+                this?.password = request.password
+                this?.rol = request.rol
+                this?.activated = request.activated
+                this?.userName = request.userName
+                this?.enterprise = request.enterprise
             }
-            return true
+        }.map { userRepository.save(it!!) }.orElseThrow { RuntimeException("User not found with id $id") }
+    }
+
+    fun deleteUser(id: Long): Boolean {
+        return try {
+            userRepository.deleteById(id)
+            true
         } catch (e: Exception) {
-            return false
+            false
         }
     }
 
-    fun getByUserName(userName: String?): Optional<UserModel?>? {
-        return userRepository?.findByUserName(userName)
+    fun getByUserName(userName: String): Optional<UserModel?>? {
+        return userRepository.findByUserName(userName)
     }
 }

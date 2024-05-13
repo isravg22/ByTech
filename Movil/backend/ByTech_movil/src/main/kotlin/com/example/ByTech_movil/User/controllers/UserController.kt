@@ -18,52 +18,44 @@ import java.util.Optional
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = ["http://localhost:3000", "http://localhost:3001"])
-class UserController {
-    @Autowired
-    private val userService: UserService? = null
+@CrossOrigin(origins = ["exp://192.168.0.247:8081"])
+class UserController(private val userService: UserService) {
 
-    @get:GetMapping
-    val users: MutableList<UserModel?>?
-        get() = userService?.users
+    @GetMapping
+    fun getUsers(): List<UserModel?>? = userService.users
 
-    @PostMapping(path = ["/insertUser"])
-    fun saveUser(@RequestBody user: UserModel?): UserModel {
-        return userService!!.saveUser(user)
-    }
+    @PostMapping("/insertUser")
+    fun saveUser(@RequestBody user: UserModel): UserModel = userService.saveUser(user)
 
-    @GetMapping(path = ["/{id}"])
-    fun getUserById(@PathVariable("id") id: Long?): Optional<UserModel?> {
-        return userService!!.getById(id)
-    }
+    @GetMapping("/{id}")
+    fun getUserById(@PathVariable("id") id: Long): Optional<UserModel?> = userService.getById(id)
 
     @PostMapping("/login")
     fun login(@RequestBody userModel: UserModel): ResponseEntity<UserModel> {
-        val userOptional: Optional<UserModel?>? =
-            userService?.getUserByCredential(userModel.userName!!, userModel.password!!)
-        if (userOptional != null) {
-            return if (userOptional.isPresent()) {
-                ResponseEntity.ok<UserModel>(userOptional.get())
-            } else {
-                ResponseEntity.status(HttpStatus.UNAUTHORIZED).build<UserModel>()
-            }
+        if(userModel.userName == null || userModel.password == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
         }
-        return TODO("Provide the return value")
-    }
 
-
-    @PutMapping(path = ["{id}"])
-    fun updateUserById(@RequestBody request: UserModel?, @PathVariable("id") id: Long?): UserModel {
-        return userService!!.updateByID(request!!, id)
-    }
-
-    @DeleteMapping(path = ["/{id}"])
-    fun deleteUserById(@PathVariable("id") id: Long): String {
-        val ok: Boolean = userService!!.deleteUser(id)
-        return if (ok) {
-            "User with id $id delete!"
+        val userOptional = userService.getUserByCredential(userModel.userName, userModel.password)
+        return if (userOptional.isPresent) {
+            ResponseEntity.ok(userOptional.get())
         } else {
-            "Error, we have a problem and can´t delete user with id $id"
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        }
+    }
+
+
+    @PutMapping("/{id}")
+    fun updateUserById(@RequestBody request: UserModel, @PathVariable("id") id: Long): UserModel =
+        userService.updateByID(request, id)
+
+    @DeleteMapping("/{id}")
+    fun deleteUserById(@PathVariable("id") id: Long): String {
+        val ok: Boolean = userService.deleteUser(id)
+        return if (ok) {
+            "User with id $id deleted!"
+        } else {
+            "Error, we have a problem and can't delete user with id $id"
         }
     }
 }

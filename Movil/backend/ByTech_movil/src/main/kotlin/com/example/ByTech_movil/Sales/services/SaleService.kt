@@ -29,7 +29,7 @@ class SaleService @Autowired constructor(
         return saleRepository.findByClient_UserName(userName)
     }
 
-    fun createSale(userName: String?): Sale {
+    fun createSale(userName: String): Sale {
         try {
             val client: UserModel = userService.getByUserName(userName)!!.get()
             val shoppingCartList: List<ShoppingCart?>? = shoppingCartService.getListByClient(client.userName)
