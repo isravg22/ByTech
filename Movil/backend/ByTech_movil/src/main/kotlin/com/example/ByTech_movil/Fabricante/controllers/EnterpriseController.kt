@@ -19,7 +19,7 @@ import java.util.function.Consumer
 
 @RestController
 @RequestMapping("/enterprise")
-@CrossOrigin(origins = ["http://localhost:3001", "http://localhost:3000"])
+@CrossOrigin(origins = ["exp://192.168.0.247:8081"])
 class EnterpriseController {
     @Autowired
     private val enterpriseService: EnterpriseService? = null

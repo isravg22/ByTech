@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/shoppingList")
-@CrossOrigin(origins = ["http://localhost:3000", "http://localhost:3001"])
+@CrossOrigin(origins = ["exp://192.168.0.247:8081"])
 class ShoppingCartController @Autowired constructor(shoppingCartService: ShoppingCartService) {
     private val shoppingCartService: ShoppingCartService = shoppingCartService
 

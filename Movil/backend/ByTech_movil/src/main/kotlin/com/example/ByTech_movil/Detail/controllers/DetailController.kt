@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/saleDetail")
-@CrossOrigin(origins = ["http://localhost:3000", "http://localhost:3001"])
+@CrossOrigin(origins = ["exp://192.168.0.247:8081"])
 class DetailController @Autowired constructor(detailService: DetailService) {
     private val detailService: DetailService = detailService
 

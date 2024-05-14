@@ -10,6 +10,7 @@ import Ordenador from '@/components/Ordenador/Ordenador';
 import Smartphone from '@/components/Smartphone/Smartphone';
 import Componente from '@/components/Componente/Componente';
 import Gaming from '@/components/Gaming/Gaming';
+import Carrito from '@/components/Order/Order';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Smartphone" component={Smartphone} options={{ headerShown: false }}/>
         <Stack.Screen name="Componente" component={Componente} options={{ headerShown: false }}/>
         <Stack.Screen name="Gaming" component={Gaming} options={{ headerShown: false }}/> 
+        <Stack.Screen name="Order" component={Carrito} options={{ headerShown: false }}/> 
       </Stack.Navigator>
     </NavigationContainer>
   );
