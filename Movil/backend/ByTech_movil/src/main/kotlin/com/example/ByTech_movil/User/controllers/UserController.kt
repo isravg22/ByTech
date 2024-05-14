@@ -36,8 +36,8 @@ class UserController(private val userService: UserService) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
         }
 
-        val userOptional = userService.getUserByCredential(userModel.userName, userModel.password)
-        return if (userOptional.isPresent) {
+        val userOptional = userService.getUserByCredential(userModel.userName!!, userModel.password!!)
+        return if (userOptional!!.isPresent) {
             ResponseEntity.ok(userOptional.get())
         } else {
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()

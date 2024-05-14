@@ -32,27 +32,23 @@ class ShoppingCartService @Autowired constructor(shoppingCartRepository: Shoppin
     }
 
     fun addProduct(shoppingCart: ShoppingCart): ResponseEntity<Message> {
-        val existingItem: ShoppingCart = findByClientAndProduct(
+        val existingItem: ShoppingCart? = findByClientAndProduct(
             shoppingCart.client?.userName,
             shoppingCart.product?.id
-        )!!
+        )
 
         if (existingItem != null) {
-            existingItem.amount=(existingItem.amount + shoppingCart.amount)
+            existingItem.amount = existingItem.amount + shoppingCart.amount
             updateProduct(existingItem)
-            System.out.println("Cantidad de producto actualizada: " + existingItem.amount)
-            return ResponseEntity<Message>(
-                Message("Cantidad de producto actualizada"),
-                HttpStatus.OK
-            )
+            println("Cantidad de producto actualizada: ${existingItem.amount}")
+            return ResponseEntity<Message>(Message("Cantidad de producto actualizada"), HttpStatus.OK)
         } else {
             addNewProduct(shoppingCart)
-            System.out.println(
-                ("Producto agregado al carrito: " + shoppingCart.product?.name).toString() + " - Cantidad: " + shoppingCart.amount
-            )
+            println("Producto agregado al carrito: ${shoppingCart.product?.name} - Cantidad: ${shoppingCart.amount}")
             return ResponseEntity<Message>(Message("Producto agregado al carrito"), HttpStatus.OK)
         }
     }
+
 
     private fun addNewProduct(shoppingCart: ShoppingCart) {
         shoppingCartRepository.save(shoppingCart)

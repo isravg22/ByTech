@@ -65,7 +65,7 @@ export default function Detail() {
             body: JSON.stringify(cartObject)
         })
         if (responseProduct.ok) {
-            // Handle success
+            console.log(responseProduct.json())
         }
     }
 

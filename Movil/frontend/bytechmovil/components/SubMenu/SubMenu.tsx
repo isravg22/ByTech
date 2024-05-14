@@ -6,11 +6,11 @@ export default function SubMenu() {
 
     return (
         <View style={{ paddingHorizontal: 10 }}>
-            <Link to={'/Ordenadores'} style={{ fontSize: 16, flexDirection: 'row', alignItems: 'center', padding: 10 }}>Ordenadores</Link>
+            <Link to={'/Ordenador'} style={{ fontSize: 16, flexDirection: 'row', alignItems: 'center', padding: 10 }}>Ordenadores</Link>
 
-            <Link to={'/Smartphones'} style={{ fontSize: 16, flexDirection: 'row', alignItems: 'center', padding: 10 }}>Smartphones</Link>
+            <Link to={'/Smartphone'} style={{ fontSize: 16, flexDirection: 'row', alignItems: 'center', padding: 10 }}>Smartphones</Link>
 
-            <Link to={'/Componentes'} style={{ fontSize: 16, flexDirection: 'row', alignItems: 'center', padding: 10 }}>Componentes</Link>
+            <Link to={'/Componente'} style={{ fontSize: 16, flexDirection: 'row', alignItems: 'center', padding: 10 }}>Componentes</Link>
 
             <Link to={'/Gaming'} style={{ fontSize: 16, flexDirection: 'row', alignItems: 'center', padding: 10 }}>Gaming</Link>
         </View>

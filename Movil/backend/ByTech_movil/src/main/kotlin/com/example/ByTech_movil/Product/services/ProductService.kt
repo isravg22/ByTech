@@ -12,9 +12,9 @@ import java.util.Random
 @Transactional
 class ProductService @Autowired constructor(productRepository: ProductRepository) {
     private val productRepository: ProductRepository = productRepository
+
     fun getRelatedProducts(category: String?, productId: Long?): ArrayList<Product> {
-        val productList: ArrayList<Product?>? =
-            productRepository.findByCategoryAndIdNot(category, productId)
+        val productList: ArrayList<Product?>? = productRepository.findByCategoryAndIdNot(category, productId)
         val randomProducts: ArrayList<Product> = ArrayList<Product>()
         val random = Random()
         for (i in 0..1) {
@@ -29,8 +29,8 @@ class ProductService @Autowired constructor(productRepository: ProductRepository
         return productRepository.save(product!!)
     }
 
-    fun getProductById(id: Long?): Optional<Product?> {
-        return productRepository!!.findById(id!!)
+    fun getProductById(id: Long): Optional<Product?> {
+        return productRepository.findById(id)
     }
 
     val bestPriceProducts: ArrayList<Product?>?
@@ -52,8 +52,9 @@ class ProductService @Autowired constructor(productRepository: ProductRepository
     }
 
     fun deleteProduct(id: Long?): Boolean {
+        if (id == null) return false
         try {
-            productRepository.deleteById(id!!)
+            productRepository.deleteById(id)
             return true
         } catch (e: Exception) {
             return false

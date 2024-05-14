@@ -34,7 +34,7 @@ import java.util.Optional
 
 @RestController
 @RequestMapping("/product")
-@CrossOrigin(origins = ["http://localhost:3000", "http://localhost:3001"])
+@CrossOrigin(origins = ["exp://192.168.0.247:8081"])
 class ProductController @Autowired constructor(productService: ProductService) {
     private val productService: ProductService = productService
     private val BUCKET_NAME = "s3-bytech"
@@ -47,13 +47,23 @@ class ProductController @Autowired constructor(productService: ProductService) {
         }
 
     @GetMapping("/{product_id}")
-    fun getProductById(@PathVariable("product_id") productId: Long?): ResponseEntity<Any> {
-        val productOptional: Optional<Product?> = productService.getProductById(productId)
-        return if (productOptional.isPresent()) {
+    fun getProductById(@PathVariable("product_id") productId: String?): ResponseEntity<Any> {
+        val productIdLong: Long? = productId?.toLongOrNull()
+        if (productIdLong == null) {
+            return ResponseEntity<Any>(
+                Message("ID de producto no válido"),
+                HttpStatus.BAD_REQUEST
+
+            )
+            println("id no valida")
+        }
+
+        val productOptional: Optional<Product?> = productService.getProductById(productIdLong!!)
+        return if (productOptional.isPresent) {
             ResponseEntity<Any>(productOptional.get(), HttpStatus.OK)
         } else {
             ResponseEntity<Any>(
-                Message("No encontrado"),
+                Message("Producto no encontrado"),
                 HttpStatus.NOT_FOUND
             )
         }
@@ -116,6 +126,7 @@ class ProductController @Autowired constructor(productService: ProductService) {
     ): ResponseEntity<Message> {
         if (bindingResult.hasErrors()) return ResponseEntity<Message>(
             Message("Revise los campos"),
+
             HttpStatus.BAD_REQUEST
         )
         productService.saveProduct(product)
