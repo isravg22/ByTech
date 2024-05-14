@@ -4,7 +4,7 @@ import { Producto } from '@/interfaces/Product';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NavBar from '@/components/NavBar/NavBar';
 
-export default function Componente({navigation}:any) {
+export default function Componente({ navigation }: any) {
     const [componentes, setComponentes] = useState<Producto[]>([]);
 
     const handleDetailClick = (id: number) => {
@@ -42,7 +42,7 @@ export default function Componente({navigation}:any) {
                 {componentes.map((componente) => (
                     <TouchableOpacity key={componente.id} style={{ backgroundColor: '#ffffff', marginBottom: 20, borderWidth: 1, borderColor: '#ccc', borderRadius: 8 }}>
                         <View style={{ height: 200, overflow: 'hidden' }}>
-                            <Image source={{ uri: componente.image }} style={{ width: '100%', height: '100%', resizeMode: 'cover' }} />
+                            <Image source={{ uri: componente.image }} style={{ width: '50%', height: '100%', alignSelf: 'center', justifyContent: 'center' }} />
                         </View>
                         <View style={{ padding: 10 }}>
                             <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>{componente.name.toUpperCase()}</Text>
