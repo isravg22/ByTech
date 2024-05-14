@@ -31,7 +31,7 @@ export default function Componente({ navigation }: any) {
 
     useEffect(() => {
         getProducts();
-    }, []);
+    }, [componentes]);
 
     return (
         <View style={{ flex: 1, backgroundColor: '#00C8E6' }}>

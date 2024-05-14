@@ -37,22 +37,22 @@ const HomePage = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [products]);
 
   return (
-    <div >
+    <div>
       <NavBar />
-      <h1 style={{ marginBottom: '20px', textAlign: 'center',marginTop:'3.5%', fontSize:'30px',fontWeight:'bold' }}>PRODUCTOS DISPONIBLES</h1>
+      <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '3.5%', fontSize: '30px', fontWeight: 'bold' }}>PRODUCTOS DISPONIBLES</h1>
       {loading && <p>Cargando productos...</p>}
       {error && <p>{error}</p>}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px',}}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', }}>
         {products.map((product) => (
-          <div key={product.id} style={{ padding: '20px', marginBottom: '40px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center', width: '300px' }}>
+          <div key={product.id} style={{ flex: '0 1 23%', padding: '20px', marginBottom: '40px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center', marginLeft: '1%', marginRight: '1%' }}>
             <div style={{ marginBottom: '20px', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-              <img src={product.image} alt={product.name} style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
+              <img src={product.image} alt={product.name} style={{ width: '40%', height: '100%' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
-              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{product.name.toUpperCase()}</h2>              
+              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{product.name.toUpperCase()}</h2>
               <p style={{ margin: '0 0 10px 0', fontSize: '1rem', minHeight: '30px' }}>
                 Descripción: {product.description && product.description.length > 50
                   ? `${product.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`

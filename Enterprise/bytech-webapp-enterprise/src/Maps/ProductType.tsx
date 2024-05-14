@@ -11,8 +11,8 @@ const productType = [
     },
     {
         index:2,
-        value:'Smartphone',
-        field:'smartphone'
+        value:'Smartphones',
+        field:'smartphones'
     }
     ,
     {

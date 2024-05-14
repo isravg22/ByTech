@@ -31,7 +31,7 @@ export default function Ordenador({ navigation }: any) {
 
     useEffect(() => {
         getProducts();
-    }, []);
+    }, [ordenadores]);
 
     return (
         <View style={{ flex: 1, backgroundColor: '#00C8E6' }}>

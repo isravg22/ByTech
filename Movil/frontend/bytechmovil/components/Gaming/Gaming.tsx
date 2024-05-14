@@ -31,7 +31,7 @@ export default function Gaming({navigation}:any) {
 
     useEffect(() => {
         getProducts();
-    }, []);
+    }, [gamings]);
 
     return (
         <View style={{ flex: 1, backgroundColor: '#00C8E6' }}>

@@ -37,7 +37,7 @@ export default function HomePage({ navigation }: any) {
 
     useEffect(() => {
         getProducts();
-    }, []);
+    }, [products]);
 
     return (
         <View style={{ flex: 1, backgroundColor: '#00C8E6' }}>
