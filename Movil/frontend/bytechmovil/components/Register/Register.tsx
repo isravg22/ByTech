@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { ToastAndroid } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import { Link } from '@react-navigation/native';
 
-export default function Registro({navigation}:any) {
+export default function Registro({ navigation }: any) {
     const [inputUser, setInputUser] = useState({
         firstName: '',
         lastName1: '',
@@ -14,8 +13,9 @@ export default function Registro({navigation}:any) {
         password2: '',
     });
 
-    const handleChangeUser = (name:any, value:any) => {
-        setInputUser((prevInputs) => ({ ...prevInputs, [name]: value }));
+    const handleChangeUser = (field: keyof typeof inputUser) => (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        const { text } = event.nativeEvent;
+        setInputUser(prevInputs => ({ ...prevInputs, [field]: text }));
     };
 
     const insertUser = async () => {
@@ -29,7 +29,7 @@ export default function Registro({navigation}:any) {
             if (!userName) missingFields.push('Nombre de usuario');
             if (!password) missingFields.push('Contraseña');
             if (!password2) missingFields.push('Repetir contraseña');
-    
+
             ToastAndroid.show(`Por favor completa los siguientes campos: ${missingFields.join(', ')}`, ToastAndroid.SHORT);
             return;
         }
@@ -63,7 +63,7 @@ export default function Registro({navigation}:any) {
             });
             if (response.ok) {
                 ToastAndroid.show('Usuario creado correctamente', ToastAndroid.SHORT);
-                navigation.navigate('Login')
+                navigation.navigate('Login');
             } else {
                 ToastAndroid.show('El usuario no se ha podido crear.', ToastAndroid.SHORT);
             }
@@ -73,21 +73,24 @@ export default function Registro({navigation}:any) {
         }
     };
 
+    const labels = ['Nombre', 'Primer apellido', 'Segundo apellido', 'Correo', 'Nombre de usuario', 'Contraseña', 'Repetir contraseña'];
+    const fields = ['firstName', 'lastName1', 'lastName2', 'email', 'userName', 'password', 'password2'];
+
     return (
         <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, backgroundColor: '#00C8E6' }}>
             <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 10, marginTop: 10, flexDirection: 'column', width: '80%', height: 'auto' }}>
                 <Image source={{ uri: 'https://s3-bytech.s3.eu-west-3.amazonaws.com/logo.png' }} alt="Logo" style={{ width: 128, height: 128, alignSelf: 'center', marginBottom: 10 }} />
                 <Text style={{ marginBottom: 10, fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Crear cuenta</Text>
                 <View style={{ flexDirection: 'column', marginVertical: 10 }}>
-                    {['firstName', 'lastName1', 'lastName2', 'email', 'userName', 'password', 'password2'].map((fieldName, index) => (
+                    {fields.map((field, index) => (
                         <View key={index} style={{ marginBottom: 10 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 13 }}>{fieldName}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 13 }}>{labels[index]}</Text>
                             <TextInput
                                 placeholder="Ejemplo"
                                 style={{ padding: 5, borderRadius: 3, fontSize: 13, borderWidth: 1, borderColor: 'black', width: '100%' }}
-                                secureTextEntry={index >= 5 ? true : false}
-                                onChangeText={(text) => handleChangeUser(fieldName, text)}
-                                value={inputUser[Object.keys(inputUser)[index] as keyof typeof inputUser]}
+                                secureTextEntry={index >= 5}
+                                onChange={handleChangeUser(field as keyof typeof inputUser)}
+                                value={inputUser[field as keyof typeof inputUser]}
                             />
                         </View>
                     ))}

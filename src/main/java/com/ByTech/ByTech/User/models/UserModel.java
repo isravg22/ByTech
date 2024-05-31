@@ -39,7 +39,19 @@ public class UserModel {
     @Column (name = "enterprise")
     private Long enterprise;
 
+    public UserModel() {
+    }
 
+    public UserModel(String firstName, String lastName, String email, String password, String rol, int activated, String userName, Long enterprise) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.rol = rol;
+        this.activated = activated;
+        this.userName = userName;
+        this.enterprise = enterprise;
+    }
 
     // Getters y setters
 

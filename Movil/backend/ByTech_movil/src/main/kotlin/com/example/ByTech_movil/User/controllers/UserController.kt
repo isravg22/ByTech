@@ -2,7 +2,6 @@ package com.example.ByTech_movil.User.controllers
 
 import com.example.ByTech_movil.User.models.UserModel
 import com.example.ByTech_movil.User.services.UserService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin

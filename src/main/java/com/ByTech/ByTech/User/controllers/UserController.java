@@ -53,9 +53,4 @@ public class UserController {
             return "Error, we have a problem and can´t delete user with id "+id;
         }
     }
-
-
-
-
-
 }
