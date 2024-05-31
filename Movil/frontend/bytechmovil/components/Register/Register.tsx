@@ -65,7 +65,15 @@ export default function Registro({ navigation }: any) {
                 ToastAndroid.show('Usuario creado correctamente', ToastAndroid.SHORT);
                 navigation.navigate('Login');
             } else {
-                ToastAndroid.show('El usuario no se ha podido crear.', ToastAndroid.SHORT);
+                const errorMessage=await response.text();
+
+                if(errorMessage==='Username already exists'){
+                    ToastAndroid.show('El nombre de usuario ya existe, prueba con otro.', ToastAndroid.SHORT);
+                }else if(errorMessage==='Email already exists'){
+                    ToastAndroid.show('El correo electronico ya existe, prueba con otro', ToastAndroid.SHORT);
+                }else{
+                    ToastAndroid.show('El usuario no se ha podido crear.', ToastAndroid.SHORT);
+                }                
             }
         } catch (error) {
             console.error('Error al procesar la solicitud:', error);

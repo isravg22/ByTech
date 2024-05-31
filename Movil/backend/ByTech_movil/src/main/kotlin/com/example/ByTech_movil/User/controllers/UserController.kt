@@ -24,7 +24,17 @@ class UserController(private val userService: UserService) {
     fun getUsers(): List<UserModel?>? = userService.users
 
     @PostMapping("/insertUser")
-    fun saveUser(@RequestBody user: UserModel): UserModel = userService.saveUser(user)
+    fun saveUser(@RequestBody user: UserModel): ResponseEntity<*> {
+        return try {
+            ResponseEntity.ok(userService.saveUser(user))
+        } catch (e: Exception) {
+            when (e.message) {
+                "Username already exists" -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists")
+                "Email already exists" -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists")
+                else -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred")
+            }
+        }
+    }
 
     @GetMapping("/{id}")
     fun getUserById(@PathVariable("id") id: Long): Optional<UserModel?> = userService.getById(id)
@@ -43,10 +53,19 @@ class UserController(private val userService: UserService) {
         }
     }
 
-
     @PutMapping("/{id}")
-    fun updateUserById(@RequestBody request: UserModel, @PathVariable("id") id: Long): UserModel =
-        userService.updateByID(request, id)
+    fun updateUserById(@RequestBody request: UserModel, @PathVariable("id") id: Long): ResponseEntity<*> {
+        return try {
+            ResponseEntity.ok(userService.updateByID(request, id))
+        } catch (e: Exception) {
+            when (e.message) {
+                "Username already exists" -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists")
+                "Email already exists" -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists")
+                else -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred")
+            }
+        }
+    }
+
 
     @DeleteMapping("/{id}")
     fun deleteUserById(@PathVariable("id") id: Long): String {

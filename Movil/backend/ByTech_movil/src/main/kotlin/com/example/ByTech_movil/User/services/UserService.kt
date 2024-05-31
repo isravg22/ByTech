@@ -14,9 +14,17 @@ class UserService(@Autowired private val userRepository: IUserRepository) {
     val users: List<UserModel>
         get() = userRepository.findAll() as List<UserModel>
 
+    @Throws(Exception::class)
     fun saveUser(user: UserModel): UserModel {
+        if (userRepository.existsByUserName(user.userName)) {
+            throw Exception("Username already exists")
+        }
+        if (userRepository.existsByEmail(user.email)) {
+            throw Exception("Email already exists")
+        }
         return userRepository.save(user)
     }
+
 
     fun getById(id: Long): Optional<UserModel?> {
         return userRepository.findById(id)
@@ -26,20 +34,33 @@ class UserService(@Autowired private val userRepository: IUserRepository) {
         return userRepository.findByUserNameAndPassword(userName, password)
     }
 
+    @Throws(Exception::class)
     fun updateByID(request: UserModel, id: Long): UserModel {
-        return userRepository.findById(id).map { userModel ->
-            userModel.apply {
-                this?.firstName = request.firstName
-                this?.lastName = request.lastName
-                this?.email = request.email
-                this?.password = request.password
-                this?.rol = request.rol
-                this?.activated = request.activated
-                this?.userName = request.userName
-                this?.enterprise = request.enterprise
-            }
-        }.map { userRepository.save(it!!) }.orElseThrow { RuntimeException("User not found with id $id") }
+        val userModel = userRepository.findById(id).orElseThrow { Exception("User not found") }
+
+        if (userModel!!.userName != request.userName && userRepository.existsByUserName(request.userName)) {
+            throw Exception("Username already exists")
+        }
+        if (userModel!!.email != request.email && userRepository.existsByEmail(request.email)) {
+            throw Exception("Email already exists")
+        }
+
+        userModel.apply {
+            firstName = request.firstName
+            lastName = request.lastName
+            email = request.email
+            password = request.password
+            rol = request.rol
+            activated = request.activated
+            userName = request.userName
+            enterprise = request.enterprise
+        }
+
+        userRepository.save(userModel)
+
+        return userModel
     }
+
 
     fun deleteUser(id: Long): Boolean {
         return try {

@@ -9,4 +9,6 @@ import java.util.Optional
 interface IUserRepository : JpaRepository<UserModel?, Long?> {
     fun findByUserNameAndPassword(userName: String?, password: String?): Optional<UserModel?>?
     fun findByUserName(userName: String?): Optional<UserModel?>?
+    fun existsByUserName(userName: String?):Boolean
+    fun existsByEmail(email:String?):Boolean
 }
