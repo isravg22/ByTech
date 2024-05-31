@@ -51,41 +51,59 @@ export default function Registro() {
 
 
     const insertEnterprise = async () => {
-        const {  firstName, lastName1, lastName2, email, userName, password, password2 } = inputUser;
-        if (!firstName || !lastName1 || !lastName2 || !email || !userName || !password || !password2 ) {
+        const { firstName, lastName1, lastName2, email, userName, password, password2 } = inputUser;
+        if (!firstName || !lastName1 || !lastName2 || !email || !userName || !password || !password2) {
             toast.error('Por favor completa todos los campos.');
             return;
         }
-    
+
         if (password !== password2) {
             toast.error('Las contraseñas no coinciden.');
             return;
         }
-    
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             toast.error('El correo electrónico no tiene un formato válido.');
             return;
         }
-    
+
         if (password.length < 8) {
             toast.error('La contraseña debe tener al menos 8 caracteres.');
             return;
         }
-    
+
         const usernameRegex = /^[a-zA-Z0-9_]+$/;
         if (!usernameRegex.test(userName)) {
             toast.error('El nombre de usuario solo puede contener letras, números y guiones bajos.');
             return;
         }
+
         const { nif, nombre, descripcion } = inputsEnterprise;
-    
         if (!nif || !nombre || !descripcion) {
             toast.error('Por favor completa todos los campos.');
             return;
         }
-    
+
         try {
+            // Verificar si el nombre de la empresa está disponible
+            const responseEnterpriseCheck = await fetch(`http://localhost:8000/enterprise/checkName/${nombre}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!responseEnterpriseCheck.ok) {
+                const errorData = await responseEnterpriseCheck.text();
+                if (errorData === "Enterprise already exists") {
+                    toast.error('El nombre de la empresa ya existe, pruebe con otro');
+                } else {
+                    toast.error('Error al verificar el nombre de la empresa');
+                }
+                return;
+            }
+
             const lastName = `${lastName1} ${lastName2}`;
             const responseUser = await fetch('http://localhost:8000/user/insertUser', {
                 method: 'POST',
@@ -98,15 +116,15 @@ export default function Registro() {
                     email,
                     userName,
                     password,
-                    rol: 'boss', 
+                    rol: 'boss',
                     activated: 1
                 })
             });
-    
+
             if (responseUser.ok) {
                 const userData = await responseUser.json();
                 const bossId = userData.id;
-                
+
                 const responseEnterprise = await fetch('http://localhost:8000/enterprise/insertEnterprise', {
                     method: 'POST',
                     headers: {
@@ -116,34 +134,42 @@ export default function Registro() {
                         nombre,
                         nif,
                         descripcion,
-                        boss:bossId
+                        boss: bossId
                     })
                 });
-    
+
                 if (responseEnterprise.ok) {
-                    const enterpriseData= await responseEnterprise.json();
-                    const enterprise_id= enterpriseData.id;
+                    const enterpriseData = await responseEnterprise.json();
+                    const enterprise_id = enterpriseData.id;
+
+                    const updateUser = await fetch(`http://localhost:8000/user/${bossId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ ...userData, enterprise: enterprise_id })
+                    });
                     
-                    const updateUser=await fetch(`http://localhost:8000/user/${bossId}`,{
-                        method:'PUT',
-                        headers:{'Content-Type':'application/json'},
-                        body:JSON.stringify({...userData,enterprise:enterprise_id})
-                    })
-                    if(updateUser.ok){
+                    if (updateUser.ok) {
                         toast.success('Empresa creada correctamente');
                         router.push('/');
                     }
-                    
+
                 } else {
-                    const errorData = await responseEnterprise.json();
-                    if (errorData.message) {
-                        toast.error(errorData.message);
+                    const errorData = await responseEnterprise.text();
+                    if (errorData === "Enterprise already exists") {
+                        toast.error('El nombre de la empresa ya existe, pruebe con otro');
                     } else {
-                        toast.error('La Empresa no se ha podido crear.');
+                        toast.error('La empresa no se pudo crear');
                     }
                 }
             } else {
-                throw new Error('Error al guardar el usuario');
+                const errorMessage = await responseUser.text();
+                if (errorMessage === "Username already exists") {
+                    toast.error('El nombre de usuario ya existe, pruebe con otro');
+                } else if (errorMessage === "Email already exists") {
+                    toast.error('El correo electrónico ya existe, pruebe con otro');
+                } else {
+                    toast.error('El usuario no se ha podido crear.');
+                }
             }
         } catch (error) {
             console.error('Error al procesar la solicitud:', error);

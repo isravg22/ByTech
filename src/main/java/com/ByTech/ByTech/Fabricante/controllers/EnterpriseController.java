@@ -13,39 +13,54 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/enterprise")
-@CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000"})
-
+@CrossOrigin(origins = {"http://localhost:3001", "http://localhost:3000"})
 public class EnterpriseController {
     @Autowired
     private EnterpriseService enterpriseService;
 
     @GetMapping
-    public ArrayList<EnterpriseModel> getEnterprise(){
-        return  this.enterpriseService.getEnterprise();
+    public ArrayList<EnterpriseModel> getEnterprise() {
+        return this.enterpriseService.getEnterprise();
     }
 
     @PostMapping(path = "/insertEnterprise")
-    public EnterpriseModel saveEnterprise(@RequestBody EnterpriseModel enterprise){
-        return this.enterpriseService.saveEnterprise(enterprise);
+    public ResponseEntity<?> saveEnterprise(@RequestBody EnterpriseModel enterprise) {
+        try {
+            return ResponseEntity.ok(this.enterpriseService.saveEnterprise(enterprise));
+        } catch (Exception e) {
+            if (e.getMessage().equals("Enterprise already exists")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Enterprise already exists");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+            }
+        }
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<EnterpriseModel> getEnterpriseById(@PathVariable("id") Long id){
+    public Optional<EnterpriseModel> getEnterpriseById(@PathVariable("id") Long id) {
         return this.enterpriseService.getById(id);
     }
 
     @PutMapping(path = "/{id}")
-    public EnterpriseModel updateEnterpriseById(@RequestBody EnterpriseModel request, @PathVariable("id") Long id){
-        return this.enterpriseService.updateByID(request,id);
+    public ResponseEntity<?> updateEnterpriseById(@RequestBody EnterpriseModel request, @PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(this.enterpriseService.updateByID(request, id));
+        } catch (Exception e) {
+            if (e.getMessage().equals("Enterprise already exists")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Enterprise already exists");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+            }
+        }
     }
 
     @DeleteMapping(path = "/{id}")
-    public String deleteEnterpriseById(@PathVariable("id") Long id){
-        boolean ok=this.enterpriseService.deleteEnterprise(id);
-        if(ok){
-            return "Enterprise with id "+id+" deleted!";
-        }else{
-            return "Error, we have a problem and can´t delete enterprise with id "+id;
+    public ResponseEntity<String> deleteEnterpriseById(@PathVariable("id") Long id) {
+        boolean ok = this.enterpriseService.deleteEnterprise(id);
+        if (ok) {
+            return ResponseEntity.ok("Enterprise with id " + id + " deleted!");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error, we have a problem and can't delete enterprise with id " + id);
         }
     }
 
@@ -53,15 +68,10 @@ public class EnterpriseController {
     public ResponseEntity<String> addWorkerToEnterprise(@PathVariable Long id, @RequestBody Long workerId) {
         try {
             EnterpriseModel enterprise = enterpriseService.getById(id).get();
-
-
             List<Long> workers = enterprise.getWorkers();
             workers.add(workerId);
-            System.out.println("___________");
-            workers.forEach(System.out::println);
             enterprise.setWorkers(workers);
             enterpriseService.saveEnterprise(enterprise);
-            System.out.println("ENTERPRISE:\n"+enterpriseService.getById(id));
             return ResponseEntity.ok("Trabajador agregado exitosamente a la empresa.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al agregar trabajador a la empresa: " + e.getMessage());
@@ -82,11 +92,8 @@ public class EnterpriseController {
             }
 
             workers.remove(index);
-            System.out.println("___________");
-            workers.forEach(System.out::println);
             enterprise.setWorkers(workers);
             enterpriseService.saveEnterprise(enterprise);
-            System.out.println("ENTERPRISE:\n"+enterpriseService.getById(id));
 
             return ResponseEntity.ok("Worker removed successfully");
         } catch (Exception e) {
@@ -94,6 +101,13 @@ public class EnterpriseController {
         }
     }
 
-
-
+    @GetMapping("/checkName/{name}")
+    public ResponseEntity<String> checkEnterpriseName(@PathVariable String name) {
+        boolean exists = enterpriseService.existsByNombre(name);
+        if (exists) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Enterprise already exists");
+        } else {
+            return ResponseEntity.ok("Enterprise name is available");
+        }
+    }
 }

@@ -18,20 +18,27 @@ public class EnterpriseService {
     @Autowired
     IUserRepository userRepository;
 
-    public ArrayList<EnterpriseModel> getEnterprise(){
+    public ArrayList<EnterpriseModel> getEnterprise() {
         return (ArrayList<EnterpriseModel>) enterpriseRepository.findAll();
     }
 
-    public EnterpriseModel saveEnterprise(EnterpriseModel enterprise){
-        return  enterpriseRepository.save(enterprise);
+    public EnterpriseModel saveEnterprise(EnterpriseModel enterprise) throws Exception {
+        if (existsByNombre(enterprise.getNombre())) {
+            throw new Exception("Enterprise already exists");
+        }
+        return enterpriseRepository.save(enterprise);
     }
 
-    public Optional<EnterpriseModel> getById(Long id){
+    public Optional<EnterpriseModel> getById(Long id) {
         return enterpriseRepository.findById(id);
     }
 
-    public EnterpriseModel updateByID(EnterpriseModel request,Long id){
-        EnterpriseModel enterpriseModel = enterpriseRepository.findById(id).get();
+    public EnterpriseModel updateByID(EnterpriseModel request, Long id) throws Exception {
+        EnterpriseModel enterpriseModel = enterpriseRepository.findById(id).orElseThrow(() -> new Exception("Enterprise not found"));
+
+        if (!enterpriseModel.getNombre().equals(request.getNombre()) && existsByNombre(request.getNombre())) {
+            throw new Exception("Enterprise already exists");
+        }
 
         enterpriseModel.setNif(request.getNif());
         enterpriseModel.setNombre(request.getNombre());
@@ -39,18 +46,20 @@ public class EnterpriseService {
         enterpriseModel.setDescripcion(request.getDescripcion());
         enterpriseModel.setWorkers(request.getWorkers());
 
-        enterpriseRepository.save(enterpriseModel);
-
-        return enterpriseModel;
+        return enterpriseRepository.save(enterpriseModel);
     }
 
-    public Boolean deleteEnterprise(Long id){
-        try{
+    public Boolean deleteEnterprise(Long id) {
+        try {
             enterpriseRepository.deleteById(id);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
+    }
+
+    public boolean existsByNombre(String nombre) {
+        return enterpriseRepository.existsByNombre(nombre);
     }
 
 }

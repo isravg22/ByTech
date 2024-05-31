@@ -86,9 +86,9 @@ export default function Registro() {
             } else {
                 const errorMessage = await response.text();
                 if (errorMessage === "Username already exists") {
-                    toast.error('El nombre de usuario ya existe.');
+                    toast.error('El nombre de usuario ya existe, pruebe con otro');
                 } else if (errorMessage === "Email already exists") {
-                    toast.error('El correo electrónico ya existe.');
+                    toast.error('El correo electrónico ya existe, pruebe con otro');
                 } else {
                     toast.error('El usuario no se ha podido crear.');
                 }
