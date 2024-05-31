@@ -11,23 +11,33 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 public class UserController {
     @Autowired
     private UserService userService;
 
     @GetMapping
-    public ArrayList<UserModel> getUsers(){
+    public ArrayList<UserModel> getUsers() {
         return this.userService.getUsers();
     }
 
     @PostMapping(path = "/insertUser")
-    public UserModel saveUser(@RequestBody UserModel user){
-        return this.userService.saveUser(user);
+    public ResponseEntity<?> saveUser(@RequestBody UserModel user) {
+        try {
+            return ResponseEntity.ok(this.userService.saveUser(user));
+        } catch (Exception e) {
+            if (e.getMessage().equals("Username already exists")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists");
+            } else if (e.getMessage().equals("Email already exists")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+            }
+        }
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<UserModel> getUserById(@PathVariable("id") Long id){
+    public Optional<UserModel> getUserById(@PathVariable("id") Long id) {
         return this.userService.getById(id);
     }
 
@@ -40,17 +50,29 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
     @PutMapping(path = "{id}")
-    public UserModel updateUserById(@RequestBody UserModel request ,@PathVariable("id") Long id){
-        return this.userService.updateByID(request, id);
+    public ResponseEntity<?> updateUserById(@RequestBody UserModel request, @PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(this.userService.updateByID(request, id));
+        } catch (Exception e) {
+            if (e.getMessage().equals("Username already exists")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists");
+            } else if (e.getMessage().equals("Email already exists")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+            }
+        }
     }
-    @DeleteMapping (path = "/{id}")
-    public String deleteUserById (@PathVariable("id") Long id){
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable("id") Long id) {
         boolean ok = this.userService.deleteUser(id);
-        if(ok){
-            return "User with id "+id+" delete!";
-        }else{
-            return "Error, we have a problem and can´t delete user with id "+id;
+        if (ok) {
+            return ResponseEntity.ok("User with id " + id + " deleted!");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error, we have a problem and can't delete user with id " + id);
         }
     }
 }

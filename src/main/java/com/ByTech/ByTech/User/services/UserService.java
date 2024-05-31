@@ -14,24 +14,37 @@ public class UserService {
     @Autowired
     IUserRepository userRepository;
 
-    public ArrayList<UserModel> getUsers(){
+    public ArrayList<UserModel> getUsers() {
         return (ArrayList<UserModel>) userRepository.findAll();
     }
 
-    public UserModel saveUser(UserModel user){
+    public UserModel saveUser(UserModel user) throws Exception {
+        if (existsByUserName(user.getUserName())) {
+            throw new Exception("Username already exists");
+        }
+        if (existsByEmail(user.getEmail())) {
+            throw new Exception("Email already exists");
+        }
         return userRepository.save(user);
     }
 
-    public Optional<UserModel> getById(Long id){
+    public Optional<UserModel> getById(Long id) {
         return userRepository.findById(id);
     }
 
-    public Optional<UserModel> getUserByCredential(String userName,String password){
-        return userRepository.findByUserNameAndPassword(userName,password);
+    public Optional<UserModel> getUserByCredential(String userName, String password) {
+        return userRepository.findByUserNameAndPassword(userName, password);
     }
 
-    public UserModel updateByID(UserModel request, Long id ){
-        UserModel userModel = userRepository.findById(id).get();
+    public UserModel updateByID(UserModel request, Long id) throws Exception {
+        UserModel userModel = userRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
+
+        if (!userModel.getUserName().equals(request.getUserName()) && existsByUserName(request.getUserName())) {
+            throw new Exception("Username already exists");
+        }
+        if (!userModel.getEmail().equals(request.getEmail()) && existsByEmail(request.getEmail())) {
+            throw new Exception("Email already exists");
+        }
 
         userModel.setFirstName(request.getFirstName());
         userModel.setLastName(request.getLastName());
@@ -47,16 +60,24 @@ public class UserService {
         return userModel;
     }
 
-    public Boolean deleteUser(Long id){
-        try{
+    public Boolean deleteUser(Long id) {
+        try {
             userRepository.deleteById(id);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
-    public Optional<UserModel> getByUserName(String userName){
+    public boolean existsByUserName(String userName) {
+        return userRepository.existsByUserName(userName);
+    }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public Optional<UserModel> getByUserName(String userName) {
         return userRepository.findByUserName(userName);
     }
 }
