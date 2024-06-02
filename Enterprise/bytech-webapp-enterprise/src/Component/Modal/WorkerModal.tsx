@@ -76,18 +76,15 @@ const WorkerModal: React.FC<WorkerModalProps> = ({ closeModal }) => {
             });
 
             if (responseUser.ok) {
-                const dataUser = await responseUser.json();
-    
-                const idEnterprise = localStorage.getItem('idEnterprise');
-                const responseUpdateEnterprise = await fetch(`http://localhost:8000/enterprise/${idEnterprise}/addWorker`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dataUser.id)
-                });
-    
-                if (responseUpdateEnterprise.ok) {
-                    console.log('Se ha agregado correctamente el nuevo trabajador');
-                    closeModal();
+                closeModal();
+            }else{
+                const errorMessage= await responseUser.text();
+                if (errorMessage === "Username already exists") {
+                    toast.error('El nombre de usuario ya existe, pruebe con otro');
+                } else if (errorMessage === "Email already exists") {
+                    toast.error('El correo electrónico ya existe, pruebe con otro');
+                } else {
+                    toast.error('El usuario no se ha podido crear.');
                 }
             }
 

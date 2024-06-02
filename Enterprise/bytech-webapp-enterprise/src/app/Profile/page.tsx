@@ -6,6 +6,7 @@ import { AiFillEdit } from 'react-icons/ai';
 import imageLogo from '@/app/img/logo.png';
 import Footer from '@/Component/Footer/Footer';
 import { UserData } from '@/Interface/UserData';
+import {toast, ToastContainer} from 'react-toastify';
 
 export default function Profile() {
 
@@ -64,7 +65,16 @@ export default function Profile() {
                 console.log('Datos actualizados correctamente');
                 setEditableField('');
             } else {
-                console.error('Error al actualizar los datos del perfil');
+                const errorMessage= await response.text();
+                if(errorMessage==='Username already exists'){
+                    toast.error('Nombre de usuario no válido, prueba otro');
+                }else if(errorMessage==='Email already exists'){
+                    toast.error('Correo electrónico no válido, prueba otro');
+                }else{
+                    console.error('Error al actualizar los datos del perfil');
+                    toast.error('Error al actualizar los datos del perfil');
+                }
+                
             }
         } catch (error) {
             console.error('Error al procesar la solicitud:', error);
@@ -104,10 +114,10 @@ export default function Profile() {
         <div>
             <NavBar />
             <div>
-                <div className="container flex-grow mx-auto p-4 bg-white rounded-lg shadow-lg" style={{ justifyContent:'center',width:'50%',marginTop:'5rem'}}>
-                    <div className="flex flex-col items-center justify-center mb-6">
-                        <Image src={imageLogo} alt="Logotipo" height={100} width={100} />
-                        <h2 className="text-3xl font-semibold mb-6">Perfil de Usuario</h2>
+                <div className="container flex-grow mx-auto p-4 bg-white rounded-lg shadow-lg" style={{ justifyContent:'center',width:'50%',marginTop:'4.5rem',height:'15%'}}>
+                    <div style={{display:'flex',justifyContent:'center'}}>
+                        <Image src={imageLogo} alt="Logotipo" height={70} width={70}/>
+                        <h2 className="text-3xl font-semibold mb-6" style={{marginTop:'20px'}}>Perfil de Usuario</h2>
                     </div>
                     <div className="space-y-6">
                         {LabelInput('Nombre', userData.firstName, 'firstName')}

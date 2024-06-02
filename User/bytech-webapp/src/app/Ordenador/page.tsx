@@ -1,13 +1,14 @@
 'use client'
-import Footer from '@/Component/Footer/Footer';
-import NavBar from '@/Component/NavBar/Navbar';
-import { Producto } from '@/Interface/Product';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import NavBar from '@/Component/NavBar/Navbar';
+import Footer from '@/Component/Footer/Footer';
+import { Producto } from '@/Interface/Product';
 
-export default function Ordenador() {
+export default function Ordenador(){
   const [ordenadores, setOrdenadores] = useState<Producto[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDetailClick = (id: number) => {
     localStorage.setItem('idProducto', String(id));
@@ -15,53 +16,59 @@ export default function Ordenador() {
 
   const getProducts = async () => {
     try {
-      const responseOrdenador = await fetch(`http://localhost:8000/product/type/Ordenador`, {
+      const response = await fetch('http://localhost:8000/product/type/Ordenador', {
         method: 'GET',
-        headers: { "Content-Type": "application/json" }
-      })
-
-      if(responseOrdenador.ok){
-        const ordenadorData = await responseOrdenador.json();
-        console.log('respuesta',ordenadorData);
-        setOrdenadores(ordenadorData);
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      if (response.ok) {
+        const productData = await response.json();
+        setOrdenadores(productData);
+      } else {
+        setError('Error al cargar los productos');
       }
-
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      setError('Error al cargar los productos');
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     getProducts();
-  }, [])
+  }, [ordenadores]);
+
   return (
     <div>
       <NavBar />
-      <h1 style={{ textAlign: 'center', marginTop: '5rem', fontSize: '25px', fontWeight: 'bold' }}>Nuestros ordenadores</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2rem', padding: '2rem' }}>
-        {ordenadores.map((ordenador, index) => (
-          <div key={index} style={{ width: '300px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '5%', fontSize: '30px', fontWeight: 'bold' }}>NUESTROS ORDENADORES</h1>
+      {loading && <p>Cargando productos...</p>}
+      {error && <p>{error}</p>}
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', }}>
+        {ordenadores.map((ordenadores) => (
+          <div key={ordenadores.id} style={{ flex: '0 1 23%', padding: '20px', marginBottom: '40px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center', marginLeft: '1%', marginRight: '1%' }}>
             <div style={{ marginBottom: '20px', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-              <img src={ordenador.image} alt={ordenador.name} style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
+              <img src={ordenadores.image} alt={ordenadores.name} style={{ width: '40%', height: '100%' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
-              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{ordenador.name.toUpperCase()}</h2>              
+              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{ordenadores.name.toUpperCase()}</h2>
               <p style={{ margin: '0 0 10px 0', fontSize: '1rem', minHeight: '30px' }}>
-                Descripción: {ordenador.description && ordenador.description.length > 50
-                  ? `${ordenador.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`
-                  : ordenador.description}
+                Descripción: {ordenadores.description && ordenadores.description.length > 50
+                  ? `${ordenadores.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`
+                  : ordenadores.description}
               </p>
-              <p style={{ margin: '0 0 10px 0', fontSize: '1rem' }}>Precio: {ordenador.price}€</p>
-              <div onClick={() => handleDetailClick(ordenador.id)}>
+              <p style={{ margin: '0 0 10px 0', fontSize: '1rem' }}>Precio: {ordenadores.price}€</p>
+              <div onClick={() => handleDetailClick(ordenadores.id)}>
                 <Link href={`/Home/details/`}>
                   <span style={{ marginRight: '10px', fontSize: '1rem', color: '#0070f3', textDecoration: 'none' }}>Ver detalles</span>
                 </Link>
               </div>
             </div>
           </div>
-        ))} 
+        ))}
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};

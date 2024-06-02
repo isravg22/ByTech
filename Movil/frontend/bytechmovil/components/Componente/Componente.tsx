@@ -14,7 +14,7 @@ export default function Componente({ navigation }: any) {
 
     const getProducts = async () => {
         try {
-            const response = await fetch('http://192.168.0.247:8001/product/type/Componente', {
+            const response = await fetch('http://192.168.0.27:8001/product/type/Componente', {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json"

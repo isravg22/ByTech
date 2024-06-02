@@ -51,11 +51,11 @@ export default function TableProduct() {
 
 
     return (
-        <div style={{ overflowX: 'auto', width: "100%", height: '72vh' }}>
+        <div style={{ overflowX: 'auto', width: "100%", height: '65vh' }}>
             <table style={{
                 width: '100%',
                 borderCollapse: 'collapse',
-                height: '72vh',
+                height: '65vh',
                 fontSize: '16px',
             }}>
                 <thead>

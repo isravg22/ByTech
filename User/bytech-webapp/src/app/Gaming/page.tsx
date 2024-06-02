@@ -1,13 +1,14 @@
 'use client'
-import Footer from '@/Component/Footer/Footer';
-import NavBar from '@/Component/NavBar/Navbar';
-import { Producto } from '@/Interface/Product';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import NavBar from '@/Component/NavBar/Navbar';
+import Footer from '@/Component/Footer/Footer';
+import { Producto } from '@/Interface/Product';
 
-export default function Gaming() {
+export default function Gaming(){
   const [gamings, setGaming] = useState<Producto[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDetailClick = (id: number) => {
     localStorage.setItem('idProducto', String(id));
@@ -15,38 +16,43 @@ export default function Gaming() {
 
   const getProducts = async () => {
     try {
-      const responseGaming = await fetch(`http://localhost:8000/product/type/Gaming`, {
+      const response = await fetch('http://localhost:8000/product/type/Gaming', {
         method: 'GET',
-        headers: { "Content-Type": "application/json" }
-      })
-
-      if(responseGaming.ok){
-        const gamingData = await responseGaming.json();
-        console.log('respuesta',gamingData);
-        setGaming(gamingData);
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      if (response.ok) {
+        const productData = await response.json();
+        setGaming(productData);
+      } else {
+        setError('Error al cargar los productos');
       }
-
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      setError('Error al cargar los productos');
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     getProducts();
-  }, [])
+  }, [gamings]);
 
   return (
     <div>
       <NavBar />
-      <h1 style={{ textAlign: 'center', marginTop: '5rem', fontSize: '25px', fontWeight: 'bold' }}>NUESTROS PRODUCTOS DE GAMING</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2rem', padding: '2rem' }}>
-        {gamings.map((gaming, index) => (
-          <div key={index} style={{ width: '300px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '5%', fontSize: '30px', fontWeight: 'bold' }}>NUESTROS PRODUCTOS DE GAMING</h1>
+      {loading && <p>Cargando productos...</p>}
+      {error && <p>{error}</p>}
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', }}>
+        {gamings.map((gaming) => (
+          <div key={gaming.id} style={{ flex: '0 1 23%', padding: '20px', marginBottom: '40px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center', marginLeft: '1%', marginRight: '1%' }}>
             <div style={{ marginBottom: '20px', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-              <img src={gaming.image} alt={gaming.name} style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
+              <img src={gaming.image} alt={gaming.name} style={{ width: '40%', height: '100%' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
-              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{gaming.name.toUpperCase()}</h2>              
+              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{gaming.name.toUpperCase()}</h2>
               <p style={{ margin: '0 0 10px 0', fontSize: '1rem', minHeight: '30px' }}>
                 Descripción: {gaming.description && gaming.description.length > 50
                   ? `${gaming.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`
@@ -60,9 +66,9 @@ export default function Gaming() {
               </div>
             </div>
           </div>
-        ))} 
+        ))}
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};

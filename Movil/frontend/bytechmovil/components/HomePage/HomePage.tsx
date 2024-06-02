@@ -6,8 +6,6 @@ import NavBar from '@/components/NavBar/NavBar';
 
 export default function HomePage({ navigation }: any) {
     const [products, setProducts] = useState<Producto[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
 
     const handleDetailClick = (id: number) => {
         AsyncStorage.setItem('idProducto', String(id));
@@ -16,7 +14,7 @@ export default function HomePage({ navigation }: any) {
 
     const getProducts = async () => {
         try {
-            const response = await fetch('http://192.168.0.247:8001/product', {
+            const response = await fetch('http://192.168.0.27:8001/product', {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json"
@@ -25,13 +23,9 @@ export default function HomePage({ navigation }: any) {
             if (response.ok) {
                 const productData = await response.json();
                 setProducts(productData);
-            } else {
-                setError('Error al cargar los productos');
-            }
+            } 
         } catch (error) {
-            setError('Error al cargar los productos');
-        } finally {
-            setLoading(false);
+            console.log(error)
         }
     };
 
@@ -45,8 +39,7 @@ export default function HomePage({ navigation }: any) {
 
             <ScrollView style={{ paddingHorizontal: 20 }}>
                 <Text style={{ marginBottom: 20, textAlign: 'center', fontSize: 30, fontWeight: 'bold' }}>PRODUCTOS DISPONIBLES</Text>
-                {loading && <Text>Cargando productos...</Text>}
-                {error && <Text>{error}</Text>}
+                
                 {products.map((product) => (
                     <TouchableOpacity key={product.id} style={{ backgroundColor: '#ffffff', marginBottom: 20, borderWidth: 1, borderColor: '#ccc', borderRadius: 8 }}>
                         <View style={{ height: 200, overflow: 'hidden' }}>

@@ -22,7 +22,7 @@ export default function Detail() {
     }, []);
 
     const getProductById = async (id: string) => {
-        const response = await fetch(`http://192.168.0.247:8001/product/${id}`, {
+        const response = await fetch(`http://192.168.0.27:8001/product/${id}`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json"
@@ -45,7 +45,7 @@ export default function Detail() {
 
     const addToCart = async ({ amountToAdd, productToAdd }: any) => {
         const userId = await AsyncStorage.getItem('idUser');
-        const responseUser = await fetch(`http://192.168.0.247:8001/user/${userId}`)
+        const responseUser = await fetch(`http://192.168.0.27:8001/user/${userId}`)
         let user;
         if (responseUser.ok) {
             const userData = await responseUser.json();
@@ -57,7 +57,7 @@ export default function Detail() {
             product: productToAdd,
             amount: amountToAdd
         }
-        const responseProduct = await fetch(`http://192.168.0.247:8001/shoppingList/addProductToList`, {
+        const responseProduct = await fetch(`http://192.168.0.27:8001/shoppingList/addProductToList`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData, ScrollView } from 'react-native';
 import { Link } from '@react-navigation/native';
 
 export default function Registro({ navigation }: any) {
@@ -54,7 +54,7 @@ export default function Registro({ navigation }: any) {
         }
         try {
             const lastName = `${lastName1} ${lastName2}`;
-            const response = await fetch('http://192.168.0.247:8001/user/insertUser', {
+            const response = await fetch('http://192.168.0.27:8001/user/insertUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,15 +65,15 @@ export default function Registro({ navigation }: any) {
                 ToastAndroid.show('Usuario creado correctamente', ToastAndroid.SHORT);
                 navigation.navigate('Login');
             } else {
-                const errorMessage=await response.text();
+                const errorMessage = await response.text();
 
-                if(errorMessage==='Username already exists'){
+                if (errorMessage === 'Username already exists') {
                     ToastAndroid.show('El nombre de usuario ya existe, prueba con otro.', ToastAndroid.SHORT);
-                }else if(errorMessage==='Email already exists'){
+                } else if (errorMessage === 'Email already exists') {
                     ToastAndroid.show('El correo electronico ya existe, prueba con otro', ToastAndroid.SHORT);
-                }else{
+                } else {
                     ToastAndroid.show('El usuario no se ha podido crear.', ToastAndroid.SHORT);
-                }                
+                }
             }
         } catch (error) {
             console.error('Error al procesar la solicitud:', error);
@@ -85,31 +85,34 @@ export default function Registro({ navigation }: any) {
     const fields = ['firstName', 'lastName1', 'lastName2', 'email', 'userName', 'password', 'password2'];
 
     return (
-        <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, backgroundColor: '#00C8E6' }}>
-            <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 10, marginTop: 10, flexDirection: 'column', width: '80%', height: 'auto' }}>
-                <Image source={{ uri: 'https://s3-bytech.s3.eu-west-3.amazonaws.com/logo.png' }} alt="Logo" style={{ width: 128, height: 128, alignSelf: 'center', marginBottom: 10 }} />
-                <Text style={{ marginBottom: 10, fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Crear cuenta</Text>
-                <View style={{ flexDirection: 'column', marginVertical: 10 }}>
-                    {fields.map((field, index) => (
-                        <View key={index} style={{ marginBottom: 10 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 13 }}>{labels[index]}</Text>
-                            <TextInput
-                                placeholder="Ejemplo"
-                                style={{ padding: 5, borderRadius: 3, fontSize: 13, borderWidth: 1, borderColor: 'black', width: '100%' }}
-                                secureTextEntry={index >= 5}
-                                onChange={handleChangeUser(field as keyof typeof inputUser)}
-                                value={inputUser[field as keyof typeof inputUser]}
-                            />
-                        </View>
-                    ))}
-                    <Text style={{ fontSize: 14, textAlign: 'center' }}>
-                        Si ya tienes cuenta, pulsa <Link to={'/Login'} style={{ fontWeight: 'bold' }}>aquí</Link>.
-                    </Text>
-                    <TouchableOpacity style={{ backgroundColor: '#00a2ff', padding: 5, borderRadius: 3, borderWidth: 0, alignItems: 'center', marginTop: 10 }} onPress={insertUser}>
-                        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>Crear cuenta</Text>
-                    </TouchableOpacity>
+        <ScrollView style={{backgroundColor: '#00C8E6'}}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, backgroundColor: '#00C8E6' }}>
+                <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 10, marginTop: '9%', flexDirection: 'column', width: '80%',marginBottom:'9%' }}>
+                    <Image source={{ uri: 'https://s3-bytech.s3.eu-west-3.amazonaws.com/logo.png' }} alt="Logo" style={{ width: 128, height: 128, alignSelf: 'center', marginBottom: 10 }} />
+                    <Text style={{ marginBottom: 10, fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Crear cuenta</Text>
+                    <View style={{ flexDirection: 'column', marginVertical: 10 }}>
+                        {fields.map((field, index) => (
+                            <View key={index} style={{ marginBottom: 10 }}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 13 }}>{labels[index]}</Text>
+                                <TextInput
+                                    placeholder="Ejemplo"
+                                    style={{ padding: 5, borderRadius: 3, fontSize: 13, borderWidth: 1, borderColor: 'black', width: '100%' }}
+                                    secureTextEntry={index >= 5}
+                                    onChange={handleChangeUser(field as keyof typeof inputUser)}
+                                    value={inputUser[field as keyof typeof inputUser]}
+                                />
+                            </View>
+                        ))}
+                        <Text style={{ fontSize: 14, textAlign: 'center' }}>
+                            Si ya tienes cuenta, pulsa <Link to={'/Login'} style={{ fontWeight: 'bold' }}>aquí</Link>.
+                        </Text>
+                        <TouchableOpacity style={{ backgroundColor: '#00a2ff', padding: 5, borderRadius: 3, borderWidth: 0, alignItems: 'center', marginTop: 10 }} onPress={insertUser}>
+                            <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>Crear cuenta</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
+
     );
 }

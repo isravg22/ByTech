@@ -80,4 +80,8 @@ public class UserService {
     public Optional<UserModel> getByUserName(String userName) {
         return userRepository.findByUserName(userName);
     }
+
+    public ArrayList<UserModel> findByEnterprise(Long id){
+        return userRepository.findByEnterprise(id);
+    }
 }

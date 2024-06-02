@@ -42,7 +42,7 @@ const HomePage = () => {
   return (
     <div>
       <NavBar />
-      <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '3.5%', fontSize: '30px', fontWeight: 'bold' }}>PRODUCTOS DISPONIBLES</h1>
+      <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '5%', fontSize: '30px', fontWeight: 'bold' }}>PRODUCTOS DISPONIBLES</h1>
       {loading && <p>Cargando productos...</p>}
       {error && <p>{error}</p>}
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', }}>

@@ -14,7 +14,7 @@ export default function Carrito (){
     try {
       const idUser = await AsyncStorage.getItem('idUser');
       if (!idUser) return;
-      const responseUser = await fetch(`http://192.168.0.247:8001/user/${idUser}`);
+      const responseUser = await fetch(`http://192.168.0.27:8001/user/${idUser}`);
       if (!responseUser.ok) {
         throw new Error('Error fetching user data');
       }
@@ -22,7 +22,7 @@ export default function Carrito (){
       const userName = userData.userName;
       setUserName(userName);
 
-      const response = await fetch(`http://192.168.0.247:8001/shoppingList/user/${userName}`);
+      const response = await fetch(`http://192.168.0.27:8001/shoppingList/user/${userName}`);
       if (!response.ok) {
         throw new Error('Error fetching shopping cart data');
       }
@@ -37,7 +37,7 @@ export default function Carrito (){
   };
 
   const removeFromCart = (id: number) => {
-    fetch(`http://192.168.0.247:8001/shoppingList/clean/${id}`, {
+    fetch(`http://192.168.0.27:8001/shoppingList/clean/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -58,7 +58,7 @@ export default function Carrito (){
 
     setCartItems(updatedCartItems);
 
-    fetch(`http://192.168.0.247:8001/shoppingList/updateProductQuantity/${id}`, {
+    fetch(`http://192.168.0.27:8001/shoppingList/updateProductQuantity/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default function Carrito (){
 
   const createSale = async () => {
     try {
-      const response = await fetch(`http://192.168.0.247:8001/sale/create/${userName}`, {
+      const response = await fetch(`http://192.168.0.27:8001/sale/create/${userName}`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
       });

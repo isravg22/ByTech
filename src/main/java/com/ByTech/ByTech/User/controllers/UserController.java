@@ -2,6 +2,7 @@ package com.ByTech.ByTech.User.controllers;
 
 import com.ByTech.ByTech.User.services.UserService;
 import com.ByTech.ByTech.User.models.UserModel;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,5 +75,10 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error, we have a problem and can't delete user with id " + id);
         }
+    }
+
+    @GetMapping(path = "/enterprise/{id}")
+    public ArrayList<UserModel> findByEnterpriseID(@PathVariable("id") Long id){
+        return this.userService.findByEnterprise(id);
     }
 }

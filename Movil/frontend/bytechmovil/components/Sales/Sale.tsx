@@ -11,7 +11,7 @@ export default function Sales() {
     try {
       const idUser = await AsyncStorage.getItem('idUser');
       if (idUser) {
-        const response = await fetch(`http://192.168.0.247:8001/user/${idUser}`);
+        const response = await fetch(`http://192.168.0.27:8001/user/${idUser}`);
         if (response.ok) {
           const data = await response.json();
           setUserName(data.userName);
@@ -24,7 +24,7 @@ export default function Sales() {
 
   const getSales = async () => {
       try {
-          const response = await fetch(`http://192.168.0.247:8001/sale/client/${userName}`);
+          const response = await fetch(`http://192.168.0.27:8001/sale/client/${userName}`);
           if (response.ok) {
               const data = await response.json();
               setSaleDetails(data);

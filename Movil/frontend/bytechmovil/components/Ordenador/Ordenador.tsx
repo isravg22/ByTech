@@ -14,7 +14,7 @@ export default function Ordenador({ navigation }: any) {
 
     const getProducts = async () => {
         try {
-            const response = await fetch('http://192.168.0.247:8001/product/type/Ordenador', {
+            const response = await fetch('http://192.168.0.27:8001/product/type/Ordenador', {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json"

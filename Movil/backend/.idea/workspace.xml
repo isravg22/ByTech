@@ -5,60 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d0b7dde-cee5-4473-aa43-b64064bb7be9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/settings.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/ByTechMovilApplication.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ByTech_movil/src/test/kotlin/com/example/ByTech_movil/ByTechMovilApplicationTests.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/migrations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/bytech_movile/ExampleInstrumentedTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/example/bytech_movile/ExampleUnitTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Modal/WorkerModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Modal/WorkerModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Table/TableProduct.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Table/TableProduct.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Table/TableWorker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Table/TableWorker.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/app/Home/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/app/Home/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/app/Profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/app/Profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Componentes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Componentes/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Gaming/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Gaming/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Home/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Home/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Ordenador/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Ordenador/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Order/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Order/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Smartphone/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Smartphone/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/repositories/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/repositories/IUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/repositories/IUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/repositories/IUserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/services/UserService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,9 +43,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2gNHKazkn643af7kxxvAWSiukzG" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -91,7 +60,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Israel/Desktop/ByTech/Movil/backend/ByTech_movil"
+    "last_opened_file_path": "C:/Users/isval/Desktop/ByTech/ByTech/Movil/backend/ByTech_movil"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

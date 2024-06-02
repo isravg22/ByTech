@@ -70,7 +70,7 @@ export default function HomePage(){
       <NavBar />
       <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
         <h1 style={{ marginTop: '60px', marginBottom: '20px', fontSize: '2rem', fontWeight: 'bold' }}>Bienvenido</h1>
-        <div id="chart" style={{ width: '100%', maxWidth: '1800px', height:'600px'}} />
+        <div id="chart" style={{ width: '100%', maxWidth: '1600px', height:'500px'}} />
       </div>
       <Footer />
     </div>

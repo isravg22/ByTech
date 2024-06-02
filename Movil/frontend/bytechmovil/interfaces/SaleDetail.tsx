@@ -1,5 +1,5 @@
 export type SaleDetail = {
-    id: number;
-    date: string;
-    total: number;
-  };
+  id: number;
+  date: string;
+  total: number;
+};

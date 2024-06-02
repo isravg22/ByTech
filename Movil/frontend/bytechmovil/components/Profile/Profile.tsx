@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, ScrollView } from 'react-native';
 import NavBar from '../NavBar/NavBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserData } from '@/interfaces/UserData';
@@ -19,7 +19,7 @@ export default function Profile() {
     const userDetails = async () => {
         try {
             const token = await AsyncStorage.getItem('idUser');
-            const response = await fetch(`http://192.168.0.247:8001/user/${token}`, {
+            const response = await fetch(`http://192.168.0.27:8001/user/${token}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -48,7 +48,7 @@ export default function Profile() {
     const handleSave = async () => {
         try {
             const token = await AsyncStorage.getItem('idUser');
-            const response = await fetch(`http://192.168.0.247:8001/user/${token}`, {
+            const response = await fetch(`http://192.168.0.27:8001/user/${token}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -74,7 +74,7 @@ export default function Profile() {
             [fieldName]: value
         }));
     };
-    
+
     const LabelInput = (label: string, value: string, fieldName: string) => (
         <View style={{ flexDirection: 'column', alignItems: 'flex-start', marginBottom: 10 }}>
             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{label}</Text>
@@ -98,22 +98,24 @@ export default function Profile() {
     return (
         <View style={{ flex: 1, backgroundColor: '#00C8E6' }}>
             <NavBar />
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Image source={{ uri: 'https://s3-bytech.s3.eu-west-3.amazonaws.com/logo.png' }} style={{ width: 100, height: 100 }} />
-                <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10 }}>Perfil de Usuario</Text>
-            </View>
-            <View style={{ marginHorizontal: 20, marginTop: 20 }}>
-                {LabelInput('Nombre', userData.firstName, 'firstName')}
-                {LabelInput('Apellidos', userData.lastName, 'lastName')}
-                {LabelInput('Correo electrónico', userData.email, 'email')}
-                {LabelInput('Nombre de Usuario', userData.userName, 'userName')}
-                {LabelInput('Contraseña', userData.password, 'password')}
-                {editableField && (
-                    <TouchableOpacity onPress={handleSave} style={{ alignItems: 'center', marginTop: 10,backgroundColor: '#00a2ff',borderRadius: 5,height:'10%',justifyContent:'center' }}>
-                        <Text style={{ color: 'white', fontSize: 18, textDecorationLine: 'none' }}>Guardar</Text>
-                    </TouchableOpacity>
-                )}
-            </View>
+            <ScrollView  >
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Image source={{ uri: 'https://s3-bytech.s3.eu-west-3.amazonaws.com/logo.png' }} style={{ width: 100, height: 100 }} />
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10 }}>Perfil de Usuario</Text>
+                </View>
+                <View style={{ marginHorizontal: 20,marginBottom:'9%' }}>
+                    {LabelInput('Nombre', userData.firstName, 'firstName')}
+                    {LabelInput('Apellidos', userData.lastName, 'lastName')}
+                    {LabelInput('Correo electrónico', userData.email, 'email')}
+                    {LabelInput('Nombre de Usuario', userData.userName, 'userName')}
+                    {LabelInput('Contraseña', userData.password, 'password')}
+                    {editableField && (
+                        <TouchableOpacity onPress={handleSave} style={{ alignItems: 'center', marginTop: 10, backgroundColor: '#00a2ff', borderRadius: 5, height: '10%', justifyContent: 'center' }}>
+                            <Text style={{ color: 'white', fontSize: 18, textDecorationLine: 'none' }}>Guardar</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
+            </ScrollView>
         </View>
     );
 }

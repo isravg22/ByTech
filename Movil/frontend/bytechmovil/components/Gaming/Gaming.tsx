@@ -14,7 +14,7 @@ export default function Gaming({navigation}:any) {
 
     const getProducts = async () => {
         try {
-            const response = await fetch('http://192.168.0.247:8001/product/type/Gaming', {
+            const response = await fetch('http://192.168.0.27:8001/product/type/Gaming', {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json"

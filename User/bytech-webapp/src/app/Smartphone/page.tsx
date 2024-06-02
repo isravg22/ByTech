@@ -1,13 +1,14 @@
 'use client'
-import Footer from '@/Component/Footer/Footer';
-import NavBar from '@/Component/NavBar/Navbar';
-import { Producto } from '@/Interface/Product';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import NavBar from '@/Component/NavBar/Navbar';
+import Footer from '@/Component/Footer/Footer';
+import { Producto } from '@/Interface/Product';
 
-export default function Smartphone() {
+export default function Smartphone(){
   const [smartphones, setSmartphones] = useState<Producto[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDetailClick = (id: number) => {
     localStorage.setItem('idProducto', String(id));
@@ -15,54 +16,59 @@ export default function Smartphone() {
 
   const getProducts = async () => {
     try {
-      const responseSmartphone = await fetch(`http://localhost:8000/product/type/Smartphones`, {
+      const response = await fetch('http://localhost:8000/product/type/Smartphones', {
         method: 'GET',
-        headers: { "Content-Type": "application/json" }
-      })
-
-      if(responseSmartphone.ok){
-        const smartphoneData = await responseSmartphone.json();
-        console.log('respuesta',smartphoneData);
-        setSmartphones(smartphoneData);
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      if (response.ok) {
+        const productData = await response.json();
+        setSmartphones(productData);
+      } else {
+        setError('Error al cargar los productos');
       }
-
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      setError('Error al cargar los productos');
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     getProducts();
-  }, [])
+  }, [smartphones]);
 
   return (
     <div>
       <NavBar />
-      <h1 style={{ textAlign: 'center', marginTop: '5rem', fontSize: '25px', fontWeight: 'bold' }}>NUESTROS SMARTPHONES</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2rem', padding: '2rem' }}>
-        {smartphones.map((smarphone, index) => (
-          <div key={index} style={{ width: '300px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '5%', fontSize: '30px', fontWeight: 'bold' }}>NUESTROS SMARTPHONES</h1>
+      {loading && <p>Cargando productos...</p>}
+      {error && <p>{error}</p>}
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', }}>
+        {smartphones.map((smartphone) => (
+          <div key={smartphone.id} style={{ flex: '0 1 23%', padding: '20px', marginBottom: '40px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center', marginLeft: '1%', marginRight: '1%' }}>
             <div style={{ marginBottom: '20px', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-              <img src={smarphone.image} alt={smarphone.name} style={{ objectFit: 'cover', width: '80%', height: '100%' }} />
+              <img src={smartphone.image} alt={smartphone.name} style={{ width: '40%', height: '100%' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
-              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{smarphone.name.toUpperCase()}</h2>              
+              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{smartphone.name.toUpperCase()}</h2>
               <p style={{ margin: '0 0 10px 0', fontSize: '1rem', minHeight: '30px' }}>
-                Descripción: {smarphone.description && smarphone.description.length > 50
-                  ? `${smarphone.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`
-                  : smarphone.description}
+                Descripción: {smartphone.description && smartphone.description.length > 50
+                  ? `${smartphone.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`
+                  : smartphone.description}
               </p>
-              <p style={{ margin: '0 0 10px 0', fontSize: '1rem' }}>Precio: {smarphone.price}€</p>
-              <div onClick={() => handleDetailClick(smarphone.id)}>
+              <p style={{ margin: '0 0 10px 0', fontSize: '1rem' }}>Precio: {smartphone.price}€</p>
+              <div onClick={() => handleDetailClick(smartphone.id)}>
                 <Link href={`/Home/details/`}>
                   <span style={{ marginRight: '10px', fontSize: '1rem', color: '#0070f3', textDecoration: 'none' }}>Ver detalles</span>
                 </Link>
               </div>
             </div>
           </div>
-        ))} 
+        ))}
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};

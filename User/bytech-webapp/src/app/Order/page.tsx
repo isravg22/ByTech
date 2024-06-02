@@ -159,7 +159,7 @@ const Cartito = () => {
               totalPrice != 0 ? (
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
                   <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                    Total: ${totalPrice}
+                    Total: {totalPrice} €
                   </Typography>
                   <Button variant='contained' onClick={createSale} style={{ marginRight: '20px' }}>Pagar</Button>
                 </div>
