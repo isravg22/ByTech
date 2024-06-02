@@ -168,8 +168,8 @@ class ProductController @Autowired constructor(productService: ProductService) {
 
 
     private fun uploadImageToS3(imageName: String, imageBytes: ByteArray): String? {
-        val accessKey = "AKIA6ODUZLCDVXD3I6H7"
-        val secretKey = "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"
+        val accessKey = "Esta comentada la clave porque si no me deshabilitan mi cuenta cuando lo exponga va el valor que esta comentado"//"AKIA6ODUZLCDVXD3I6H7"
+        val secretKey ="Esta comentada la clave porque si no me deshabilitan mi cuenta cuando lo exponga va el valor que esta comentado" //"YAni57ttllkPGAZ1bjNboeWAZ7faB8iA8VvqFI83"
 
         val awsCredentials: AwsBasicCredentials = AwsBasicCredentials.create(accessKey, secretKey)
         val credentialsProvider: StaticCredentialsProvider =
