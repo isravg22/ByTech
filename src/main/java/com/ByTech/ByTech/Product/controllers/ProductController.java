@@ -143,8 +143,10 @@ public class ProductController {
 
 
     private String uploadImageToS3(String imageName, byte[] imageBytes) {
-        String accessKey = "AKIA6ODUZLCDVXD3I6H7";
-        String secretKey = "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";
+        String accessKey = "Esta comentada la clave porque si no me deshabilitan mi cuenta cuando lo exponga va el valor que esta comentado";//"AKIA6ODUZLCDVXD3I6H7";
+        String secretKey = "Esta comentada la clave porque si no me deshabilitan mi cuenta cuando lo exponga va el valor que esta comentado";//"YAni57ttllkPGAZ1bjNboeWAZ7faB8iA8VvqFI83";
+
+
 
         AwsBasicCredentials awsCredentials = AwsBasicCredentials.create(accessKey, secretKey);
         StaticCredentialsProvider credentialsProvider = StaticCredentialsProvider.create(awsCredentials);
