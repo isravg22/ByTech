@@ -38,37 +38,53 @@ const HomePage = () => {
 
   useEffect(() => {
     getProducts();
-  }, [products]);
+  }, []);
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <NavBar />
-      <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '5%', fontSize: '30px', fontWeight: 'bold' }}>PRODUCTOS DISPONIBLES</h1>
-      {loading && <p>Cargando productos...</p>}
-      {error && <p>{error}</p>}
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', }}>
-        {products.map((product) => (
-          <div key={product.id} style={{ flex: '0 1 23%', padding: '20px', marginBottom: '40px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center', marginLeft: '1%', marginRight: '1%' }}>
-            <div style={{ marginBottom: '20px', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-              <Image src={product.image} alt={product.name} style={{ width: '40%', height: '100%' }} width={500} height={500}/>
-            </div>
-            <div style={{ textAlign: 'left' }}>
-              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{product.name.toUpperCase()}</h2>
-              <p style={{ margin: '0 0 10px 0', fontSize: '1rem', minHeight: '30px' }}>
-                Descripción: {product.description && product.description.length > 50
-                  ? `${product.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`
-                  : product.description}
-              </p>
-              <p style={{ margin: '0 0 10px 0', fontSize: '1rem' }}>Precio: {product.price}€</p>
-              <div onClick={() => handleDetailClick(product.id)}>
-                <Link href={`/Home/details/`}>
-                  <span style={{ marginRight: '10px', fontSize: '1rem', color: '#0070f3', textDecoration: 'none' }}>Ver detalles</span>
-                </Link>
+      <main className="flex-1 container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-center mb-8 mt-8 text-gray-800 tracking-wide">
+          PRODUCTOS DISPONIBLES
+        </h1>
+        {loading && <p className="text-center text-gray-500">Cargando productos...</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center p-5"
+            >
+              <div className="w-full h-48 flex items-center justify-center overflow-hidden rounded-lg mb-4 bg-gray-100">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={200}
+                  height={200}
+                  className="object-contain h-full"
+                />
+              </div>
+              <div className="w-full text-left">
+                <h2 className="text-lg font-bold mb-2 text-gray-800">{product.name.toUpperCase()}</h2>
+                <p className="text-gray-600 text-sm mb-2 min-h-[40px]">
+                  Descripción: {product.description && product.description.length > 50
+                    ? `${product.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`
+                    : product.description}
+                </p>
+                <p className="text-blue-600 font-semibold text-base mb-4">Precio: {product.price}€</p>
+                <button
+                  onClick={() => handleDetailClick(product.id)}
+                  className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-medium"
+                >
+                  <Link href={`/Home/details/`}>
+                    Ver detalles
+                  </Link>
+                </button>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </main>
       <Footer />
     </div>
   );

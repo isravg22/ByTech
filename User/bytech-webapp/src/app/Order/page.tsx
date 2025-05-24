@@ -10,7 +10,7 @@ import Sales from '@/Component/Sales/Sale';
 const Cartito = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const idUser = localStorage.getItem('idUser');
+  const idUser = typeof window !== 'undefined' ? localStorage.getItem('idUser') : null;
   const [userName, setUserName] = useState<string | undefined>();
 
   const getCart = async () => {
@@ -95,25 +95,33 @@ const Cartito = () => {
       console.error('Error creating sale:', error);
     }
   };
+
   useEffect(() => {
     getCart();
-  });
+  }, [cartItems]);
 
   return (
-    <div>
+    <div style={{ background: '#fff', minHeight: '100vh' }}>
       <NavBar />
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', display: 'flex' }}>
-        <div style={{ flex: 1 }}>
-          <Typography variant="h3" align="center" gutterBottom style={{ marginTop: '60px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px', display: 'flex', gap: '32px' }}>
+        <div style={{
+          flex: 1,
+          background: 'rgba(255,255,255,0.97)',
+          borderRadius: '18px',
+          boxShadow: '0 4px 24px rgba(44,62,80,0.10)',
+          padding: '2em 2em',
+          marginTop: '60px'
+        }}>
+          <Typography variant="h4" align="center" gutterBottom style={{ marginBottom: '32px', color: '#1a237e', fontWeight: 700 }}>
             Carrito de compras
           </Typography>
           <div>
             {cartItems.length > 0 ? (
               cartItems.map((item) => (
                 <div key={item.id} style={{ marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
-                  <img src={item.product.image} alt={item.product.name} style={{ width: '100px', marginRight: '20px', borderRadius: '5px' }}  />
+                  <Image src={item.product.image} alt={item.product.name} style={{ width: '100px', marginRight: '20px', borderRadius: '5px' }} width={100} height={100} />
                   <div>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                       {item.product.name}
                     </Typography>
                     <Typography variant="body1" gutterBottom>
@@ -123,7 +131,7 @@ const Cartito = () => {
                       <Typography variant="body1" gutterBottom style={{ marginRight: '10px' }}>
                         Cantidad:
                       </Typography>
-                      <Button variant="contained" onClick={() => updateAmount(item.id, item.amount - 1)} disabled={item.amount === 1}>
+                      <Button variant="contained" color="primary" onClick={() => updateAmount(item.id, item.amount - 1)} disabled={item.amount === 1}>
                         -
                       </Button>
                       <TextField
@@ -139,7 +147,7 @@ const Cartito = () => {
                         style={{ width: '80px', marginRight: '2%', marginLeft: '2%' }}
                         inputProps={{ style: { textAlign: 'center' } }}
                       />
-                      <Button variant="contained" onClick={() => updateAmount(item.id, item.amount + 1)}>
+                      <Button variant="contained" color="primary" onClick={() => updateAmount(item.id, item.amount + 1)}>
                         +
                       </Button>
                     </div>
@@ -161,14 +169,18 @@ const Cartito = () => {
                   <Typography variant="h6" style={{ fontWeight: 'bold' }}>
                     Total: {totalPrice} €
                   </Typography>
-                  <Button variant='contained' onClick={createSale} style={{ marginRight: '20px' }}>Pagar</Button>
+                  <Button variant='contained' color='primary' onClick={createSale} style={{ marginRight: '20px' }}>
+                    Pagar
+                  </Button>
                 </div>
               ) : ''
             }
           </div>
         </div>
         <Divider orientation="vertical" flexItem style={{ marginTop: '60px', marginBottom: '50px' }} />
-        <Sales />
+        <div style={{ marginTop: '60px', width: '100%', maxWidth: 420 }}>
+          <Sales />
+        </div>
       </div>
       <Footer />
     </div>
