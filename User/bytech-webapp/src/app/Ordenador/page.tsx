@@ -4,8 +4,9 @@ import Link from 'next/link';
 import NavBar from '@/Component/NavBar/Navbar';
 import Footer from '@/Component/Footer/Footer';
 import { Producto } from '@/Interface/Product';
+import Image from 'next/image';
 
-export default function Ordenador(){
+export default function Ordenador() {
   const [ordenadores, setOrdenadores] = useState<Producto[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,38 +38,54 @@ export default function Ordenador(){
 
   useEffect(() => {
     getProducts();
-  }, [ordenadores]);
+  }, []);
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <NavBar />
-      <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '5%', fontSize: '30px', fontWeight: 'bold' }}>NUESTROS ORDENADORES</h1>
-      {loading && <p>Cargando productos...</p>}
-      {error && <p>{error}</p>}
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', }}>
-        {ordenadores.map((ordenadores) => (
-          <div key={ordenadores.id} style={{ flex: '0 1 23%', padding: '20px', marginBottom: '40px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center', marginLeft: '1%', marginRight: '1%' }}>
-            <div style={{ marginBottom: '20px', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-              <img src={ordenadores.image} alt={ordenadores.name} style={{ width: '40%', height: '100%' }} />
-            </div>
-            <div style={{ textAlign: 'left' }}>
-              <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', fontWeight: 'bold' }}>{ordenadores.name.toUpperCase()}</h2>
-              <p style={{ margin: '0 0 10px 0', fontSize: '1rem', minHeight: '30px' }}>
-                Descripción: {ordenadores.description && ordenadores.description.length > 50
-                  ? `${ordenadores.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`
-                  : ordenadores.description}
-              </p>
-              <p style={{ margin: '0 0 10px 0', fontSize: '1rem' }}>Precio: {ordenadores.price}€</p>
-              <div onClick={() => handleDetailClick(ordenadores.id)}>
-                <Link href={`/Home/details/`}>
-                  <span style={{ marginRight: '10px', fontSize: '1rem', color: '#0070f3', textDecoration: 'none' }}>Ver detalles</span>
-                </Link>
+      <main className="flex-1 container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-center mb-8 mt-8 text-gray-800 tracking-wide">
+          NUESTROS ORDENADORES
+        </h1>
+        {loading && <p className="text-center text-gray-500">Cargando productos...</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {ordenadores.map((ordenador) => (
+            <div
+              key={ordenador.id}
+              className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center p-5"
+            >
+              <div className="w-full h-48 flex items-center justify-center overflow-hidden rounded-lg mb-4 bg-gray-100">
+                <Image
+                  src={ordenador.image}
+                  alt={ordenador.name}
+                  width={200}
+                  height={200}
+                  className="object-contain h-full"
+                />
+              </div>
+              <div className="w-full text-left">
+                <h2 className="text-lg font-bold mb-2 text-gray-800">{ordenador.name.toUpperCase()}</h2>
+                <p className="text-gray-600 text-sm mb-2 min-h-[40px]">
+                  Descripción: {ordenador.description && ordenador.description.length > 50
+                    ? `${ordenador.description.substring(0, 50).replace(/\s+(\S+)?$/, '')}...`
+                    : ordenador.description}
+                </p>
+                <p className="text-blue-600 font-semibold text-base mb-4">Precio: {ordenador.price}€</p>
+                <button
+                  onClick={() => handleDetailClick(ordenador.id)}
+                  className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-medium"
+                >
+                  <Link href={`/Ordenador/details/`}>
+                    Ver detalles
+                  </Link>
+                </button>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </main>
       <Footer />
     </div>
   );
-};
+}

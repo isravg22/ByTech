@@ -1,6 +1,5 @@
 'use client'
-
-import { Button, Grid, IconButton, Stack, Typography } from '@mui/material'
+import { Button, IconButton, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -10,9 +9,8 @@ import Image from 'next/image';
 import { Producto } from '@/Interface/Product';
 
 export default function Detail() {
-  
   const [amountToAdd, setAmount] = useState<number>(1)
-  const id = localStorage.getItem('idProducto');
+  const id = typeof window !== 'undefined' ? localStorage.getItem('idProducto') : null;
   const [infoProduct, setInfoProduct] = useState<Producto>();
 
   const getProductById = async () => {
@@ -28,12 +26,8 @@ export default function Detail() {
     }
   }
 
-  const add = () => {
-    setAmount(amountToAdd + 1)
-  }
-  const subtract = () => {
-    setAmount(amountToAdd - 1)
-  }
+  const add = () => setAmount(amountToAdd + 1);
+  const subtract = () => setAmount(amountToAdd - 1);
 
   const addToCart = async ({ amountToAdd, productToAdd }: any) => {
     const userId = localStorage.getItem('idUser');
@@ -49,62 +43,69 @@ export default function Detail() {
       product: productToAdd,
       amount: amountToAdd
     }
-    const responseProduct = await fetch(`http://localhost:8000/shoppingList/addProductToList`, {
+    await fetch(`http://localhost:8000/shoppingList/addProductToList`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(cartObject)
     })
-    if (responseProduct.ok) {
-    }
   }
 
   const addProduct = (productToAdd: any) => {
     addToCart({ amountToAdd, productToAdd })
   }
+
   useEffect(() => {
     getProductById();
-  })
+  }, [getProductById]);
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column',backgroundColor: 'white' }}>
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <NavBar />
-      <Grid container justifyContent="center" style={{ marginTop:'5%', padding: '20px' }}>
-        <Grid item xs={12} md={6}>
-          <div style={{ textAlign: 'center' }}>
-            <Image src={infoProduct?.image || ''} alt='product' style={{ width: '70%', height: 'auto' }} height={800} width={800} />
+      <main className="flex-1 flex flex-col items-center justify-center py-10 px-4">
+        <div className="w-full max-w-5xl bg-white rounded-xl shadow-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="flex items-center justify-center">
+            <Image
+              src={infoProduct?.image || ''}
+              alt={infoProduct?.name || 'product'}
+              width={400}
+              height={400}
+              className="object-contain rounded-lg bg-gray-100 w-full h-80"
+            />
           </div>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Stack direction="column" spacing={2}>
-            <Typography variant="h2" sx={{ fontSize: { xs: 30, md: 40 }, fontWeight: 600, fontFamily: 'Roboto' }}>
-              {infoProduct?.name.toUpperCase()}
+          <div className="flex flex-col justify-center">
+            <Typography variant="h3" className="!text-2xl md:!text-4xl !font-bold !mb-4 !text-gray-800">
+              {infoProduct?.name?.toUpperCase()}
             </Typography>
-            <Typography variant="body1" sx={{ fontSize: { xs: 16, md: 20 }, fontWeight: 400, fontFamily: 'Roboto' }}>
+            <Typography variant="body1" className="!text-base md:!text-lg !mb-4 !text-gray-600">
               {infoProduct?.description}
             </Typography>
-            <Typography variant="h3" sx={{ fontSize: { xs: 24, md: 30 }, fontWeight: 600, fontFamily: 'Roboto' }}>
-              {infoProduct?.price.toFixed(2)} €
+            <Typography variant="h4" className="!text-xl md:!text-2xl !font-semibold !mb-6 !text-blue-600">
+              {infoProduct?.price?.toFixed(2)} €
             </Typography>
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+            <div className="flex items-center gap-4 mt-2">
               <IconButton color="primary" aria-label="subtract" onClick={subtract} disabled={amountToAdd === 1}>
                 <RemoveIcon />
               </IconButton>
-              <Typography variant="body1" sx={{ fontSize: 20, margin: '0 10px' }}>{amountToAdd}</Typography>
+              <span className="text-lg font-medium">{amountToAdd}</span>
               <IconButton color="primary" aria-label="add" onClick={add}>
                 <AddIcon />
               </IconButton>
-              <Button variant="contained" onClick={() => addProduct(infoProduct)}>
+              <Button
+                variant="contained"
+                color="primary"
+                className="!ml-4 !px-6 !py-2 !rounded-lg !font-semibold"
+                onClick={() => addProduct(infoProduct)}
+              >
                 Añadir al carrito
               </Button>
             </div>
-          </Stack>
-        </Grid>
-      </Grid>
+          </div>
+        </div>
+      </main>
       <Footer />
     </div>
-
   )
 }
 
