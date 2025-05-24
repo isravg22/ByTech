@@ -1,31 +1,31 @@
 import Link from "next/link";
+import { FaLaptop, FaMobileAlt, FaMicrochip, FaGamepad } from "react-icons/fa";
+
+const subMenuItems = [
+    { label: "Ordenadores", href: "/Ordenador", icon: <FaLaptop className="w-5 h-5" /> },
+    { label: "Smartphones", href: "/Smartphone", icon: <FaMobileAlt className="w-5 h-5" /> },
+    { label: "Componentes", href: "/Componentes", icon: <FaMicrochip className="w-5 h-5" /> },
+    { label: "Gaming", href: "/Gaming", icon: <FaGamepad className="w-5 h-5" /> },
+];
 
 export default function SubMenu() {
-
     return (
-        <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <aside className="px-3 pb-4 bg-white dark:bg-gray-800 shadow rounded-lg border border-gray-100 dark:border-gray-700">
             <ul className="space-y-2 font-medium">
-                <li>
-                    <Link href="/Ordenador" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
-                        <span>Ordenadores</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/Smartphone" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
-                        <span>Smartphones</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/Componentes" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
-                        <span>Componentes</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/Gaming" className="flex items-center p-2 text-gray-700 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">                        
-                        <span>Gaming</span>
-                    </Link>
-                </li>
+                {subMenuItems.map((item) => (
+                    <li key={item.label}>
+                        <Link
+                            href={item.href}
+                            className="flex items-center gap-2 p-2 text-gray-700 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700 transition"
+                            role="menuitem"
+                            tabIndex={0}
+                        >
+                            {item.icon}
+                            <span>{item.label}</span>
+                        </Link>
+                    </li>
+                ))}
             </ul>
-        </div>
+        </aside>
     );
-};
+}
