@@ -55,15 +55,19 @@ const HomePage = () => {
               key={product.id}
               className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center p-5"
             >
-              <div className="w-full h-48 flex items-center justify-center overflow-hidden rounded-lg mb-4 bg-gray-100">
+              <div className="relative w-full h-48 flex items-center justify-center overflow-hidden rounded-lg mb-4 bg-gray-100">
                 <Image
                   src={product.image}
                   alt={product.name}
-                  width={200}
-                  height={200}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  style={{ objectFit: 'contain' }}
+                  priority
                   className="object-contain h-full"
                 />
               </div>
+
+
               <div className="w-full text-left">
                 <h2 className="text-lg font-bold mb-2 text-gray-800">{product.name.toUpperCase()}</h2>
                 <p className="text-gray-600 text-sm mb-2 min-h-[40px]">
