@@ -12,7 +12,10 @@ export default function Sales() {
 
     const VISIBLE_COUNT = 3;
 
+    const visibleDetails = showAll ? saleDetails : saleDetails.slice(0, VISIBLE_COUNT);
+
     useEffect(() => {
+        let intervalId: NodeJS.Timeout;
         const fetchUserAndSales = async () => {
             try {
                 const userRes = await fetch(`http://localhost:8000/user/${idUser}`);
@@ -30,10 +33,14 @@ export default function Sales() {
                 setLoading(false);
             }
         };
-        if (idUser) fetchUserAndSales();
-    }, [idUser,showAll]);
+        if (idUser){ 
+            fetchUserAndSales();
+            intervalId = setInterval(fetchUserAndSales, 5000);
+        }
+        return () => clearInterval(intervalId);
+    }, [idUser, showAll]);
 
-    const visibleDetails = showAll ? saleDetails : saleDetails.slice(0, VISIBLE_COUNT);
+
 
     return (
         <div style={{

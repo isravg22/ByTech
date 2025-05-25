@@ -60,7 +60,7 @@ export default function NavBar() {
                         </button>
                         <div className={`absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-150 ${showUserDetails ? 'block' : 'hidden'}`}>
                             <div className="py-2" role="menu" aria-orientation="vertical">
-                                <Link href="/profile" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 dark:text-gray-200 dark:hover:bg-gray-700 rounded transition" role="menuitem">
+                                <Link href="/Profile" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 dark:text-gray-200 dark:hover:bg-gray-700 rounded transition" role="menuitem">
                                     Mi perfil
                                 </Link>
                                 <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 dark:text-gray-200 dark:hover:bg-gray-700 rounded transition" role="menuitem">

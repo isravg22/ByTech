@@ -58,8 +58,8 @@ export default function Detail() {
 
   useEffect(() => {
     getProductById();
-    
-  }, []); 
+
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -67,13 +67,16 @@ export default function Detail() {
       <main className="flex-1 flex flex-col items-center justify-center py-10 px-4">
         <div className="w-full max-w-5xl bg-white rounded-xl shadow-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex items-center justify-center">
-            <Image
-              src={infoProduct?.image || ''}
-              alt={infoProduct?.name || 'product'}
-              width={400}
-              height={400}
-              className="object-contain rounded-lg bg-gray-100 w-full h-80"
-            />
+            {infoProduct?.image && (
+              <Image
+                src={infoProduct.image}
+                alt={infoProduct.name || 'product'}
+                width={400}
+                height={400}
+                priority
+                className="object-contain rounded-lg bg-gray-100 w-full h-80"
+              />
+            )}
           </div>
           <div className="flex flex-col justify-center">
             <Typography variant="h3" className="!text-2xl md:!text-4xl !font-bold !mb-4 !text-gray-800">
