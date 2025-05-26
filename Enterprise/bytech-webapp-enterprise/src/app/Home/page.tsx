@@ -9,6 +9,8 @@ export default function HomePage() {
   const [soldData, setSoldData] = useState<number[]>([]);
   const [moneyData, setMoneyData] = useState<number[]>([]);
   const [userName, setUserName] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [idUser, setIdUser] = useState(''); // Nuevo estado para el id del usuario
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalRestantes, setTotalRestantes] = useState(0);
   const [totalDinero, setTotalDinero] = useState(0);
@@ -21,8 +23,38 @@ export default function HomePage() {
 
 
   useEffect(() => {
-    setUserName(localStorage.getItem('userName') || '');
-  }, []);
+    const idUserLS = localStorage.getItem('idUser') || '';
+    setIdUser(idUserLS);
+
+    // Obtener nombre del usuario por idUser
+    const fetchNombreUsuario = async () => {
+      if (idUserLS) {
+        try {
+          const res = await fetch(`http://localhost:8000/user/${idUserLS}`);
+          const data = await res.json();
+          setUserName(data.firstName|| '');
+        } catch (e) {
+          setUserName('');
+        }
+      }
+    };
+
+    // Obtener nombre de la empresa por idEnterprise
+    const fetchNombreEmpresa = async () => {
+      if (idEnterprise) {
+        try {
+          const res = await fetch(`http://localhost:8000/enterprise/${idEnterprise}`);
+          const data = await res.json();
+          setNombre(data.nombre || '');
+        } catch (e) {
+          setNombre('');
+        }
+      }
+    };
+
+    fetchNombreUsuario();
+    fetchNombreEmpresa();
+  }, [idEnterprise]);
 
   const fetchData = React.useCallback(async () => {
     function normalizeMonthlyData(rawData: { mes: number, cantidad: number }[] | number[]) {
@@ -42,7 +74,7 @@ export default function HomePage() {
       // Unidades registradas por mes
       const response = await fetch(`http://localhost:8000/product/unidadesTotales/${idEnterprise}`);
       const data = await response.json();
-      console.log('unidadesTotales', data); // <-- Añade esto
+      console.log('unidadesTotales', data);
       const normalized = normalizeMonthlyData(data);
       setProductData(normalized);
       setTotalProducts(normalized.reduce((a, b) => a + b, 0));
@@ -50,26 +82,27 @@ export default function HomePage() {
       // Unidades vendidas por mes
       const responseSold = await fetch(`http://localhost:8000/product/unidadesVendidasTotales/${idEnterprise}`);
       const dataSold = await responseSold.json();
-      console.log('unidadesVendidasTotales', dataSold); // <-- Añade esto
+      console.log('unidadesVendidasTotales', dataSold);
       const normalizedSold = normalizeMonthlyData(dataSold);
       setSoldData(normalizedSold);
 
       // Dinero conseguido por mes
       const responseMoney = await fetch(`http://localhost:8000/product/dineroPorMes/${idEnterprise}`);
       const dataMoney = await responseMoney.json();
-      console.log('dineroPorMes', dataMoney); // <-- Añade esto
+      console.log('dineroPorMes', dataMoney); 
       const normalizedMoney = normalizeMonthlyData(dataMoney);
       setMoneyData(normalizedMoney);
 
       // Total de unidades restantes
       const responseRestantes = await fetch(`http://localhost:8000/product/totalRestantes/${idEnterprise}`);
       const restantes = await responseRestantes.json();
-      setTotalRestantes(restantes.total ?? restantes); // soporta {total: n} o n
+      setTotalRestantes(restantes.total ?? restantes); 
 
       // Total de dinero conseguido
       const responseDinero = await fetch(`http://localhost:8000/product/totalDinero/${idEnterprise}`);
       const dinero = await responseDinero.json();
-      setTotalDinero(dinero.total ?? dinero); // soporta {total: n} o n
+      setTotalDinero(dinero.total ?? dinero); 
+      
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -178,13 +211,6 @@ export default function HomePage() {
     }
   }, [productData, soldData, moneyData, months, moneyData.length, productData.length, soldData.length]);
 
-  const handleBuy = async () => {
-    // Lógica para crear la venta...
-    await fetch(`http://localhost:8000/sale/create/${userName}`, { method: 'POST' });
-    // Refresca los datos de la gráfica
-    fetchData();
-  };
-
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -219,7 +245,7 @@ export default function HomePage() {
             marginBottom: 8,
             letterSpacing: '1px'
           }}>
-            Bienvenido{userName ? `, ${userName}` : ''} 👋
+            Bienvenido{userName ? ` ${userName}` : ''}{nombre ? `, a la empresa ${nombre}` : ''}
           </h1>
           <p style={{
             fontSize: '1.08rem',
