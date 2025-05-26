@@ -23,6 +23,8 @@ public class Product {
     private Long unidades;
     @Column
     private Long fabricante;
+    @Column
+    private Long vendidas = 0L;
 
     @Column(columnDefinition = "DATE")
     private Date date;
@@ -91,6 +93,14 @@ public class Product {
 
     public void setFabricante(Long fabricante) {
         this.fabricante = fabricante;
+    }
+
+    public Long getVendidas() {
+        return vendidas;
+    }
+
+    public void setVendidas(Long vendidas) {
+        this.vendidas = vendidas;
     }
 
     public Date getDate() {

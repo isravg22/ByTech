@@ -66,4 +66,19 @@ public class ProductService {
         }
     }
 
+    public List<Map<String, Object>> getUnidadesVendidasPorMes(Long enterpriseId) {
+        return productRepository.findVendidasPorMes(enterpriseId);
+    }
+
+    public Long getTotalRestantes(Long enterpriseId) {
+        return productRepository.findTotalRestantes(enterpriseId);
+    }
+
+    public Double getTotalDinero(Long enterpriseId) {
+        return productRepository.findTotalDinero(enterpriseId);
+    }
+
+    public List<Map<String, Object>> getDineroPorMes(Long enterpriseId) {
+        return productRepository.findDineroPorMes(enterpriseId);
+    }
 }

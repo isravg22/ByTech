@@ -22,7 +22,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -172,5 +174,38 @@ public class ProductController {
         } finally {
             s3Client.close();
         }
+    }
+
+
+    // Unidades vendidas por mes
+    @GetMapping("/unidadesVendidasTotales/{enterpriseId}")
+    public ResponseEntity<List<Map<String, Object>>> getUnidadesVendidasTotales(@PathVariable Long enterpriseId) {
+        List<Map<String, Object>> data = productService.getUnidadesVendidasPorMes(enterpriseId);
+        return ResponseEntity.ok(data);
+    }
+
+    // Total de unidades restantes
+    @GetMapping("/totalRestantes/{enterpriseId}")
+    public ResponseEntity<Map<String, Long>> getTotalRestantes(@PathVariable Long enterpriseId) {
+        Long total = productService.getTotalRestantes(enterpriseId);
+        Map<String, Long> response = new HashMap<>();
+        response.put("total", total != null ? total : 0L);
+        return ResponseEntity.ok(response);
+    }
+
+    // Total de dinero conseguido
+    @GetMapping("/totalDinero/{enterpriseId}")
+    public ResponseEntity<Map<String, Double>> getTotalDinero(@PathVariable Long enterpriseId) {
+        Double total = productService.getTotalDinero(enterpriseId);
+        Map<String, Double> response = new HashMap<>();
+        response.put("total", total != null ? total : 0.0);
+        return ResponseEntity.ok(response);
+    }
+
+    // Dinero conseguido por mes
+    @GetMapping("/dineroPorMes/{enterpriseId}")
+    public ResponseEntity<List<Map<String, Object>>> getDineroPorMes(@PathVariable Long enterpriseId) {
+        List<Map<String, Object>> data = productService.getDineroPorMes(enterpriseId);
+        return ResponseEntity.ok(data);
     }
 }
