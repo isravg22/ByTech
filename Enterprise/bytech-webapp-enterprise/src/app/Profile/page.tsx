@@ -6,16 +6,16 @@ import { AiFillEdit } from 'react-icons/ai';
 import imageLogo from '@/app/img/logo.png';
 import Footer from '@/Component/Footer/Footer';
 import { UserData } from '@/Interface/UserData';
-import {toast, ToastContainer} from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Profile() {
-
     const [userData, setUserData] = useState<UserData>({
         firstName: '',
         lastName: '',
-        email:'',
-        userName:'',
-        password:''
+        email: '',
+        userName: '',
+        password: ''
     });
 
     const [editableField, setEditableField] = useState<string>('');
@@ -34,10 +34,10 @@ export default function Profile() {
                 const userData = await response.json();
                 setUserData(userData);
             } else {
-                console.error('Error al obtener los datos del perfil');
+                toast.error('Error al obtener los datos del perfil');
             }
         } catch (error) {
-            console.error('Error al procesar la solicitud:', error);
+            toast.error('Error al procesar la solicitud');
         }
     };
 
@@ -62,22 +62,20 @@ export default function Profile() {
             });
 
             if (response.ok) {
-                console.log('Datos actualizados correctamente');
+                toast.success('Datos actualizados correctamente');
                 setEditableField('');
             } else {
-                const errorMessage= await response.text();
-                if(errorMessage==='Username already exists'){
+                const errorMessage = await response.text();
+                if (errorMessage === 'Username already exists') {
                     toast.error('Nombre de usuario no válido, prueba otro');
-                }else if(errorMessage==='Email already exists'){
+                } else if (errorMessage === 'Email already exists') {
                     toast.error('Correo electrónico no válido, prueba otro');
-                }else{
-                    console.error('Error al actualizar los datos del perfil');
+                } else {
                     toast.error('Error al actualizar los datos del perfil');
                 }
-                
             }
         } catch (error) {
-            console.error('Error al procesar la solicitud:', error);
+            toast.error('Error al procesar la solicitud');
         }
     };
 
@@ -89,21 +87,28 @@ export default function Profile() {
         }));
     };
 
-    const LabelInput = (label: string, value: string, fieldName: string) => (
-        <div className="flex flex-col ">
-            <label className="text-lg font-medium mb-1">{label}</label>
+    const LabelInput = (label: string, value: string, fieldName: string, type: string = 'text') => (
+        <div className="flex flex-col gap-1">
+            <label className="text-base font-semibold text-[#3949ab]">{label}</label>
             <div className="relative w-full">
                 <input
-                    type={label === 'Contraseña' ? 'password' : 'text'}
-                    name={label}
-                    className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={editableField === label ? userData[fieldName as keyof UserData] : value}
+                    type={type}
+                    name={fieldName}
+                    className={`w-full border border-gray-300 rounded-lg px-4 py-2 bg-[#f4f8ff] focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150 ${editableField === fieldName ? 'ring-2 ring-blue-400' : ''}`}
+                    value={editableField === fieldName ? userData[fieldName as keyof UserData] : value}
                     onChange={(e) => handleChange(e, fieldName)}
-                    readOnly={editableField !== label}
+                    readOnly={editableField !== fieldName}
+                    autoComplete={fieldName}
                 />
-                {editableField !== label && (
-                    <button className="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-gray-500 hover:text-blue-500 focus:outline-none" onClick={() => handleEdit(label)}>
-                        <AiFillEdit className="w-6 h-6" />
+                {editableField !== fieldName && (
+                    <button
+                        type="button"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-blue-500 focus:outline-none"
+                        onClick={() => handleEdit(fieldName)}
+                        tabIndex={0}
+                        aria-label={`Editar ${label}`}
+                    >
+                        <AiFillEdit className="w-5 h-5" />
                     </button>
                 )}
             </div>
@@ -111,27 +116,54 @@ export default function Profile() {
     );
 
     return (
-        <div>
+        <div style={{
+            minHeight: '100vh',
+            background: 'linear-gradient(120deg, #e3f0ff 0%, #b3c6f7 100%)',
+            display: 'flex',
+            flexDirection: 'column'
+        }}>
             <NavBar />
-            <div>
-                <div className="container flex-grow mx-auto p-4 bg-white rounded-lg shadow-lg" style={{ justifyContent:'center',width:'50%',marginTop:'4.5rem',height:'15%'}}>
-                    <div style={{display:'flex',justifyContent:'center'}}>
-                        <Image src={imageLogo} alt="Logotipo" height={70} width={70}/>
-                        <h2 className="text-3xl font-semibold mb-6" style={{marginTop:'20px'}}>Perfil de Usuario</h2>
+            <div style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '2rem 0'
+            }}>
+                <div style={{
+                    background: 'rgba(255,255,255,0.92)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    borderRadius: '24px',
+                    boxShadow: '0 8px 32px rgba(44, 62, 80, 0.12), 0 1.5px 8px #90caf9',
+                    padding: '2.5em 2.5em',
+                    width: '100%',
+                    maxWidth: '480px'
+                }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1.5em' }}>
+                        <Image src={imageLogo} alt="Logotipo" height={70} width={70} />
+                        <h2 className="text-2xl font-bold mt-3 text-[#1a237e]">Perfil de Usuario</h2>
                     </div>
-                    <div className="space-y-6">
+                    <form className="space-y-5">
                         {LabelInput('Nombre', userData.firstName, 'firstName')}
                         {LabelInput('Apellidos', userData.lastName, 'lastName')}
-                        {LabelInput('Correo electrónico', userData.email, 'email')}
+                        {LabelInput('Correo electrónico', userData.email, 'email', 'email')}
                         {LabelInput('Nombre de Usuario', userData.userName, 'userName')}
-                        {LabelInput('Contraseña', userData.password, 'password')}
-                    </div>
+                        {LabelInput('Contraseña', userData.password, 'password', 'password')}
+                    </form>
                     {editableField && (
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mt-4" onClick={handleSave}>Guardar</button>
+                        <button
+                            className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:bg-blue-700 mt-6 font-semibold transition-all duration-150"
+                            onClick={handleSave}
+                            type="button"
+                        >
+                            Guardar cambios
+                        </button>
                     )}
                 </div>
             </div>
-            <Footer/>
+            <Footer />
+            <ToastContainer position="bottom-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover />
         </div>
     );
 }
