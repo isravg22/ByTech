@@ -70,6 +70,10 @@ public class ProductService {
         return productRepository.findVendidasPorMes(enterpriseId);
     }
 
+    public Long getTotalRegistradas(Long enterpriseId) {
+        return productRepository.findTotalRegistradas(enterpriseId);
+    }
+
     public Long getTotalRestantes(Long enterpriseId) {
         return productRepository.findTotalRestantes(enterpriseId);
     }

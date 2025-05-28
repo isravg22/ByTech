@@ -32,4 +32,14 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     // Dinero conseguido por mes
     @Query("SELECT new map(FUNCTION('MONTH', p.date) as mes, SUM(p.vendidas * p.price) as cantidad) FROM Product p WHERE p.fabricante = :enterpriseId GROUP BY FUNCTION('MONTH', p.date) ORDER BY mes")
     List<Map<String, Object>> findDineroPorMes(@Param("enterpriseId") Long enterpriseId);
+
+    // Total de unidades registradas
+    @Query("SELECT SUM(p.registradas) FROM Product p WHERE p.fabricante = :enterpriseId")
+    Long findTotalRegistradas(@Param("enterpriseId") Long enterpriseId);
+
+    // Unidades registradas por mes (usando el campo 'registradas')
+    @Query("SELECT new map(FUNCTION('MONTH', p.date) as mes, SUM(p.registradas) as cantidad) FROM Product p WHERE p.fabricante = :enterpriseId GROUP BY FUNCTION('MONTH', p.date) ORDER BY mes")
+    List<Map<String, Object>> findRegistradasPorMes(@Param("enterpriseId") Long enterpriseId);
+
+
 }

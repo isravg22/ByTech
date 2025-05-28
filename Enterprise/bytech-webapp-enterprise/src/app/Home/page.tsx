@@ -93,7 +93,12 @@ export default function HomePage() {
       const normalizedMoney = normalizeMonthlyData(dataMoney);
       setMoneyData(normalizedMoney);
 
-      // Total de unidades restantes
+      // Total de unidades registradas (fijo)
+      const responseRegistradas = await fetch(`http://localhost:8000/product/totalRegistradas/${idEnterprise}`);
+      const registradas = await responseRegistradas.json();
+      setTotalProducts(registradas.total ?? registradas); // <-- Este es el valor fijo
+
+      // Total de unidades restantes (cambia con las ventas)
       const responseRestantes = await fetch(`http://localhost:8000/product/totalRestantes/${idEnterprise}`);
       const restantes = await responseRestantes.json();
       setTotalRestantes(restantes.total ?? restantes); 

@@ -83,6 +83,7 @@ public class ProductController {
             product.setDescription(description);
             product.setPrice(price);
             product.setUnidades(unidades);
+            product.setRegistradas(unidades); 
             product.setFabricante(fabricante);
             product.setCategory(category);
             product.setDate(date);
@@ -184,13 +185,16 @@ public class ProductController {
         return ResponseEntity.ok(data);
     }
 
+    // Total de unidades registradas
+    @GetMapping("/totalRegistradas/{enterpriseId}")
+    public ResponseEntity<Long> getTotalRegistradas(@PathVariable Long enterpriseId) {
+        return ResponseEntity.ok(productService.getTotalRegistradas(enterpriseId));
+    }
+
     // Total de unidades restantes
     @GetMapping("/totalRestantes/{enterpriseId}")
-    public ResponseEntity<Map<String, Long>> getTotalRestantes(@PathVariable Long enterpriseId) {
-        Long total = productService.getTotalRestantes(enterpriseId);
-        Map<String, Long> response = new HashMap<>();
-        response.put("total", total != null ? total : 0L);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Long> getTotalRestantes(@PathVariable Long enterpriseId) {
+        return ResponseEntity.ok(productService.getTotalRestantes(enterpriseId));
     }
 
     // Total de dinero conseguido
