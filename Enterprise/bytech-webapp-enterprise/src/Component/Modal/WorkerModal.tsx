@@ -1,7 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import imgLogo from '@/app/img/logo.png';
@@ -12,17 +10,7 @@ interface WorkerModalProps {
 }
 
 const WorkerModal: React.FC<WorkerModalProps> = ({ closeModal }) => {
-    const router= useRouter();
-
-    const [inputUser, setInputUser] = useState<{
-        firstName: string;
-        lastName1: string;
-        lastName2: string;
-        email: string;
-        userName: string;
-        password: string;
-        password2: string;
-    }>({
+    const [inputUser, setInputUser] = useState({
         firstName: '',
         lastName1: '',
         lastName2: '',
@@ -32,9 +20,9 @@ const WorkerModal: React.FC<WorkerModalProps> = ({ closeModal }) => {
         password2: '',
     });
 
-    const handleChangeUser = (event: { target: { name: any; value: any; }; }) => {
+    const handleChangeUser = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setInputUser(prevInputs => ({ ...prevInputs, [name]: value }));
+        setInputUser(prev => ({ ...prev, [name]: value }));
     };
 
     const insertWorker = async () => {
@@ -43,42 +31,45 @@ const WorkerModal: React.FC<WorkerModalProps> = ({ closeModal }) => {
             toast.error('Por favor completa todos los campos.');
             return;
         }
-
         if (password !== password2) {
             toast.error('Las contraseñas no coinciden.');
             return;
         }
-
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             toast.error('El correo electrónico no tiene un formato válido.');
             return;
         }
-
         if (password.length < 8) {
             toast.error('La contraseña debe tener al menos 8 caracteres.');
             return;
         }
-
         const usernameRegex = /^[a-zA-Z0-9_]+$/;
         if (!usernameRegex.test(userName)) {
             toast.error('El nombre de usuario solo puede contener letras, números y guiones bajos.');
             return;
         }
-
         try {
             const idEnterprise = localStorage.getItem('idEnterprise');
-            console.log("ID ENTERPRISE", idEnterprise);
             const responseUser = await fetch(`http://localhost:8000/user/insertUser`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ firstName, lastName: `${lastName1} ${lastName2}`, email, userName, password, rol: 'worker', activated: 1, enterprise: idEnterprise })
+                body: JSON.stringify({
+                    firstName,
+                    lastName: `${lastName1} ${lastName2}`,
+                    email,
+                    userName,
+                    password,
+                    rol: 'worker',
+                    activated: 1,
+                    enterprise: idEnterprise
+                })
             });
-
             if (responseUser.ok) {
-                closeModal();
-            }else{
-                const errorMessage= await responseUser.text();
+                toast.success('Trabajador añadido correctamente');
+                setTimeout(() => closeModal(), 1200);
+            } else {
+                const errorMessage = await responseUser.text();
                 if (errorMessage === "Username already exists") {
                     toast.error('El nombre de usuario ya existe, pruebe con otro');
                 } else if (errorMessage === "Email already exists") {
@@ -87,47 +78,144 @@ const WorkerModal: React.FC<WorkerModalProps> = ({ closeModal }) => {
                     toast.error('El usuario no se ha podido crear.');
                 }
             }
-
         } catch (error) {
-            console.error('Error al procesar la solicitud:', error);
             toast.error('Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.');
         }
     };
 
-
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', height: 'auto' }}>
-            <div style={{ backgroundColor: 'white', padding: '1em', borderRadius: '10px', marginTop: '5%', display: 'flex', flexDirection: 'column', width: '30%' }}>
-                <span className="close" onClick={closeModal} style={{ cursor: 'pointer' }}>&times;</span>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.5em' }}>
-                    <Image src={imgLogo} alt="Logo" width="65" height="65" />
-                    <h3 style={{ fontSize: '25px', fontWeight: 'bold', }}>Añadir Trabajador</h3>
+        <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh'
+        }}>
+            <div style={{
+                background: 'rgba(255,255,255,0.97)',
+                borderRadius: 18,
+                boxShadow: '0 4px 24px rgba(44, 62, 80, 0.10), 0 1.5px 8px #90caf9',
+                padding: '36px 24px 24px 24px',
+                width: 400,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                position: 'relative'
+            }}>
+                <span
+                    className="close"
+                    onClick={closeModal}
+                    style={{
+                        cursor: 'pointer',
+                        position: 'absolute',
+                        top: 12,
+                        right: 18,
+                        fontSize: 28,
+                        color: '#1976d2'
+                    }}
+                >&times;</span>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1em' }}>
+                    <Image src={imgLogo} alt="Logo" width={65} height={65} />
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginLeft: 12 }}>Añadir Trabajador</h3>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-
-                    {['Nombre', 'Primer apellido', 'Segundo apellido', 'Correo', 'Nombre de usuario', 'Contraseña', 'Repetir contraseña'].map((label, index) => (
-                        <div key={index} >
-                            <label style={{ fontWeight: 'bold', fontSize: '13px' }}>{label}</label>
-                            <input
-                                type={index >= 5 ? "password" : "text"}
-                                placeholder={`Ejemplo${index === 4 ? "123" : ""}`}
-                                style={{ padding: '0.3em', borderRadius: '3px', fontSize: '13px', border: '1px solid black', width: '100%' }}
-                                name={Object.keys(inputUser)[index]}
-                                value={inputUser[Object.keys(inputUser)[index] as keyof typeof inputUser]}
-                                onChange={handleChangeUser}
-                            />
-                        </div>
-                    ))}
-
-                    <button style={{ backgroundColor: '#00a2ff', padding: '0.3em 0', borderRadius: '3px', border: 'none', color: 'white', fontWeight: 'bold', fontSize: '16px', marginTop: '3%' }} onClick={insertWorker}>
+                <form
+                    style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}
+                    onSubmit={e => { e.preventDefault(); insertWorker(); }}
+                >
+                    <label style={{ fontWeight: 600, fontSize: 14 }}>Nombre</label>
+                    <input
+                        type="text"
+                        name="firstName"
+                        value={inputUser.firstName}
+                        onChange={handleChangeUser}
+                        style={inputStyle}
+                        placeholder="Ejemplo"
+                        autoFocus
+                    />
+                    <label style={{ fontWeight: 600, fontSize: 14 }}>Primer apellido</label>
+                    <input
+                        type="text"
+                        name="lastName1"
+                        value={inputUser.lastName1}
+                        onChange={handleChangeUser}
+                        style={inputStyle}
+                        placeholder="Apellido1"
+                    />
+                    <label style={{ fontWeight: 600, fontSize: 14 }}>Segundo apellido</label>
+                    <input
+                        type="text"
+                        name="lastName2"
+                        value={inputUser.lastName2}
+                        onChange={handleChangeUser}
+                        style={inputStyle}
+                        placeholder="Apellido2"
+                    />
+                    <label style={{ fontWeight: 600, fontSize: 14 }}>Correo</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={inputUser.email}
+                        onChange={handleChangeUser}
+                        style={inputStyle}
+                        placeholder="correo@ejemplo.com"
+                    />
+                    <label style={{ fontWeight: 600, fontSize: 14 }}>Nombre de usuario</label>
+                    <input
+                        type="text"
+                        name="userName"
+                        value={inputUser.userName}
+                        onChange={handleChangeUser}
+                        style={inputStyle}
+                        placeholder="Ejemplo123"
+                    />
+                    <label style={{ fontWeight: 600, fontSize: 14 }}>Contraseña</label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={inputUser.password}
+                        onChange={handleChangeUser}
+                        style={inputStyle}
+                        placeholder="********"
+                    />
+                    <label style={{ fontWeight: 600, fontSize: 14 }}>Repetir contraseña</label>
+                    <input
+                        type="password"
+                        name="password2"
+                        value={inputUser.password2}
+                        onChange={handleChangeUser}
+                        style={inputStyle}
+                        placeholder="********"
+                    />
+                    <button
+                        type="submit"
+                        style={{
+                            background: 'linear-gradient(90deg, #1976d2 60%, #64b5f6 100%)',
+                            color: 'white',
+                            fontWeight: 700,
+                            borderRadius: 8,
+                            padding: '10px 0',
+                            fontSize: 16,
+                            marginTop: 16,
+                            border: 'none',
+                            boxShadow: '0 2px 8px #90caf9',
+                            cursor: 'pointer'
+                        }}
+                    >
                         Añadir Trabajador
                     </button>
-                </div>
+                </form>
+                <ToastContainer position="bottom-right" autoClose={5000} />
             </div>
-            <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover />
         </div>
-
     );
-}
+};
+
+const inputStyle: React.CSSProperties = {
+    padding: '8px',
+    borderRadius: '6px',
+    border: '1px solid #bfc0c0',
+    fontSize: '1rem',
+    background: '#f4f8ff',
+    marginBottom: 6
+};
 
 export default WorkerModal;
