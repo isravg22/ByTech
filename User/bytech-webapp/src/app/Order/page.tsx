@@ -6,12 +6,14 @@ import { Typography, Button, Divider, TextField } from '@mui/material';
 import Image from 'next/image';
 import { CartItem } from '@/Interface/CartItem';
 import Sales from '@/Component/Sales/Sale';
+import { useRouter } from 'next/navigation';
 
 const Cartito = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const idUser = typeof window !== 'undefined' ? localStorage.getItem('idUser') : null;
   const [userName, setUserName] = useState<string | undefined>();
+  const router = useRouter();
 
   const getCart = async () => {
     try {
@@ -82,19 +84,7 @@ const Cartito = () => {
       });
   };
 
-  const createSale = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/sale/create/${userName}`, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new Error('Error creating sale');
-      }
-    } catch (error) {
-      console.error('Error creating sale:', error);
-    }
-  };
+  
 
   useEffect(() => {
     getCart();
@@ -170,7 +160,14 @@ const Cartito = () => {
                   <Typography variant="h6" style={{ fontWeight: 'bold' }}>
                     Total: {totalPrice} €
                   </Typography>
-                  <Button variant='contained' color='primary' onClick={createSale} style={{ marginRight: '20px' }}>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    style={{ marginRight: '20px' }}
+                    onClick={() => {
+                      router.push(`/Payment?amount=${totalPrice * 100}&userEmail=${userName}`);
+                    }}
+                  >
                     Pagar
                   </Button>
                 </div>

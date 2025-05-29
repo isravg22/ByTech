@@ -60,6 +60,7 @@ export default function Products() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                justifyContent: 'center',
                 padding: '32px 12px 24px 12px'
             }}>
                 <div style={{
@@ -70,9 +71,10 @@ export default function Products() {
                     margin: '40px 0 0 0',
                     width: '100%',
                     maxWidth: 1100,
-                    display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'center',
                 }}>
                     <h1 style={{
                         marginBottom: '1.5rem',

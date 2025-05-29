@@ -52,6 +52,12 @@
 			<artifactId>spring-security-core</artifactId>
 			<version>[6.2.4,)</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>24.8.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -106,7 +106,7 @@ export default function TableProduct({ refreshKey }: TableProductProps) {
             style={{
                 overflowX: 'auto',
                 width: "100%",
-                minHeight: '300px',
+                minHeight: '600px',
                 background: 'rgba(255,255,255,0.97)',
                 borderRadius: 12,
                 boxShadow: '0 2px 8px #90caf9',
