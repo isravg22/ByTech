@@ -18,6 +18,7 @@ public class Payment {
     private String currency;
     private String status;
     private LocalDateTime createdAt;
+    private Long enterpriseId;
 
     public Long getId() {
         return id;
@@ -65,5 +66,13 @@ public class Payment {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(Long enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 }

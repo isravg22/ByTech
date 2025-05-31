@@ -3,6 +3,7 @@ import Footer from '@/Component/Footer/Footer';
 import NavBar from '@/Component/NavBar/Navbar';
 import { useEffect, useState } from 'react';
 import { FaCreditCard, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { useSearchParams } from 'next/navigation';
 
 type Payment = {
   id: string;
@@ -17,8 +18,15 @@ type PaymentWithDate = Payment & { formattedDate: string };
 export default function PaymentsList() {
   const [payments, setPayments] = useState<PaymentWithDate[]>([]);
   const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+  
+  let enterpriseId = searchParams.get('enterpriseId');
+  if (typeof window !== 'undefined' && !enterpriseId) {
+    enterpriseId = localStorage.getItem('idEnterprise');
+  }
 
   useEffect(() => {
+    if (!enterpriseId) return;
     fetch(`http://localhost:8000/payment/all`)
       .then(res => res.json())
       .then(data => {
@@ -36,7 +44,7 @@ export default function PaymentsList() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, []);
+  }, [enterpriseId]);
 
   return (
     <div style={{

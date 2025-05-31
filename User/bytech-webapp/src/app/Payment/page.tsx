@@ -25,7 +25,7 @@ function CheckoutForm({ amount, userEmail }: { amount: number, userEmail: string
 
         try {
             // 1. Crear PaymentIntent en backend
-            const res = await fetch(`http://localhost:8000/payment/create-payment-intent`, {
+            const res = await fetch('http://localhost:8000/payment/create-payment-intent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ amount, userEmail }),
@@ -56,17 +56,18 @@ function CheckoutForm({ amount, userEmail }: { amount: number, userEmail: string
             if (result.error) {
                 setError(result.error.message || 'Error al procesar el pago');
             } else if (result.paymentIntent.status === 'succeeded') {
-                // 3. Confirmar en backend
+                // 3. Confirmar en backend y guardar el pago
                 await fetch('http://localhost:8000/payment/confirm', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ paymentId }),
+                    body: JSON.stringify({ paymentId, userEmail, amount }),
                 });
-                // 4. Crear la venta
+
                 await fetch(`http://localhost:8000/sale/create/${userEmail}`, {
                     method: "POST",
                     headers: { "Content-type": "application/json" },
                 });
+
                 setSuccess(true);
                 setTimeout(() => {
                     router.push('/Order');
@@ -195,3 +196,4 @@ export default function Pago() {
         </div>
     );
 }
+

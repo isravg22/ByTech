@@ -27,6 +27,9 @@ public class EnterpriseModel {
     @ElementCollection
     private List<Long> workers;
 
+    @Column(name = "stripe_account_id")
+    private String stripeAccountId;
+
     // Getters y setters
 
     public Long getId() {
@@ -77,6 +80,14 @@ public class EnterpriseModel {
         this.workers = workers;
     }
 
+    public String getStripeAccountId() {
+        return stripeAccountId;
+    }
+
+    public void setStripeAccountId(String stripeAccountId) {
+        this.stripeAccountId = stripeAccountId;
+    }
+
     @Override
     public String toString() {
         return "EnterpriseModel{" +
@@ -86,6 +97,7 @@ public class EnterpriseModel {
                 ", nif='" + nif + '\'' +
                 ", boss=" + boss +
                 ", workers=" + workers +
+                ", stripeAccountId='" + stripeAccountId + '\'' +
                 '}';
     }
 }
