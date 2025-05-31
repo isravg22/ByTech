@@ -3,7 +3,9 @@ package com.ByTech.ByTech.Product.controllers;
 import com.ByTech.ByTech.Message.Message;
 import com.ByTech.ByTech.Product.models.Product;
 import com.ByTech.ByTech.Product.services.ProductService;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -32,7 +34,12 @@ import java.util.Optional;
 @CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
 public class ProductController {
     private final ProductService productService;
-    private final String BUCKET_NAME= "s3-bytech";
+    @Value("${bucket.name}")
+    private String bucketName;
+    @Value("${client.id}")
+    private String clientId;
+    @Value("${secret.id}")
+    private String secretId;
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -146,8 +153,8 @@ public class ProductController {
 
 
     private String uploadImageToS3(String imageName, byte[] imageBytes) {
-        String accessKey = "";
-        String secretKey = "";
+        String accessKey = clientId;
+        String secretKey = secretId;
 
 
 
@@ -163,12 +170,12 @@ public class ProductController {
             ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
             software.amazon.awssdk.core.sync.RequestBody requestBody = software.amazon.awssdk.core.sync.RequestBody.fromBytes(imageBytes);
             s3Client.putObject(PutObjectRequest.builder()
-                            .bucket(BUCKET_NAME)
+                            .bucket(bucketName)
                             .key(imageName)
                             .build(),
                     requestBody);
 
-            return s3Client.utilities().getUrl(GetUrlRequest.builder().bucket(BUCKET_NAME).key(imageName).build()).toExternalForm();
+            return s3Client.utilities().getUrl(GetUrlRequest.builder().bucket(bucketName).key(imageName).build()).toExternalForm();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

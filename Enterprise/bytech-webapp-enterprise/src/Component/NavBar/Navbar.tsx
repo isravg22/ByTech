@@ -28,7 +28,7 @@ export default function NavBar() {
                                 </svg>
                             </button>
                             <Link href="/Home" className="flex ms-2 md:me-24">
-                                <Image src={imageLogo} className="h-8 me-3" alt="FlowBite Logo" width={100} height={100} style={{ width: '18%', height: '18%' }} />
+                                <Image src={imageLogo} className="h-8 w-auto me-3" alt="ByTech Logo" width={32} height={32} />
                                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">ByTech</span>
                             </Link>
                         </div>

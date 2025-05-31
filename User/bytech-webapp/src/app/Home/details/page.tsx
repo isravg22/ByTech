@@ -10,11 +10,22 @@ import { Producto } from '@/Interface/Product';
 
 export default function Detail() {
   const [amountToAdd, setAmount] = useState<number>(1)
-  const id = typeof window !== 'undefined' ? localStorage.getItem('idProducto') : null;
+  const [id, setId] = useState<string | null>(null);
   const [infoProduct, setInfoProduct] = useState<Producto>();
 
-  const getProductById = async () => {
-    const response = await fetch(`http://localhost:8000/product/${id}`, {
+  useEffect(() => {
+    const storedId = localStorage.getItem('idProducto');
+    setId(storedId);
+  }, []);
+
+  useEffect(() => {
+    if (id) {
+      getProductById(id);
+    }
+  }, [id]);
+
+  const getProductById = async (productId: string) => {
+    const response = await fetch(`http://localhost:8000/product/${productId}`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json"
@@ -55,11 +66,6 @@ export default function Detail() {
   const addProduct = (productToAdd: any) => {
     addToCart({ amountToAdd, productToAdd })
   }
-
-  useEffect(() => {
-    getProductById();
-
-  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">

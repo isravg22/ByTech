@@ -8,7 +8,12 @@ import Footer from '@/Component/Footer/Footer';
 import { CircularProgress, Typography, Button, Box, Paper, InputLabel } from '@mui/material';
 import { FaLock } from 'react-icons/fa';
 
-const stripePromise = loadStripe('pk_test_51RU8ptRuIogdvrj4DRagVa7aBFiFUlCeklF1SRZN0rEGVcKaDbaOFDdDLmbAnytDAb35g3z1MI9FKeFivGaY4WCp00P9hoHCgW');
+const stripePublicKey = process.env.NEXT_PUBLIC_API_PUBLICKEY_STRIPE;
+
+if (!stripePublicKey) {
+    throw new Error('Stripe public key is not defined in environment variables');
+}
+const stripePromise = loadStripe(stripePublicKey);
 
 function CheckoutForm({ amount, userEmail }: { amount: number, userEmail: string }) {
     const stripe = useStripe();
