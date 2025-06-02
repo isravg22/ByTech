@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7ece4e42-7c5d-46ea-a13b-cbffc9e6b371" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Web/backend/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web/backend/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web/backend/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web/backend/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web/backend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web/backend/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web/backend/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/next.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/postcss.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/public/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Component/Aside/Aside.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Component/Footer/Footer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Component/Login/Login.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Component/Modal/ProductModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Component/Modal/WorkerModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Component/NavBar/Navbar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Component/Table/TableProduct.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Component/Table/TableWorker.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Interface/UserData.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/Maps/ProductType.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/Home/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/Payment/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/Products/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/Profile/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/Register/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/Workers/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/globals.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/img/image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/img/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/img/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/layout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/src/app/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/tailwind.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enterprise/bytech-webapp-enterprise/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/next.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/postcss.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/public/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Component/Aside/Aside.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Component/Footer/Footer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Component/Login/Login.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Component/NavBar/Navbar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Component/Sales/Sale.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Component/SubMenu/SubMenu.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Interface/CartItem.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Interface/Detail.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Interface/Product.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Interface/Sale.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Interface/UserData.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/Map/Campos.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Componentes/details/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Componentes/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Gaming/details/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Gaming/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Home/details/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Home/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Ordenador/details/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Ordenador/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Order/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Payment/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Profile/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Register/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Smartphone/details/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/Smartphone/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/globals.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/img/image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/img/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/img/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/layout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/src/app/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/tailwind.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/bytech-webapp/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/ByTechApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Detail/controllers/DetailController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Detail/models/Detail.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Detail/repositories/DetailRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Detail/services/DetailService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Fabricante/controllers/EnterpriseController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Fabricante/models/EnterpriseModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Fabricante/repositories/IEnterpriseRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Fabricante/services/EnterpriseService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Message/Message.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Payment/controllers/PaymentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Payment/models/Payment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Payment/repositories/PaymentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Product/controllers/ProductController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Product/models/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Product/repositories/ProductRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Product/services/ProductService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Sales/controllers/SaleController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Sales/models/Sale.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Sales/repositories/SaleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/Sales/services/SaleService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/ShoppingCart/controllers/ShoppingCartController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/ShoppingCart/models/ShoppingCart.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/ShoppingCart/repositories/ShoppingCartRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/ShoppingCart/services/ShoppingCartService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/User/controllers/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/User/models/UserModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/User/repositories/IUserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ByTech/ByTech/User/services/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ByTech/ByTech/ByTechApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ByTech-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ByTech-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/ByTechApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Detail/controllers/DetailController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Detail/models/Detail.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Detail/repositories/DetailRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Detail/services/DetailService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Fabricante/controllers/EnterpriseController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Fabricante/models/EnterpriseModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Fabricante/repositories/IEnterpriseRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Fabricante/services/EnterpriseService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Message/Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Payment/controllers/PaymentController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Payment/models/Payment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Payment/repositories/PaymentRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Product/controllers/ProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Product/models/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Product/repositories/ProductRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Product/services/ProductService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Sales/controllers/SaleController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Sales/models/Sale.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Sales/repositories/SaleRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/Sales/services/SaleService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/ShoppingCart/controllers/ShoppingCartController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/ShoppingCart/models/ShoppingCart.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/ShoppingCart/repositories/ShoppingCartRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/ShoppingCart/services/ShoppingCartService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/User/controllers/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/User/models/UserModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/User/repositories/IUserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ByTech/ByTech/User/services/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.ByTech.ByTech.ByTechApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.ByTech.ByTech.ByTechApplicationTests.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ByTech/ByTech/ByTechApplicationTests.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2xxjaSZdwbcIj1CT3gKrmotIeO2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Israel/Desktop/Desarrollo/ByTech"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Israel\Desktop\Desarrollo\ByTech\Web\backend" />
+      <recent name="C:\Users\Israel\Desktop\Desarrollo\ByTech" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7ece4e42-7c5d-46ea-a13b-cbffc9e6b371" name="Changes" comment="" />
+      <created>1748886683100</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748886683100</updated>
+    </task>
+    <servers />
+  </component>
+</project>
