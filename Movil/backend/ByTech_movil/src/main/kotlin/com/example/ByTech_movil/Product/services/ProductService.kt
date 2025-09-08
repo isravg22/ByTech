@@ -5,59 +5,64 @@ import com.example.ByTech_movil.Product.repositories.ProductRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.Optional
-import java.util.Random
+import java.util.*
 
 @Service
 @Transactional
-class ProductService @Autowired constructor(productRepository: ProductRepository) {
-    private val productRepository: ProductRepository = productRepository
+class ProductService @Autowired constructor(private val productRepository: ProductRepository) {
 
-    fun getRelatedProducts(category: String?, productId: Long?): ArrayList<Product> {
-        val productList: ArrayList<Product?>? = productRepository.findByCategoryAndIdNot(category, productId)
-        val randomProducts: ArrayList<Product> = ArrayList<Product>()
+    fun getRelatedProducts(category: String, productId: Long): ArrayList<Product> {
+        val productList = productRepository.findByCategoryAndIdNot(category, productId) ?: arrayListOf()
+        val randomProducts = ArrayList<Product>()
         val random = Random()
-        for (i in 0..1) {
-            val randomIndex = random.nextInt(productList!!.size)
-            randomProducts.add(productList[randomIndex]!!)
-            productList.removeAt(randomIndex)
+
+        if (productList.isNotEmpty()) {
+            for (i in 0..1) {
+                if (productList.isEmpty()) break
+                val randomIndex = random.nextInt(productList.size)
+                randomProducts.add(productList[randomIndex]!!)
+                productList.removeAt(randomIndex)
+            }
         }
         return randomProducts
     }
 
-    fun saveProduct(product: Product?): Product {
-        return productRepository.save(product!!)
-    }
+    fun saveProduct(product: Product): Product = productRepository.save(product)
 
-    fun getProductById(id: Long): Optional<Product?> {
-        return productRepository.findById(id)
-    }
+    fun getProductById(id: Long): Optional<Product> = productRepository.findById(id)
 
-    val bestPriceProducts: ArrayList<Product?>?
-        get() = productRepository.findFirst4ByOrderByPriceAsc()
+    fun getBestPriceProducts(): ArrayList<Product> = ArrayList(productRepository.findFirst4ByOrderByPriceAsc() ?: listOf())
 
-    val productos: MutableList<Product?>
-        get() = productRepository.findAll()
+    fun getProductos(): ArrayList<Product> = ArrayList(productRepository.findAll().filterNotNull())
 
-    fun getProductByCategory(category: String?): ArrayList<Product?>? {
-        return productRepository.findByCategory(category)
-    }
+    fun getProductByCategory(category: String): ArrayList<Product> = ArrayList(productRepository.findByCategory(category) ?: listOf())
 
-    fun findByMonthAndEnterpriseId(month: Int, enterpriseId: Long?): Long? {
-        return productRepository.findByMonthAndEnterpriseId(month, enterpriseId)
-    }
+    fun findByMonthAndEnterpriseId(month: Int, enterpriseId: Long): Long =
+        productRepository.findByMonthAndEnterpriseId(month, enterpriseId) ?: 0
 
-    fun getProductByFabricante(idEnterprise: Long?): List<Product?>? {
-        return productRepository.findByFabricante(idEnterprise)
-    }
+    fun getProductByFabricante(idEnterprise: Long): List<Product> = productRepository.findByFabricante(idEnterprise)?.filterNotNull() ?: listOf()
 
-    fun deleteProduct(id: Long?): Boolean {
-        if (id == null) return false
-        try {
+    fun deleteProduct(id: Long): Boolean {
+        return try {
             productRepository.deleteById(id)
-            return true
+            true
         } catch (e: Exception) {
-            return false
+            false
         }
     }
+
+    fun getUnidadesVendidasPorMes(enterpriseId: Long): List<Map<String, Any>> =
+        productRepository.findVendidasPorMes(enterpriseId)?.map { it as Map<String, Any> } ?: listOf()
+
+    fun getTotalRegistradas(enterpriseId: Long): Long =
+        productRepository.findTotalRegistradas(enterpriseId) ?: 0
+
+    fun getTotalRestantes(enterpriseId: Long): Long =
+        productRepository.findTotalRestantes(enterpriseId) ?: 0
+
+    fun getTotalDinero(enterpriseId: Long): Double =
+        productRepository.findTotalDinero(enterpriseId) ?: 0.0
+
+    fun getDineroPorMes(enterpriseId: Long): List<Map<String, Any>> =
+        productRepository.findDineroPorMes(enterpriseId)?.map { it as Map<String, Any> } ?: listOf()
 }

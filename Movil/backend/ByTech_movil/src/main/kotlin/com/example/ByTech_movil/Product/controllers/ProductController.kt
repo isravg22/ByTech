@@ -4,202 +4,148 @@ import com.example.ByTech_movil.Message.Message
 import com.example.ByTech_movil.Product.models.Product
 import com.example.ByTech_movil.Product.services.ProductService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3Client
-import software.amazon.awssdk.services.s3.model.GetUrlRequest
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
-import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Optional
+import java.util.*
+import jakarta.validation.Valid
+
 
 @RestController
 @RequestMapping("/product")
 @CrossOrigin(origins = ["exp://192.168.0.247:8081"])
-class ProductController @Autowired constructor(productService: ProductService) {
-    private val productService: ProductService = productService
-    private val BUCKET_NAME = "s3-bytech"
+class ProductController @Autowired constructor(private val productService: ProductService) {
 
-    @get:GetMapping
-    val productos: ResponseEntity<Any>
-        get() {
-            val productos: MutableList<Product?> = productService.productos
-            return ResponseEntity<Any>(productos, HttpStatus.OK)
-        }
+    @Value("\${bucket.name}")
+    private lateinit var bucketName: String
+
+    @Value("\${client.id}")
+    private lateinit var clientId: String
+
+    @Value("\${secret.id}")
+    private lateinit var secretId: String
+
+    @GetMapping
+    fun getProductos(): ResponseEntity<List<Product>> {
+        val productos = productService.getProductos()
+        return ResponseEntity(productos, HttpStatus.OK)
+    }
 
     @GetMapping("/{product_id}")
-    fun getProductById(@PathVariable("product_id") productId: String?): ResponseEntity<Any> {
-        val productIdLong: Long? = productId?.toLongOrNull()
-        if (productIdLong == null) {
-            return ResponseEntity<Any>(
-                Message("ID de producto no válido"),
-                HttpStatus.BAD_REQUEST
-
-            )
-            println("id no valida")
-        }
-
-        val productOptional: Optional<Product?> = productService.getProductById(productIdLong!!)
+    fun getProductById(@PathVariable("product_id") productId: Long): ResponseEntity<Any> {
+        val productOptional = productService.getProductById(productId)
         return if (productOptional.isPresent) {
-            ResponseEntity<Any>(productOptional.get(), HttpStatus.OK)
+            ResponseEntity(productOptional.get(), HttpStatus.OK)
         } else {
-            ResponseEntity<Any>(
-                Message("Producto no encontrado"),
-                HttpStatus.NOT_FOUND
-            )
+            ResponseEntity(Message("No encontrado"), HttpStatus.NOT_FOUND)
         }
     }
 
+    @GetMapping("/best")
+    fun getBestProducts(): ResponseEntity<List<Product>> {
+        val bestProducts = productService.getBestPriceProducts()
+        return ResponseEntity(bestProducts, HttpStatus.OK)
+    }
 
-    @get:GetMapping("/best")
-    val bestProducts: ResponseEntity<Any>
-        get() {
-            val bestProducts: ArrayList<Product?>? = productService.bestPriceProducts
-            return ResponseEntity<Any>(bestProducts, HttpStatus.OK)
-        }
-
-    @PostMapping(path = ["/insertProduct"])
+    @PostMapping("/insertProduct")
     fun saveProduct(
-        @RequestParam("name") name: String?,
-        @RequestParam("description") description: String?,
-        @RequestParam("price") price: Double?,
-        @RequestParam("unidades") unidades: Long?,
-        @RequestParam("fabricante") fabricante: Long?,
-        @RequestParam("image") image: MultipartFile?,
-        @RequestParam("category") category: String?,
-        @RequestParam("date") dateString: String?
-    ): Product {
-        try {
-            if (name == null || description == null || price == null || fabricante == null || image == null || image.isEmpty() || unidades == null || category == null || dateString == null) {
-                throw RuntimeException("Por favor, completa todos los campos.")
-            }
+        @RequestParam("name") name: String,
+        @RequestParam("description") description: String,
+        @RequestParam("price") price: Double,
+        @RequestParam("unidades") unidades: Long,
+        @RequestParam("fabricante") fabricante: Long,
+        @RequestParam("image") image: MultipartFile,
+        @RequestParam("category") category: String,
+        @RequestParam("date") dateString: String
+    ): ResponseEntity<Any> {
+        return try {
             val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX")
             val date: Date = df.parse(dateString)
 
-            val product: Product = Product()
-            product.name=name
-            product.description=description
-            product.price=price
-            product.unidades=unidades
-            product.fabricante=fabricante
-            product.category=category
-            product.date=date
+            val product = Product().apply {
+                this.name = name
+                this.description = description
+                this.price = price
+                this.unidades = unidades
+                this.registradas = unidades
+                this.fabricante = fabricante
+                this.category = category
+                this.date = date
+                this.image = uploadImageToS3(image.originalFilename ?: "default.png", image.bytes)
+            }
 
-            val imageBytes: ByteArray = image.bytes
-            val imageName: String = image.originalFilename.toString()
-            val imageUrl = uploadImageToS3(imageName, imageBytes)
-            product.image=imageUrl
-
-
-            return productService.saveProduct(product)
+            ResponseEntity(productService.saveProduct(product), HttpStatus.CREATED)
         } catch (e: IOException) {
-            e.printStackTrace()
-            throw RuntimeException("Error al guardar la imagen.")
+            ResponseEntity(Message("Error al guardar la imagen: ${e.message}"), HttpStatus.INTERNAL_SERVER_ERROR)
         } catch (e: ParseException) {
-            throw RuntimeException(e)
+            ResponseEntity(Message("Formato de fecha inválido"), HttpStatus.BAD_REQUEST)
+        } catch (e: Exception) {
+            ResponseEntity(Message("Error: ${e.message}"), HttpStatus.BAD_REQUEST)
         }
     }
 
     @PutMapping("/update")
     fun updateProduct(
-        @RequestBody product: Product?,
+        @Valid @RequestBody product: Product,
         bindingResult: BindingResult
-    ): ResponseEntity<Message> {
-        if (bindingResult.hasErrors()) return ResponseEntity<Message>(
-            Message("Revise los campos"),
-
-            HttpStatus.BAD_REQUEST
-        )
-        productService.saveProduct(product)
-        return ResponseEntity<Message>(Message("Actualizado correctamente"), HttpStatus.OK)
-    }
-
-    @GetMapping("/type/{category}")
-    fun getProductByCategory(@PathVariable("category") category: String?): ResponseEntity<Any> {
-        val productsByCategory: ArrayList<Product?>? = productService.getProductByCategory(category)
-        return ResponseEntity<Any>(productsByCategory, HttpStatus.OK)
-    }
-
-    @GetMapping("/unidadesTotales/{enterpriseId}")
-    fun findByMonthAndEnterpriseId(@PathVariable("enterpriseId") enterpriseId: Long?): ResponseEntity<Any> {
-        val unidadesTotales = ArrayList<Long>()
-        for (month in 1..12) {
-            val findByMonthAndEnterpriseId: Long? =
-                productService.findByMonthAndEnterpriseId(month, enterpriseId)
-            findByMonthAndEnterpriseId?.let { unidadesTotales.add(it) }
+    ): ResponseEntity<Any> {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity(
+                Message("Error de validación"),
+                HttpStatus.BAD_REQUEST
+            )
         }
-        return ResponseEntity<Any>(unidadesTotales, HttpStatus.OK)
+
+        val productId = product.id
+        if (productId == null) {
+            return ResponseEntity(Message("El ID del producto es requerido"), HttpStatus.BAD_REQUEST)
+        }
+
+        val existingProductOpt = productService.getProductById(productId)
+        if (!existingProductOpt.isPresent) {
+            return ResponseEntity(Message("Producto no encontrado"), HttpStatus.NOT_FOUND)
+        }
+
+        val updatedProduct = productService.saveProduct(product)
+        return ResponseEntity(updatedProduct, HttpStatus.OK)
     }
 
 
-    @GetMapping("/fabricante/{idEnterprise}")
-    fun getProductByFabricante(@PathVariable idEnterprise: Long?): List<Product?>? {
-        return productService.getProductByFabricante(idEnterprise)
-    }
-
-    @DeleteMapping(path = ["/{id}"])
-    fun deleteOrdenadorById(@PathVariable("id") id: Long): String {
-        val ok: Boolean = productService.deleteProduct(id)
-        return if (ok) {
-            "Ordenador with id $id deleted!"
+    @DeleteMapping("/delete/{product_id}")
+    fun deleteProduct(@PathVariable("product_id") id: Long): ResponseEntity<Message> {
+        return if (productService.deleteProduct(id)) {
+            ResponseEntity(Message("Producto eliminado"), HttpStatus.OK)
         } else {
-            "Error, we have a problem and can´t delete ordenador with id $id"
+            ResponseEntity(Message("No se pudo eliminar el producto"), HttpStatus.BAD_REQUEST)
         }
     }
 
-
-    private fun uploadImageToS3(imageName: String, imageBytes: ByteArray): String? {
-        val accessKey = ""
-        val secretKey =""
-
-        val awsCredentials: AwsBasicCredentials = AwsBasicCredentials.create(accessKey, secretKey)
-        val credentialsProvider: StaticCredentialsProvider =
-            StaticCredentialsProvider.create(awsCredentials)
-
-        val s3Client: S3Client = S3Client.builder()
-            .credentialsProvider(credentialsProvider)
-            .region(Region.EU_WEST_3)
+    private fun uploadImageToS3(imageName: String, imageBytes: ByteArray): String {
+        val credentials = AwsBasicCredentials.create(clientId, secretId)
+        val s3Client = S3Client.builder()
+            .credentialsProvider(StaticCredentialsProvider.create(credentials))
+            .region(Region.EU_WEST_1)
             .build()
 
-        try {
-            val imageStream: ByteArrayInputStream = ByteArrayInputStream(imageBytes)
-            val requestBody: software.amazon.awssdk.core.sync.RequestBody? =
-                software.amazon.awssdk.core.sync.RequestBody.fromBytes(imageBytes)
-            s3Client.putObject(
-                PutObjectRequest.builder()
-                    .bucket(BUCKET_NAME)
-                    .key(imageName)
-                    .build(),
-                requestBody
-            )
+        val putObjectRequest = PutObjectRequest.builder()
+            .bucket(bucketName)
+            .key(imageName)
+            .build()
 
-            return s3Client.utilities()
-                .getUrl(GetUrlRequest.builder().bucket(BUCKET_NAME).key(imageName).build())
-                .toExternalForm()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return null
-        } finally {
-            s3Client.close()
-        }
+        s3Client.putObject(putObjectRequest, software.amazon.awssdk.core.sync.RequestBody.fromBytes(imageBytes))
+
+        return imageName
     }
 }

@@ -3,7 +3,6 @@ package com.ByTech.ByTech.Product.controllers;
 import com.ByTech.ByTech.Message.Message;
 import com.ByTech.ByTech.Product.models.Product;
 import com.ByTech.ByTech.Product.services.ProductService;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

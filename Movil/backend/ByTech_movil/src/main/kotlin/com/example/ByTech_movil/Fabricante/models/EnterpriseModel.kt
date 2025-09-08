@@ -1,17 +1,11 @@
 package com.example.ByTech_movil.Fabricante.models
 
-import jakarta.persistence.Column
-import jakarta.persistence.ElementCollection
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
+import java.util.*
 
 @Entity
 @Table(name = "Enterprise")
 class EnterpriseModel {
-    // Getters y setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
@@ -29,16 +23,9 @@ class EnterpriseModel {
     var boss: Long? = null
 
     @ElementCollection
-    var workers: List<Long>? = null
+    var workers: MutableList<Long>? = mutableListOf()
 
     override fun toString(): String {
-        return "EnterpriseModel{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", nif='" + nif + '\'' +
-                ", boss=" + boss +
-                ", workers=" + workers +
-                '}'
+        return "EnterpriseModel(id=$id, nombre=$nombre, descripcion=$descripcion, nif=$nif, boss=$boss, workers=$workers)"
     }
 }

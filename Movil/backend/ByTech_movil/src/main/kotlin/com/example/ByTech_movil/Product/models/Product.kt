@@ -1,11 +1,6 @@
 package com.example.ByTech_movil.Product.models
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import java.util.Date
 
 @Entity
@@ -35,6 +30,12 @@ class Product {
 
     @Column
     var fabricante: Long? = null
+
+    @Column
+    var vendidas: Long? = 0L
+
+    @Column
+    var registradas: Long? = null
 
     @Column(columnDefinition = "DATE")
     var date: Date? = null

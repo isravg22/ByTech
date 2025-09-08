@@ -1,59 +1,80 @@
 package com.example.ByTech_movil.Sales.services
 
+import com.example.ByTech_movil.Detail.models.Detail
 import com.example.ByTech_movil.Sales.models.Sale
-import com.example.ByTech_movil.Sales.repositories.SaleRepository
+import com.example.ByTech_movil.Detail.services.DetailService
 import com.example.ByTech_movil.ShoppingCart.models.ShoppingCart
+import com.example.ByTech_movil.Sales.repositories.SaleRepository
 import com.example.ByTech_movil.ShoppingCart.services.ShoppingCartService
 import com.example.ByTech_movil.User.models.UserModel
 import com.example.ByTech_movil.User.services.UserService
-import com.example.ByTech_movil.Detail.services.DetailService
+import com.example.ByTech_movil.Product.models.Product
+import com.example.ByTech_movil.Product.repositories.ProductRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.Date
+import java.util.*
 
 @Service
 @Transactional
 class SaleService @Autowired constructor(
-    saleRepository: SaleRepository,
-    userService: UserService,
-    shoppingCartService: ShoppingCartService,
-    detailService: DetailService
+    private val saleRepository: SaleRepository,
+    private val productRepository: ProductRepository,
+    private val userService: UserService,
+    private val shoppingCartService: ShoppingCartService,
+    private val detailService: DetailService
 ) {
-    private val saleRepository: SaleRepository = saleRepository
-    private val userService: UserService = userService
-    private val shoppingCartService: ShoppingCartService = shoppingCartService
-    private val detailService: DetailService = detailService
 
-    fun getSalesByClient(userName: String?): List<Sale?>? {
+    fun getSalesByClient(userName: String): List<Sale> {
         return saleRepository.findByClient_UserName(userName)
     }
 
-    fun createSale(userName: String): Sale {
-        try {
-            val client: UserModel = userService.getByUserName(userName)!!.get()
-            val shoppingCartList: List<ShoppingCart?>? = shoppingCartService.getListByClient(client.userName)
-            val total = shoppingCartList?.stream()?.mapToDouble({ shoppingCartItem-> shoppingCartItem?.product?.price!! * shoppingCartItem?.amount!! })?.sum()
-            var sale: Sale = Sale(0.0, Date(), client)
-            sale = saleRepository.save(sale)
-            for (shoppingCart in shoppingCartList!!) {
-                val detail: com.example.ByTech_movil.Detail.models.Detail =
-                    com.example.ByTech_movil.Detail.models.Detail()
-                detail.product=shoppingCart?.product
-                detail.amount= shoppingCart!!.amount
-                detail.sale=sale
-                detailService.createDetail(detail)
-            }
-            sale.total=total
-            sale = saleRepository.save(sale)
-            shoppingCartService.cleanShoppingCart(client.id)
-            return sale
-        } catch (e: Exception) {
-            throw RuntimeException("Error creating sale", e)
-        }
+    fun getSalesByMonth(month: Int): List<Sale> {
+        return saleRepository.findByMonth(month)
     }
 
-    fun getSalesByMonth(month: Int): List<Sale?>? {
-        return saleRepository.findByMonth(month)
+    fun createSale(userName: String): Sale {
+        val client: UserModel = userService.getByUserName(userName)
+            .orElseThrow { IllegalArgumentException("Usuario no encontrado") }
+
+        val shoppingCartList: List<ShoppingCart> =
+            shoppingCartService.getListByClient(client.userName!!).toList()
+
+        val total: Double = shoppingCartList.sumOf { item ->
+            val product = item.product ?: throw IllegalArgumentException("Producto nulo en carrito")
+            val price = product.price ?: 0.0
+            price * item.amount
+        }
+
+        val sale = Sale(
+            total = total,
+            date = Date(),
+            client = client
+        )
+
+        val savedSale = saleRepository.save(sale)
+
+        for (item in shoppingCartList) {
+            val product: Product = item.product ?: continue
+            val cantidadVendida = item.amount
+
+            val unidades = product.unidades ?: 0
+            if (unidades < cantidadVendida) {
+                throw IllegalArgumentException("No hay suficiente stock del producto ${product.name}")
+            }
+
+            product.unidades = unidades - cantidadVendida
+            productRepository.save(product)
+
+            val detail = Detail()
+            detail.amount = cantidadVendida
+            detail.sale = savedSale
+            detail.product = product
+            detailService.createDetail(detail)
+        }
+
+        shoppingCartService.cleanShoppingCart(client.id)
+
+        return savedSale
     }
 }

@@ -2,50 +2,62 @@ package com.example.ByTech_movil.Fabricante.services
 
 import com.example.ByTech_movil.Fabricante.models.EnterpriseModel
 import com.example.ByTech_movil.Fabricante.repositories.IEnterpriseRepository
-import com.example.ByTech_movil.User.repositories.IUserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.Optional
+import java.util.*
 
 @Service
 class EnterpriseService {
     @Autowired
-    var enterpriseRepository: IEnterpriseRepository? = null
+    lateinit var enterpriseRepository: IEnterpriseRepository
 
-    @Autowired
-    var userRepository: IUserRepository? = null
+    val enterprise: List<EnterpriseModel>
+        get() = enterpriseRepository.findAll()
 
-    val enterprise: MutableList<EnterpriseModel?>?
-        get() = enterpriseRepository?.findAll()
-
-    fun saveEnterprise(enterprise: EnterpriseModel?): EnterpriseModel {
-        return enterpriseRepository!!.save(enterprise!!)
+    @Throws(Exception::class)
+    fun saveEnterprise(enterprise: EnterpriseModel): EnterpriseModel {
+        if (existsByNombre(enterprise.nombre ?: "")) {
+            throw Exception("Enterprise already exists")
+        }
+        return enterpriseRepository.save(enterprise)
     }
 
-    fun getById(id: Long?): Optional<EnterpriseModel?> {
-        return enterpriseRepository!!.findById(id!!)
+    fun getById(id: Long?): Optional<EnterpriseModel> {
+        return enterpriseRepository.findById(id ?: -1)
     }
 
+    @Throws(Exception::class)
     fun updateByID(request: EnterpriseModel, id: Long?): EnterpriseModel {
-        val enterpriseModel: EnterpriseModel = enterpriseRepository!!.findById(id!!).get()
+        val enterpriseModel: EnterpriseModel =
+            enterpriseRepository.findById(id ?: -1).orElseThrow { Exception("Enterprise not found") }
 
-        enterpriseModel.nif=request.nif
-        enterpriseModel.nombre=request.nombre
-        enterpriseModel.boss=request.boss
-        enterpriseModel.descripcion=request.descripcion
-        enterpriseModel.workers=request.workers
+        if (enterpriseModel.nombre != request.nombre && existsByNombre(request.nombre ?: "")) {
+            throw Exception("Enterprise already exists")
+        }
 
-        enterpriseRepository!!.save(enterpriseModel)
+        enterpriseModel.nif = request.nif
+        enterpriseModel.nombre = request.nombre
+        enterpriseModel.boss = request.boss
+        enterpriseModel.descripcion = request.descripcion
+        enterpriseModel.workers = request.workers?.toMutableList()
 
-        return enterpriseModel
+        return enterpriseRepository.save(enterpriseModel)
     }
 
     fun deleteEnterprise(id: Long?): Boolean {
-        try {
-            enterpriseRepository!!.deleteById(id!!)
-            return true
+        return try {
+            if (id != null && enterpriseRepository.existsById(id)) {
+                enterpriseRepository.deleteById(id)
+                true
+            } else {
+                false
+            }
         } catch (e: Exception) {
-            return false
+            false
         }
+    }
+
+    fun existsByNombre(nombre: String): Boolean {
+        return enterpriseRepository.existsByNombre(nombre)
     }
 }

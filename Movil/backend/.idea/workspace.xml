@@ -5,29 +5,73 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d0b7dde-cee5-4473-aa43-b64064bb7be9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Modal/WorkerModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Modal/WorkerModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Table/TableProduct.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Table/TableProduct.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Table/TableWorker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/Component/Table/TableWorker.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/app/Home/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/app/Home/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/app/Profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Enterprise/bytech-webapp-enterprise/src/app/Profile/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Payment/controllers/PaymentController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Payment/models/Payment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Payment/repositories/PaymentRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Componentes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Componentes/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Gaming/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Gaming/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Home/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Home/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Ordenador/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Ordenador/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Order/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Order/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Profile/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Smartphone/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../User/bytech-webapp/src/app/Smartphone/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/repositories/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/repositories/IUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/main/java/com/ByTech/ByTech/User/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/controllers/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/repositories/IUserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/repositories/IUserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../target/classes/com/ByTech/ByTech/User/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Detail/controllers/DetailController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Detail/controllers/DetailController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Detail/models/Detail.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Detail/models/Detail.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Detail/repositories/DetailRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Detail/repositories/DetailRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Detail/services/DetailService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Detail/services/DetailService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Fabricante/controllers/EnterpriseController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Fabricante/controllers/EnterpriseController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Fabricante/models/EnterpriseModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Fabricante/models/EnterpriseModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Fabricante/repositories/IEnterpriseRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Fabricante/repositories/IEnterpriseRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Fabricante/services/EnterpriseService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Fabricante/services/EnterpriseService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Product/controllers/ProductController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Product/controllers/ProductController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Product/models/Product.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Product/models/Product.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Product/repositories/ProductRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Product/repositories/ProductRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Product/services/ProductService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Product/services/ProductService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Sales/controllers/SaleController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Sales/controllers/SaleController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Sales/models/Sale.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Sales/models/Sale.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Sales/repositories/SaleRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Sales/repositories/SaleRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Sales/services/SaleService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/Sales/services/SaleService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/ShoppingCart/controllers/ShoppingCartController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/ShoppingCart/controllers/ShoppingCartController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/ShoppingCart/models/ShoppingCart.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/ShoppingCart/models/ShoppingCart.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/ShoppingCart/repositories/ShoppingCartRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/ShoppingCart/repositories/ShoppingCartRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/ShoppingCart/services/ShoppingCartService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/ShoppingCart/services/ShoppingCartService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/User/services/UserService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/kotlin/com/example/ByTech_movil/User/services/UserService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ByTech_movil/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ByTech_movil/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/app/+html.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/app/+html.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/assets/images/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/babel.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Aside/Aside.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Aside/Aside.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Componente/Componente.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Componente/Componente.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Componente/details/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Componente/details/details.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Gaming/Gaming.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Gaming/Gaming.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Gaming/details/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Gaming/details/details.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/HomePage/HomePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/HomePage/HomePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/HomePage/details/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/HomePage/details/details.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Login/Login.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/NavBar/NavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/NavBar/NavBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Ordenador/Ordenador.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Ordenador/Ordenador.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Ordenador/details/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Ordenador/details/details.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Order/Order.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Order/Order.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Register/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Register/Register.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Sales/Sale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Sales/Sale.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Smartphone/Smartphone.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Smartphone/Smartphone.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/Smartphone/details/details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/Smartphone/details/details.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/components/SubMenu/SubMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/components/SubMenu/SubMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/navigation/MainStack.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/navigation/MainStack.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/scripts/reset-project.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/scripts/reset-project.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/bytechmovil/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/bytechmovil/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Web/backend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Web/backend/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Web/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Web/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Web/backend/src/main/java/com/ByTech/ByTech/Payment/controllers/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Web/backend/src/main/java/com/ByTech/ByTech/Payment/controllers/PaymentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +80,23 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/ByTech_movil">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -47,22 +108,51 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2gNHKazkn643af7kxxvAWSiukzG" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build ByTech_movil.executor": "Run",
+    "Kotlin.ByTechMovilApplicationKt.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/isval/Desktop/ByTech/ByTech/Movil/backend/ByTech_movil"
+    "last_opened_file_path": "C:/Users/Israel/Desktop/Desarrollo/ByTech/Movil/backend/ByTech_movil/settings.gradle.kts"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Israel\Desktop\Desarrollo\ByTech\Movil\backend\ByTech_movil\src\main\kotlin\com\example\ByTech_movil" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Israel\Desktop\Desarrollo\ByTech\Movil\backend\ByTech_movil\src\main\kotlin\com\example\ByTech_movil" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="ByTechMovilApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.ByTech_movil.ByTechMovilApplicationKt" />
+      <module name="ByTech_movil.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.ByTechMovilApplicationKt" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

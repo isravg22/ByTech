@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service
 
 @Service
 @Transactional
-class DetailService @Autowired constructor(detailRepository: DetailRepository) {
-    private val detailRepository: DetailRepository = detailRepository
+class DetailService @Autowired constructor(private val detailRepository: DetailRepository) {
 
     fun createDetail(detail: Detail?) {
-        detailRepository.save<Detail>(detail!!)
+        detail?.let { detailRepository.save(it) }
     }
 
-    fun getDetailBySale(saleId: Long?): List<Detail?> {
-        return detailRepository.findBySale_Id(saleId)!!
+    fun getDetailBySale(saleId: Long?): List<Detail> {
+        return detailRepository.findBySale_Id(saleId)
     }
 }

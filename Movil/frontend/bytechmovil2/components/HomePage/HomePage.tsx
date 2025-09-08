@@ -2,19 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Producto } from '@/interfaces/Product';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NavBar from '@/components/NavBar/NavBar';
+//import NavBar from '@/components/NavBar/NavBar';
+import { API_URL } from '@env';
+//import { useRouter } from 'expo-router';
 
-export default function Ordenador({ navigation }: any) {
-    const [ordenadores, setOrdenadores] = useState<Producto[]>([]);
+export default function HomePage() {
+    const [products, setProducts] = useState<Producto[]>([]);
 
+    //const router = useRouter();
     const handleDetailClick = (id: number) => {
         AsyncStorage.setItem('idProducto', String(id));
-        navigation.navigate('Detail')
+       /*  router.push('/DetailHomePage'); */
     };
 
     const getProducts = async () => {
         try {
-            const response = await fetch('http://192.168.0.27:8001/product/type/Ordenador', {
+            const response = await fetch(`${API_URL}/product`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json"
@@ -22,8 +25,8 @@ export default function Ordenador({ navigation }: any) {
             });
             if (response.ok) {
                 const productData = await response.json();
-                setOrdenadores(productData);
-            }
+                setProducts(productData);
+            } 
         } catch (error) {
             console.log(error)
         }
@@ -31,25 +34,26 @@ export default function Ordenador({ navigation }: any) {
 
     useEffect(() => {
         getProducts();
-    }, [ordenadores]);
+    }, [products]);
 
     return (
         <View style={{ flex: 1, backgroundColor: '#00C8E6' }}>
-            <NavBar />
+            {/* <NavBar /> */}
 
             <ScrollView style={{ paddingHorizontal: 20 }}>
-                <Text style={{ marginBottom: 20, textAlign: 'center', fontSize: 30, fontWeight: 'bold' }}>NUESTROS ORDENADORES</Text>
-                {ordenadores.map((ordenador) => (
-                    <TouchableOpacity key={ordenador.id} style={{ backgroundColor: '#ffffff', marginBottom: 20, borderWidth: 1, borderColor: '#ccc', borderRadius: 8 }}>
+                <Text style={{ marginBottom: 20, textAlign: 'center', fontSize: 30, fontWeight: 'bold' }}>PRODUCTOS DISPONIBLES</Text>
+                
+                {products.map((product) => (
+                    <TouchableOpacity key={product.id} style={{ backgroundColor: '#ffffff', marginBottom: 20, borderWidth: 1, borderColor: '#ccc', borderRadius: 8 }}>
                         <View style={{ height: 200, overflow: 'hidden' }}>
-                            <Image source={{ uri: ordenador.image }} style={{ width: '50%', height: '100%', alignSelf: 'center', justifyContent: 'center' }} />
+                            <Image source={{ uri: product.image }} style={{ width: '50%', height: '100%', alignSelf: 'center', justifyContent: 'center' }} />
                         </View>
                         <View style={{ padding: 10 }}>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>{ordenador.name.toUpperCase()}</Text>
-                            <Text style={{ fontSize: 16, marginBottom: 10 }} numberOfLines={2}>{ordenador.description}</Text>
-                            <Text style={{ fontSize: 16, marginBottom: 10 }}>Precio: {ordenador.price}€</Text>
+                            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>{product.name.toUpperCase()}</Text>
+                            <Text style={{ fontSize: 16, marginBottom: 10 }} numberOfLines={2}>{product.description}</Text>
+                            <Text style={{ fontSize: 16, marginBottom: 10 }}>Precio: {product.price}€</Text>
                             <View  >
-                                <TouchableOpacity onPress={() => handleDetailClick(ordenador.id)}>
+                                <TouchableOpacity onPress={() => handleDetailClick(product.id)}>
                                     <Text style={{ color: '#0070f3', fontSize: 16, textDecorationLine: 'none' }}>Ver detalles</Text>
                                 </TouchableOpacity>
                             </View>

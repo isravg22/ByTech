@@ -29,6 +29,9 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("software.amazon.awssdk:s3:2.15.6")
 	implementation("org.springframework.security:spring-security-core:6.2.4")
+	implementation("com.stripe:stripe-java:24.8.0")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
 }
 
 tasks.withType<KotlinCompile> {

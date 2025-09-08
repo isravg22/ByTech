@@ -1,6 +1,5 @@
 package com.ByTech.ByTech.Payment.controllers;
 
-import com.ByTech.ByTech.Fabricante.repositories.IEnterpriseRepository;
 import com.ByTech.ByTech.Payment.models.Payment;
 import com.ByTech.ByTech.Payment.repositories.PaymentRepository;
 import com.stripe.Stripe;
@@ -25,8 +24,6 @@ public class PaymentController {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    @Autowired
-    private IEnterpriseRepository enterpriseRepository;
 
     @Value("${stripe.api.key}")
     private String stripeApiKey;

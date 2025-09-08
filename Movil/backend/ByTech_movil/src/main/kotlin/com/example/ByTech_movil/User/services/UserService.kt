@@ -71,7 +71,7 @@ class UserService(@Autowired private val userRepository: IUserRepository) {
         }
     }
 
-    fun getByUserName(userName: String): Optional<UserModel?>? {
-        return userRepository.findByUserName(userName)
+    fun getByUserName(userName: String): Optional<UserModel> {
+        return userRepository.findByUserName(userName)?.filter { it != null }?.map { it!! } ?: Optional.empty()
     }
 }
