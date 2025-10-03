@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Optional;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
@@ -25,6 +25,8 @@ public class UserController {
     @PostMapping(path = "/insertUser")
     public ResponseEntity<?> saveUser(@RequestBody UserModel user) {
         try {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(user.getPassword()));
             return ResponseEntity.ok(this.userService.saveUser(user));
         } catch (Exception e) {
             if (e.getMessage().equals("Username already exists")) {
